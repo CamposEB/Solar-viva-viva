@@ -1,19 +1,25 @@
 'use strict';
 
 /* ============================================================
-   CONFIGURAÇÃO CENTRAL
+   SALÃO SOLAR VIVA VIVA — script.js
+   Sem bibliotecas. Todo comportamento é opcional: a página
+   funciona sem JS. Nada aqui esconde conteúdo nem bloqueia
+   a navegação base.
    ============================================================ */
+
+/* ------------------------------------------------------------
+   CONFIGURAÇÃO CENTRAL
+   ------------------------------------------------------------ */
 const CONFIG = {
   whatsapp: {
     numero: '5521992424254',
     mensagemPadrao:
-      'Olá! Vi o site do Salão Solar Viva Viva e gostaria de solicitar um orçamento.',
+      'Olá! Vim pelo site do Salão Solar Viva Viva e gostaria de solicitar um orçamento.',
   },
-  animacoes: true,
   scrollspy: true,
 };
 
-/* ============================================================
+/* ------------------------------------------------------------
    FOTOS DA GALERIA
    EDITAR AQUI: adicione fotos reais quando estiverem disponíveis.
    Enquanto o array estiver vazio, a seção Galeria fica OCULTA
@@ -24,20 +30,22 @@ const CONFIG = {
      { src: 'assets/foto1.jpg', alt: 'Salão interno com lustres', legenda: 'Salão interno' },
      { src: 'assets/foto2.jpg', alt: 'Área externa iluminada',   legenda: 'Área externa' },
    ];
-   ============================================================ */
+   ------------------------------------------------------------ */
 const FOTOS = [];
 
-/* ============================================================
+/* ------------------------------------------------------------
    HELPERS
-   ============================================================ */
+   ------------------------------------------------------------ */
 const $  = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 const reduzirMovimento = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ============================================================
-   WHATSAPP — preenche todos os links [data-wa]
-   ============================================================ */
+/* ------------------------------------------------------------
+   WHATSAPP — preenche todos os [data-wa]
+   Se o JS estiver desligado, o href estático (wa.me sem texto)
+   continua funcionando como fallback.
+   ------------------------------------------------------------ */
 function initWhatsApp() {
   const { numero, mensagemPadrao } = CONFIG.whatsapp;
   $$('[data-wa]').forEach((el) => {
@@ -48,22 +56,22 @@ function initWhatsApp() {
   });
 }
 
-/* ============================================================
-   HEADER — fundo ao rolar
-   ============================================================ */
+/* ------------------------------------------------------------
+   HEADER — estado ao rolar
+   ------------------------------------------------------------ */
 function initHeader() {
   const header = $('.header');
   if (!header) return;
   const atualizar = () => {
-    header.classList.toggle('header--scrolled', window.scrollY > 40);
+    header.classList.toggle('header--scrolled', window.scrollY > 30);
   };
   atualizar();
   window.addEventListener('scroll', atualizar, { passive: true });
 }
 
-/* ============================================================
+/* ------------------------------------------------------------
    MENU MOBILE
-   ============================================================ */
+   ------------------------------------------------------------ */
 function initMobileMenu() {
   const toggle = $('.menu-toggle');
   const nav    = $('.nav');
@@ -105,18 +113,18 @@ function initMobileMenu() {
   });
 }
 
-/* ============================================================
-   SCROLL PROGRESS
-   ============================================================ */
+/* ------------------------------------------------------------
+   BARRA DE PROGRESSO DE ROLAGEM
+   ------------------------------------------------------------ */
 function initScrollProgress() {
-  const barra = $('#scroll-progress');
+  const barra = $('#progresso');
   if (!barra) return;
   let rafId = null;
   const atualizar = () => {
-    const scrollTop = window.scrollY;
-    const altura = document.documentElement.scrollHeight - window.innerHeight;
-    const progresso = altura > 0 ? (scrollTop / altura) * 100 : 0;
-    barra.style.width = `${progresso}%`;
+    const doc = document.documentElement;
+    const total = doc.scrollHeight - doc.clientHeight;
+    const pct = total > 0 ? (doc.scrollTop / total) * 100 : 0;
+    barra.style.width = `${pct}%`;
     rafId = null;
   };
   const agendar = () => {
@@ -127,99 +135,148 @@ function initScrollProgress() {
   atualizar();
 }
 
-/* ============================================================
-   REVELAÇÃO AO ROLAR
-   ============================================================ */
-function initReveal() {
-  if (!CONFIG.animacoes || reduzirMovimento()) {
-    $$('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
-    return;
+/* ------------------------------------------------------------
+   PARTÍCULAS DOURADAS (canvas fixo)
+   24 no mobile, 48 no desktop. Pausa quando a aba está oculta.
+   Respeita prefers-reduced-motion (não cria).
+   ------------------------------------------------------------ */
+function initParticulas() {
+  if (reduzirMovimento()) return;
+  const canvas = $('#particulas');
+  if (!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+
+  let W = 0, H = 0, dpr = 1;
+  let particulas = [];
+  let rafId = null;
+  let ativo = true;
+
+  const contar = () =>
+    window.matchMedia('(max-width: 767px)').matches ? 24 : 48;
+
+  const novaParticula = () => ({
+    x: Math.random() * W,
+    y: H + Math.random() * 40,
+    r: 0.6 + Math.random() * 1.6,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: -(0.12 + Math.random() * 0.35),
+    alpha: 0.15 + Math.random() * 0.45,
+    fase: Math.random() * Math.PI * 2,
+    velFase: 0.008 + Math.random() * 0.012,
+  });
+
+  function redimensionar() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.floor(W * dpr);
+    canvas.height = Math.floor(H * dpr);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
-  const observer = new IntersectionObserver(
-    (entradas) => {
-      entradas.forEach((entrada) => {
-        if (!entrada.isIntersecting) return;
-        const el = entrada.target;
-        const irmaos = Array.from(el.parentElement.children).filter((c) =>
-          c.hasAttribute('data-reveal')
-        );
-        const indice = irmaos.indexOf(el);
-        el.style.transitionDelay = `${Math.max(0, indice) * 0.08}s`;
-        el.classList.add('is-visible');
-        observer.unobserve(el);
-      });
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
-  );
-  $$('[data-reveal]').forEach((el) => observer.observe(el));
+
+  function repovoar() {
+    particulas = Array.from({ length: contar() }, () => {
+      const p = novaParticula();
+      p.y = Math.random() * H;
+      return p;
+    });
+  }
+
+  function desenhar() {
+    if (!ativo) return;
+    ctx.clearRect(0, 0, W, H);
+    for (const p of particulas) {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.fase += p.velFase;
+      const a = p.alpha * (0.6 + 0.4 * Math.sin(p.fase));
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(236, 210, 154, ${a.toFixed(3)})`;
+      ctx.fill();
+
+      // Reciclagem
+      if (p.y < -20) {
+        p.x = Math.random() * W;
+        p.y = H + 10;
+        p.alpha = 0.15 + Math.random() * 0.45;
+      }
+      if (p.x < -20) p.x = W + 10;
+      if (p.x > W + 20) p.x = -10;
+    }
+    rafId = requestAnimationFrame(desenhar);
+  }
+
+  function parar() {
+    ativo = false;
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  }
+  function iniciar() {
+    ativo = true;
+    if (!rafId) rafId = requestAnimationFrame(desenhar);
+  }
+
+  // Inicialização
+  redimensionar();
+  repovoar();
+  iniciar();
+
+  // Resize (com debounce)
+  let tResize;
+  window.addEventListener('resize', () => {
+    clearTimeout(tResize);
+    tResize = setTimeout(() => {
+      redimensionar();
+      repovoar();
+    }, 200);
+  });
+
+  // Pausa quando a aba fica oculta
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) parar();
+    else iniciar();
+  });
 }
 
-/* ============================================================
-   ABAS DE EVENTOS
-   ============================================================ */
-function initTabs() {
-  const abas = $$('.aba');
-  const paineis = $$('.painel');
-  const indicador = $('.abas__indicador');
-  if (!abas.length || !paineis.length) return;
-
-  const posicionarIndicador = (abaAtiva) => {
-    if (!indicador || !abaAtiva) return;
-    indicador.style.left  = `${abaAtiva.offsetLeft}px`;
-    indicador.style.width = `${abaAtiva.offsetWidth}px`;
-  };
-  const ativar = (indice, focar = false) => {
-    abas.forEach((aba, i) => {
-      const ativo = i === indice;
-      aba.setAttribute('aria-selected', ativo ? 'true' : 'false');
-      aba.tabIndex = ativo ? 0 : -1;
-      if (ativo && focar) aba.focus();
-    });
-    paineis.forEach((painel, i) => { painel.hidden = i !== indice; });
-    posicionarIndicador(abas[indice]);
-  };
-  abas.forEach((aba, i) => {
-    aba.addEventListener('click', () => ativar(i));
-    aba.addEventListener('keydown', (e) => {
-      let novo = null;
-      if (e.key === 'ArrowRight') novo = (i + 1) % abas.length;
-      else if (e.key === 'ArrowLeft')  novo = (i - 1 + abas.length) % abas.length;
-      else if (e.key === 'Home')       novo = 0;
-      else if (e.key === 'End')        novo = abas.length - 1;
-      if (novo !== null) {
-        e.preventDefault();
-        ativar(novo, true);
+/* ------------------------------------------------------------
+   EVENTOS — pré-seleciona o tipo no formulário ao clicar
+   O link em si já abre o WhatsApp em nova aba; aqui só deixamos
+   o formulário pronto caso a pessoa volte depois.
+   ------------------------------------------------------------ */
+function initEventos() {
+  const select = $('#tipo-evento');
+  if (!select) return;
+  $$('.evento-card').forEach((card) => {
+    const tipo = card.dataset.evento;
+    const btn  = $('.btn', card);
+    if (!tipo || !btn) return;
+    btn.addEventListener('click', () => {
+      for (const opt of select.options) {
+        if (opt.text.toLowerCase() === tipo.toLowerCase()) {
+          select.value = opt.value;
+          break;
+        }
       }
     });
   });
-  const inicial = abas.findIndex((a) => a.getAttribute('aria-selected') === 'true');
-  ativar(inicial >= 0 ? inicial : 0);
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      const ativa = abas.find((a) => a.getAttribute('aria-selected') === 'true');
-      posicionarIndicador(ativa);
-    }, 150);
-  });
 }
 
-/* ============================================================
+/* ------------------------------------------------------------
    GALERIA DINÂMICA
-   ============================================================ */
+   Sem FOTOS, oculta a seção e remove o item do menu.
+   ------------------------------------------------------------ */
 function initGaleria() {
-  const secao  = $('#galeria');
-  const grid   = $('#galeria-grid');
-  const liNav  = $('[data-nav-galeria]');
+  const secao = $('#galeria');
+  const grid  = $('#galeria-grid');
+  const liNav = $('[data-nav-galeria]');
 
-  // Sem fotos: oculta seção, remove o <li> do menu inteiro
   if (!FOTOS.length) {
     if (secao) secao.classList.add('oculto');
     if (liNav) liNav.classList.add('oculto');
     return;
   }
-
-  // Com fotos: mostra tudo
   if (secao) secao.classList.remove('oculto');
   if (liNav) liNav.classList.remove('oculto');
   if (!grid) return;
@@ -242,13 +299,12 @@ function initGaleria() {
   initLightbox();
 }
 
-/* ============================================================
+/* ------------------------------------------------------------
    LIGHTBOX
-   ============================================================ */
+   ------------------------------------------------------------ */
 function initLightbox() {
-  const lightbox  = $('#lightbox');
+  const lightbox = $('#lightbox');
   if (!lightbox) return;
-
   const img       = $('#lightbox-img');
   const legenda   = $('#lightbox-legenda');
   const contador  = $('#lightbox-contador');
@@ -285,7 +341,7 @@ function initLightbox() {
     document.body.style.overflow = '';
     if (focoAnterior && typeof focoAnterior.focus === 'function') focoAnterior.focus();
   };
-  const proximo = () => mostrar(atual + 1);
+  const proximo  = () => mostrar(atual + 1);
   const anterior = () => mostrar(atual - 1);
 
   itens.forEach((item, i) => item.addEventListener('click', () => abrir(i)));
@@ -312,23 +368,25 @@ function initLightbox() {
       }
     }
   });
-  let touchStartX = 0, touchStartY = 0;
+
+  // Swipe
+  let tx = 0, ty = 0;
   lightbox.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].clientX;
-    touchStartY = e.changedTouches[0].clientY;
+    tx = e.changedTouches[0].clientX;
+    ty = e.changedTouches[0].clientY;
   }, { passive: true });
   lightbox.addEventListener('touchend', (e) => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    const dy = e.changedTouches[0].clientY - touchStartY;
+    const dx = e.changedTouches[0].clientX - tx;
+    const dy = e.changedTouches[0].clientY - ty;
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
       dx < 0 ? proximo() : anterior();
     }
   }, { passive: true });
 }
 
-/* ============================================================
+/* ------------------------------------------------------------
    FORMULÁRIO → WHATSAPP
-   ============================================================ */
+   ------------------------------------------------------------ */
 function initForm() {
   const form = $('#form-orcamento');
   if (!form) return;
@@ -343,10 +401,10 @@ function initForm() {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const nome  = form.nome.value.trim();
-    const tipo  = form['tipo-evento'].value;
-    const data  = form['data-evento'].value;
-    const conv  = form.convidados.value.trim();
+    const nome = form.nome.value.trim();
+    const tipo = form['tipo-evento'].value;
+    const data = form['data-evento'].value;
+    const conv = form.convidados.value.trim();
 
     if (!nome) {
       status.textContent = 'Por favor, informe seu nome.';
@@ -362,7 +420,7 @@ function initForm() {
     }
     status.classList.remove('form__status--erro');
 
-    let msg = `Olá! Meu nome é ${nome} e vi o site do Salão Solar Viva Viva. `;
+    let msg = `Olá! Meu nome é ${nome} e vim pelo site do Salão Solar Viva Viva. `;
     msg += `Gostaria de solicitar um orçamento para ${tipo.toLowerCase()}`;
     if (data) msg += `, previsto para ${formatarData(data)}`;
     if (conv) msg += `, com aproximadamente ${conv} convidados`;
@@ -371,13 +429,13 @@ function initForm() {
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
     status.textContent = 'Abrindo o WhatsApp…';
     window.open(url, '_blank', 'noopener,noreferrer');
-    setTimeout(() => { status.textContent = ''; }, 3000);
+    setTimeout(() => { status.textContent = ''; }, 3500);
   });
 }
 
-/* ============================================================
-   SCROLLSPY
-   ============================================================ */
+/* ------------------------------------------------------------
+   SCROLLSPY — destaca o link da seção visível
+   ------------------------------------------------------------ */
 function initScrollspy() {
   if (!CONFIG.scrollspy) return;
   const links = $$('[data-nav]');
@@ -401,24 +459,24 @@ function initScrollspy() {
   secoes.forEach((secao) => observer.observe(secao));
 }
 
-/* ============================================================
+/* ------------------------------------------------------------
    ANO DO RODAPÉ
-   ============================================================ */
+   ------------------------------------------------------------ */
 function initAno() {
   const ano = $('#ano');
   if (ano) ano.textContent = new Date().getFullYear();
 }
 
-/* ============================================================
+/* ------------------------------------------------------------
    INICIALIZAÇÃO
-   ============================================================ */
+   ------------------------------------------------------------ */
 document.addEventListener('DOMContentLoaded', () => {
   initWhatsApp();
   initHeader();
   initMobileMenu();
   initScrollProgress();
-  initReveal();
-  initTabs();
+  initParticulas();
+  initEventos();
   initGaleria();
   initForm();
   initScrollspy();

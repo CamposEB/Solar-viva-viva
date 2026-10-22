@@ -6,21 +6,23 @@
   <meta name="theme-color" content="#0a1210">
 
   <!-- CHECKLIST ANTES DE PUBLICAR
-       [ ] assets/fachada-castelo.jpg existe (628x592, só o castelo)
+       [ ] assets/fachada-castelo.jpg existe (628×592, só o castelo)
        [ ] Fotos reais no array FOTOS do script.js (a Galeria aparece sozinha)
        [ ] Depoimentos reais: preencher e remover class="oculto" de #depoimentos
-       [ ] Revisar respostas do FAQ (sem inventar regras)
-       [ ] Se o salão tiver domínio próprio, trocar camposeb.github.io/Solar-viva-viva (canonical, OG, JSON-LD)
+       [ ] Revisar respostas do FAQ conforme a realidade do salão
+       [ ] Se o salão tiver domínio próprio, trocar "camposeb.github.io/Solar-viva-viva"
+           no canonical, Open Graph e JSON-LD
        [ ] Testar WhatsApp e Instagram em produção -->
 
   <title>Salão Solar Viva Viva — Casa de Festas em Formato de Castelo em Marambaia, São Gonçalo</title>
   <meta name="description" content="Casa de festas em formato de castelo em Marambaia, São Gonçalo — RJ. Casamentos, 15 anos, aniversários, formaturas e eventos corporativos. O único castelo da região.">
   <link rel="canonical" href="https://camposeb.github.io/Solar-viva-viva/">
 
-  <!-- Favicon e ícone iOS (brasão do castelo, SVG inline) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 80'%3E%3Cpath d='M4 4h56v34c0 18-28 32-28 32S4 56 4 38V4z' fill='%230a4a3c' stroke='%23d4af37' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M16 46V26h4v6h6v-6h8v6h6v-6h4v20' fill='%23d4af37'/%3E%3Crect x='12' y='50' width='40' height='3' fill='%23d4af37'/%3E%3C/svg%3E">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 80'%3E%3Cpath d='M4 4h56v34c0 18-28 32-28 32S4 56 4 38V4z' fill='%230a4a3c' stroke='%23d4af37' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M16 46V26h4v6h6v-6h8v6h6v-6h4v20' fill='%23d4af37'/%3E%3Crect x='12' y='50' width='40' height='3' fill='%23d4af37'/%3E%3C/svg%3E">
+  <!-- Favicon (brasão do castelo, SVG inline) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 80'%3E%3Cpath d='M4 4h56v34c0 18-28 32-28 32S4 56 4 38V4z' fill='%230a4a3c' stroke='%23d1a95a' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M16 46V26h4v6h6v-6h8v6h6v-6h4v20' fill='%23d1a95a'/%3E%3Crect x='12' y='50' width='40' height='3' fill='%23d1a95a'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 80'%3E%3Cpath d='M4 4h56v34c0 18-28 32-28 32S4 56 4 38V4z' fill='%230a4a3c' stroke='%23d1a95a' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M16 46V26h4v6h6v-6h8v6h6v-6h4v20' fill='%23d1a95a'/%3E%3Crect x='12' y='50' width='40' height='3' fill='%23d1a95a'/%3E%3C/svg%3E">
 
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="Salão Solar Viva Viva">
@@ -37,14 +39,16 @@
   <meta name="twitter:description" content="Casamentos, 15 anos, aniversários, formaturas e eventos corporativos em Marambaia, São Gonçalo.">
   <meta name="twitter:image" content="https://camposeb.github.io/Solar-viva-viva/assets/fachada-castelo.jpg">
 
+  <!-- Preload + fontes -->
   <link rel="preload" as="image" href="assets/fachada-castelo.jpg" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
   <script>document.documentElement.classList.replace('no-js','js');</script>
 
+  <!-- JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -71,428 +75,176 @@
 </head>
 <body>
 
-  <!-- ===== Ícones reutilizáveis ===== -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-    <!-- O desenho do brasão vem do style.css; este símbolo só mantém o <use> válido -->
-    <symbol id="brasao" viewBox="0 0 120 150"></symbol>
+<!-- ===== Ícones reutilizáveis ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="brasao" viewBox="0 0 120 150"></symbol>
+  <symbol id="wa-icon" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </symbol>
+  <symbol id="coroa-icon" viewBox="0 0 24 24">
+    <path d="M3 18l2-10 5 4 2-8 2 8 5-4 2 10z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M3 20h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ic-casamento" viewBox="0 0 48 48"><circle cx="19" cy="28" r="9"/><circle cx="29" cy="28" r="9"/><path d="M24 13l-3 4h6l-3-4z"/></symbol>
+  <symbol id="ic-15anos" viewBox="0 0 48 48"><path d="M11 33h26l-2.5-13-6.5 5.5L24 15l-4 10.5L13.5 20 11 33z"/><path d="M13 37h22"/></symbol>
+  <symbol id="ic-aniversario" viewBox="0 0 48 48"><path d="M12 38h24"/><path d="M14 38V28h20v10"/><path d="M14 28c2.5-2 5-2 7.5 0s5 2 7.5 0 3.5-1.5 5 0"/><path d="M24 22v-3"/><path d="M24 15.5c1.3 1 1.3 2.5 0 3.5-1.3-1-1.3-2.5 0-3.5z"/></symbol>
+  <symbol id="ic-formatura" viewBox="0 0 48 48"><path d="M24 12l17 7.5L24 27 7 19.5 24 12z"/><path d="M14 24v8c0 2.5 4.5 4.5 10 4.5s10-2 10-4.5v-8"/><path d="M41 19.5v8"/></symbol>
+  <symbol id="ic-corporativo" viewBox="0 0 48 48"><rect x="9" y="17" width="30" height="20" rx="2"/><path d="M19 17v-3.5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2V17"/><path d="M9 27h30"/></symbol>
+  <symbol id="ic-castelo" viewBox="0 0 48 48"><path d="M10 40V22l4-3V13h5v4h5v-4h5v4h5v-4h5v6l4 3v18"/><path d="M6 40h36"/></symbol>
+  <symbol id="ic-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="ic-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></symbol>
+</svg>
 
-    <symbol id="wa-icon" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-    </symbol>
-    <symbol id="coroa-icon" viewBox="0 0 24 24">
-      <path d="M3 18l2-10 5 4 2-8 2 8 5-4 2 10z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-      <path d="M3 20h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-    </symbol>
+<a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 
-    <!-- Tipos de evento (usados na faixa de ícones e nas abas) -->
-    <symbol id="ic-casamento" viewBox="0 0 48 48"><circle cx="19" cy="28" r="9"/><circle cx="29" cy="28" r="9"/><path d="M24 13l-3 4h6l-3-4z"/></symbol>
-    <symbol id="ic-15anos" viewBox="0 0 48 48"><path d="M11 33h26l-2.5-13-6.5 5.5L24 15l-4 10.5L13.5 20 11 33z"/><path d="M13 37h22"/></symbol>
-    <symbol id="ic-aniversario" viewBox="0 0 48 48"><path d="M12 38h24"/><path d="M14 38V28h20v10"/><path d="M14 28c2.5-2 5-2 7.5 0s5 2 7.5 0 3.5-1.5 5 0"/><path d="M24 22v-3"/><path d="M24 15.5c1.3 1 1.3 2.5 0 3.5-1.3-1-1.3-2.5 0-3.5z"/></symbol>
-    <symbol id="ic-formatura" viewBox="0 0 48 48"><path d="M24 12l17 7.5L24 27 7 19.5 24 12z"/><path d="M14 24v8c0 2.5 4.5 4.5 10 4.5s10-2 10-4.5v-8"/><path d="M41 19.5v8"/></symbol>
-    <symbol id="ic-corporativo" viewBox="0 0 48 48"><rect x="9" y="17" width="30" height="20" rx="2"/><path d="M19 17v-3.5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2V17"/><path d="M9 27h30"/></symbol>
-    <symbol id="ic-castelo" viewBox="0 0 48 48"><path d="M10 40V22l4-3V13h5v4h5v-4h5v4h5v-4h5v6l4 3v18"/><path d="M6 40h36"/></symbol>
-    <symbol id="ic-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
-    <symbol id="ic-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></symbol>
-  </svg>
+<!-- Partículas douradas (canvas, controlado por JS) -->
+<canvas id="particulas" aria-hidden="true"></canvas>
 
-  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
-  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+<!-- Barra fina de progresso de rolagem -->
+<div class="progresso" id="progresso" aria-hidden="true"></div>
 
-  <!-- ===== HEADER ===== -->
-  <header class="header" id="topo">
-    <div class="container header__inner">
-      <a href="#inicio" class="header__logo" aria-label="Salão Solar Viva Viva — voltar ao início">
-        <svg class="brasao brasao--header" aria-hidden="true"><use href="#brasao"/></svg>
-        <span class="header__nome">Solar Viva Viva</span>
+<!-- ===== HEADER ===== -->
+<header class="header" id="topo">
+  <div class="container header__inner">
+    <a href="#inicio" class="header__logo" aria-label="Salão Solar Viva Viva — voltar ao início">
+      <svg class="brasao brasao--header" aria-hidden="true"><use href="#brasao"/></svg>
+      <span class="header__nome">Solar Viva Viva</span>
+    </a>
+
+    <nav class="nav" id="menu" aria-label="Menu principal">
+      <ul class="nav__lista">
+        <li><a href="#inicio" data-nav>Início</a></li>
+        <li><a href="#espaco" data-nav>Espaço</a></li>
+        <li><a href="#eventos" data-nav>Eventos</a></li>
+        <li data-nav-galeria><a href="#galeria" data-nav>Galeria</a></li>
+        <li><a href="#contato" data-nav>Contato</a></li>
+      </ul>
+      <a class="btn btn--ouro nav__cta" href="https://wa.me/5521992424254"
+         data-wa data-wa-mensagem="Olá! Vim pelo site do Salão Solar Viva Viva e gostaria de solicitar um orçamento."
+         target="_blank" rel="noopener noreferrer">
+        <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>
+        Solicitar orçamento
       </a>
+    </nav>
 
-      <nav class="nav" id="menu" aria-label="Menu principal">
-        <ul class="nav__lista">
-          <li><a href="#inicio" data-nav>Início</a></li>
-          <li><a href="#espaco" data-nav>Espaço</a></li>
-          <li><a href="#eventos" data-nav>Eventos</a></li>
-          <li data-nav-galeria><a href="#galeria" data-nav>Galeria</a></li>
-          <li><a href="#contato" data-nav>Contato</a></li>
-        </ul>
-        <a class="btn btn--ouro nav__cta" href="https://wa.me/5521992424254" data-wa target="_blank" rel="noopener noreferrer">
-          <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>
-          Solicitar orçamento
-        </a>
-      </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
 
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+<main id="conteudo">
 
-  <main id="conteudo">
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="inicio">
+    <div class="hero__fundo" aria-hidden="true"></div>
 
-    <!-- ===== HERO ===== -->
-    <section class="hero" id="inicio">
-      <div class="hero__fundo" aria-hidden="true"></div>
-
-      <div class="container hero__grid">
-        <div class="hero__texto" data-reveal>
-          <p class="hero__etiqueta">Casa de festas em formato de castelo · Marambaia, São Gonçalo</p>
-          <p class="hero__slogan">Nobreza e Requinte em Casa de Festas</p>
-          <h1 class="hero__titulo">
-            <span class="hero__linha">Um castelo inteiro</span>
-            <span class="hero__linha">para os seus</span>
-            <span class="hero__linha"><em class="hero__cursiva">grandes momentos.</em></span>
-          </h1>
-          <p class="hero__subtitulo">
-            O único castelo da região, com fachada em pedra, portão de madeira
-            e iluminação dourada. O cenário que seus convidados vão lembrar
-            muito depois da festa.
-          </p>
-          <div class="hero__acoes">
-            <a class="btn btn--ouro" href="https://wa.me/5521992424254" data-wa target="_blank" rel="noopener noreferrer">
-              <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>
-              Solicitar orçamento
-            </a>
-            <a class="btn btn--contorno" href="#espaco">Conhecer o castelo</a>
+    <div class="container hero__grid">
+      <div class="hero__foto">
+        <div class="hero__halo" aria-hidden="true"></div>
+        <div class="hero__arco">
+          <div class="foto-castelo">
+            <img src="assets/fachada-castelo.jpg"
+                 alt="Fachada em pedra do castelo do Solar Viva Viva, com portão de madeira e iluminação dourada"
+                 width="628" height="592" fetchpriority="high" decoding="async"
+                 onerror="this.parentElement.classList.add('is-fallback');this.remove();">
           </div>
         </div>
-
-        <div class="hero__foto" data-reveal>
-          <div class="hero__brilho" aria-hidden="true"></div>
-          <div class="hero__arco-deco" aria-hidden="true"></div>
-          <div class="hero__arco">
-            <div class="foto-castelo">
-              <img src="assets/fachada-castelo.jpg"
-                   alt="Fachada em pedra do castelo do Solar Viva Viva, com portão de madeira e iluminação dourada"
-                   fetchpriority="high" decoding="async" width="628" height="592"
-                   onerror="this.parentElement.classList.add('is-fallback');this.remove();">
-            </div>
-          </div>
-          <div class="hero__selo">
-            <svg class="hero__selo-coroa" aria-hidden="true"><use href="#coroa-icon"/></svg>
-            <span>Único castelo da região</span>
-          </div>
-        </div>
+        <span class="hero__selo">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><use href="#coroa-icon"/></svg>
+          Único castelo da região
+        </span>
       </div>
 
-      <a class="hero__scroll" href="#tipos" aria-label="Rolar para a próxima seção">
-        <span class="hero__scroll-mouse" aria-hidden="true"><span class="hero__scroll-wheel"></span></span>
-        <span class="hero__scroll-label">Explore</span>
-      </a>
-    </section>
-
-    <!-- ===== TIPOS DE EVENTO ===== -->
-    <section class="tipos" id="tipos" aria-label="Tipos de evento que atendemos">
-      <div class="container">
-        <ul class="tipos__lista">
-          <li class="tipos__item" data-reveal>
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-casamento"/></svg>
-            <span>Casamentos</span>
-          </li>
-          <li class="tipos__item" data-reveal>
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-15anos"/></svg>
-            <span>15 anos</span>
-          </li>
-          <li class="tipos__item" data-reveal>
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-aniversario"/></svg>
-            <span>Aniversários</span>
-          </li>
-          <li class="tipos__item" data-reveal>
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-formatura"/></svg>
-            <span>Formaturas</span>
-          </li>
-          <li class="tipos__item" data-reveal>
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-corporativo"/></svg>
-            <span>Eventos corporativos</span>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <div class="ameias-divisor" aria-hidden="true"></div>
-
-    <!-- ===== SOBRE / ESPAÇO ===== -->
-    <section class="secao secao--esm sobre" id="espaco">
-      <div class="container sobre__grid">
-        <div class="sobre__texto" data-reveal>
-          <p class="rotulo">O espaço</p>
-          <h2 class="titulo">Arquitetura que já é a decoração.</h2>
-          <div class="divisor divisor--esq"><span></span></div>
-          <p>
-            Muita gente escolhe um salão pela estrutura. Aqui, você escolhe
-            pela emoção do primeiro olhar. Do portão de madeira com brasão às
-            torres iluminadas, o Solar Viva Viva entrega um cenário de conto
-            de fadas, pronto para receber a sua história.
-          </p>
-          <p>Um espaço pensado para quem quer elegância sem excessos: sofisticado, acolhedor e com identidade própria.</p>
-
-          <ul class="sobre__minis">
-            <li>
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-castelo"/></svg>
-              <span>Castelo de pedra</span>
-            </li>
-            <li>
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="8" width="20" height="32" rx="1"/><path d="M20 40V16h8v24"/><circle cx="26" cy="28" r="1"/></svg>
-              <span>Portão e brasão</span>
-            </li>
-            <li>
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 9l2.8 9.2L36 21l-9.2 2.8L24 33l-2.8-9.2L12 21l9.2-2.8L24 9z"/><path d="M36 32l1.4 4.6L42 38l-4.6 1.4L36 44l-1.4-4.6L30 38l4.6-1.4L36 32z"/></svg>
-              <span>Iluminação dourada</span>
-            </li>
-          </ul>
-        </div>
-
-        <figure class="sobre__figura" data-reveal>
-          <div class="sobre__moldura" aria-hidden="true"></div>
-          <div class="sobre__foto">
-            <div class="foto-castelo">
-              <img src="assets/fachada-castelo.jpg"
-                   alt="Fachada em pedra do castelo do Solar Viva Viva, com portão de madeira e iluminação dourada"
-                   loading="lazy" decoding="async" width="628" height="592"
-                   onerror="this.parentElement.classList.add('is-fallback');this.remove();">
-            </div>
-            <figcaption class="sobre__selo">
-              <svg aria-hidden="true"><use href="#coroa-icon"/></svg>
-              Único na região
-            </figcaption>
-          </div>
-        </figure>
-      </div>
-    </section>
-
-    <!-- ===== DIFERENCIAIS ===== -->
-    <section class="secao estrutura" id="estrutura">
-      <div class="container">
-        <header class="secao__cabecalho" data-reveal>
-          <p class="rotulo">Diferenciais</p>
-          <h2 class="titulo">Por que celebrar no Solar Viva Viva</h2>
-          <div class="divisor"><span></span></div>
-        </header>
-
-        <div class="cards">
-          <article class="card" data-reveal>
-            <div class="card__icone">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-castelo"/><path d="M20 40v-8a4 4 0 0 1 8 0v8"/></svg>
-            </div>
-            <h3>Cenário exclusivo</h3>
-            <p>Um castelo que só existe aqui, na região.</p>
-          </article>
-          <article class="card" data-reveal>
-            <div class="card__icone">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="12" width="36" height="26" rx="2"/><circle cx="24" cy="25" r="7"/><path d="M17 12l2-3h10l2 3"/></svg>
-            </div>
-            <h3>Fotos que impressionam</h3>
-            <p>Fachada e iluminação que valorizam cada registro.</p>
-          </article>
-          <article class="card" data-reveal>
-            <div class="card__icone">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 12l3.5 7 7.5 1.1-5.4 5.3 1.3 7.4L24 29.3 17.1 33l1.3-7.4L13 20.1l7.5-1.1L24 12z"/><path d="M10 38h28"/></svg>
-            </div>
-            <h3>Evento do seu jeito</h3>
-            <p>Atendimento próximo para adaptar o espaço ao seu estilo.</p>
-          </article>
-          <article class="card" data-reveal>
-            <div class="card__icone">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 40V24a13 13 0 0 1 26 0v16"/><path d="M6 40h36"/><path d="M17 40v-8h6v8"/><path d="M25 40v-8h6v8"/></svg>
-            </div>
-            <h3>Para todo tipo de celebração</h3>
-            <p>Do casamento ao evento corporativo.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <div class="ameias-divisor" aria-hidden="true"></div>
-
-    <!-- ===== GALERIA (dinâmica: oculta enquanto FOTOS estiver vazio no script.js) ===== -->
-    <section class="secao galeria oculto" id="galeria">
-      <div class="container">
-        <header class="secao__cabecalho" data-reveal>
-          <p class="rotulo">Galeria</p>
-          <h2 class="titulo">O castelo, de perto</h2>
-          <div class="divisor"><span></span></div>
-          <p class="secao__subtitulo">Toque nas imagens para ampliar.</p>
-        </header>
-        <div class="galeria__grid" id="galeria-grid"></div>
-      </div>
-    </section>
-
-    <!-- ===== EVENTOS ===== -->
-    <section class="secao secao--esm eventos" id="eventos">
-      <div class="container">
-        <header class="secao__cabecalho" data-reveal>
-          <p class="rotulo">Eventos</p>
-          <h2 class="titulo">Um castelo, muitas histórias</h2>
-          <div class="divisor"><span></span></div>
-        </header>
-
-        <div class="abas-wrap" data-reveal>
-          <div class="abas" role="tablist" aria-label="Tipos de evento">
-            <button class="aba" role="tab" id="tab-casamentos" aria-controls="painel-casamentos" aria-selected="true" tabindex="0">Casamentos</button>
-            <button class="aba" role="tab" id="tab-15anos" aria-controls="painel-15anos" aria-selected="false" tabindex="-1">15 anos</button>
-            <button class="aba" role="tab" id="tab-aniversarios" aria-controls="painel-aniversarios" aria-selected="false" tabindex="-1">Aniversários</button>
-            <button class="aba" role="tab" id="tab-formaturas" aria-controls="painel-formaturas" aria-selected="false" tabindex="-1">Formaturas</button>
-            <button class="aba" role="tab" id="tab-corporativos" aria-controls="painel-corporativos" aria-selected="false" tabindex="-1">Corporativos</button>
-            <span class="abas__indicador" aria-hidden="true"></span>
-          </div>
-        </div>
-
-        <div class="painel" role="tabpanel" id="painel-casamentos" aria-labelledby="tab-casamentos" tabindex="0">
-          <div class="painel__icone"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-casamento"/></svg></div>
-          <h3 class="painel__titulo">Casamentos</h3>
-          <div class="divisor"><span></span></div>
-          <p class="painel__frase">Entre pelo portão como quem começa um novo capítulo.</p>
-          <a class="btn btn--contorno btn--pequeno" href="https://wa.me/5521992424254" data-wa
-             data-wa-mensagem="Olá! Vi o site do Salão Solar Viva Viva e gostaria de solicitar um orçamento para um casamento."
+      <div class="hero__texto">
+        <p class="hero__eyebrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-pin"/></svg>
+          Marambaia · São Gonçalo — RJ
+        </p>
+        <h1 class="hero__titulo">
+          <span class="hero__linha">Um castelo inteiro</span>
+          <span class="hero__linha">para os seus</span>
+          <span class="hero__linha">grandes momentos.</span>
+        </h1>
+        <p class="hero__sub">
+          O único castelo da região, com fachada em pedra, portão de madeira
+          e iluminação dourada. Um cenário que os seus convidados vão lembrar
+          muito depois da festa.
+        </p>
+        <div class="hero__acoes">
+          <a class="btn btn--ouro" href="https://wa.me/5521992424254"
+             data-wa data-wa-mensagem="Olá! Vim pelo site do Salão Solar Viva Viva e gostaria de solicitar um orçamento."
              target="_blank" rel="noopener noreferrer">
-            <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>Solicitar orçamento
-          </a>
-        </div>
-
-        <div class="painel" role="tabpanel" id="painel-15anos" aria-labelledby="tab-15anos" tabindex="0" hidden>
-          <div class="painel__icone"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-15anos"/></svg></div>
-          <h3 class="painel__titulo">15 anos</h3>
-          <div class="divisor"><span></span></div>
-          <p class="painel__frase">A noite de princesa que ela sempre sonhou, de verdade.</p>
-          <a class="btn btn--contorno btn--pequeno" href="https://wa.me/5521992424254" data-wa
-             data-wa-mensagem="Olá! Vi o site do Salão Solar Viva Viva e gostaria de solicitar um orçamento para uma festa de 15 anos."
-             target="_blank" rel="noopener noreferrer">
-            <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>Solicitar orçamento
-          </a>
-        </div>
-
-        <div class="painel" role="tabpanel" id="painel-aniversarios" aria-labelledby="tab-aniversarios" tabindex="0" hidden>
-          <div class="painel__icone"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-aniversario"/></svg></div>
-          <h3 class="painel__titulo">Aniversários</h3>
-          <div class="divisor"><span></span></div>
-          <p class="painel__frase">Comemorar também é fazer história.</p>
-          <a class="btn btn--contorno btn--pequeno" href="https://wa.me/5521992424254" data-wa
-             data-wa-mensagem="Olá! Vi o site do Salão Solar Viva Viva e gostaria de solicitar um orçamento para um aniversário."
-             target="_blank" rel="noopener noreferrer">
-            <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>Solicitar orçamento
-          </a>
-        </div>
-
-        <div class="painel" role="tabpanel" id="painel-formaturas" aria-labelledby="tab-formaturas" tabindex="0" hidden>
-          <div class="painel__icone"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-formatura"/></svg></div>
-          <h3 class="painel__titulo">Formaturas</h3>
-          <div class="divisor"><span></span></div>
-          <p class="painel__frase">Uma conquista desse tamanho merece cenário à altura.</p>
-          <a class="btn btn--contorno btn--pequeno" href="https://wa.me/5521992424254" data-wa
-             data-wa-mensagem="Olá! Vi o site do Salão Solar Viva Viva e gostaria de solicitar um orçamento para uma formatura."
-             target="_blank" rel="noopener noreferrer">
-            <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>Solicitar orçamento
-          </a>
-        </div>
-
-        <div class="painel" role="tabpanel" id="painel-corporativos" aria-labelledby="tab-corporativos" tabindex="0" hidden>
-          <div class="painel__icone"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-corporativo"/></svg></div>
-          <h3 class="painel__titulo">Eventos corporativos</h3>
-          <div class="divisor"><span></span></div>
-          <p class="painel__frase">Receba clientes e equipes com presença e sofisticação.</p>
-          <a class="btn btn--contorno btn--pequeno" href="https://wa.me/5521992424254" data-wa
-             data-wa-mensagem="Olá! Vi o site do Salão Solar Viva Viva e gostaria de solicitar um orçamento para um evento corporativo."
-             target="_blank" rel="noopener noreferrer">
-            <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>Solicitar orçamento
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== COMO FUNCIONA ===== -->
-    <section class="secao como" id="como">
-      <div class="container">
-        <header class="secao__cabecalho" data-reveal>
-          <p class="rotulo">Como funciona</p>
-          <h2 class="titulo">Do primeiro contato à festa</h2>
-          <div class="divisor"><span></span></div>
-        </header>
-
-        <ol class="passos">
-          <li class="passo" data-reveal>
-            <span class="passo__num" aria-hidden="true">01</span>
-            <div class="passo__icone"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15.5a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10.5z"/><path d="M28 22l14 14-3 3-14-14"/></svg></div>
-            <h3>Fale com a gente</h3>
-            <p>Conte a data e o tipo de evento pelo WhatsApp.</p>
-          </li>
-          <li class="passo" data-reveal>
-            <span class="passo__num" aria-hidden="true">02</span>
-            <div class="passo__icone"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 43s12-10.6 12-21a12 12 0 1 0-24 0c0 10.4 12 21 12 21z"/><circle cx="24" cy="22" r="4"/></svg></div>
-            <h3>Conheça o castelo</h3>
-            <p>Agende uma visita para ver o espaço de perto.</p>
-          </li>
-          <li class="passo" data-reveal>
-            <span class="passo__num" aria-hidden="true">03</span>
-            <div class="passo__icone"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 40V22l3-2V13h4v3h4v-3h4v3h4v-3h4v7l3 2v18"/><path d="M10 40h28"/></svg></div>
-            <h3>Celebre</h3>
-            <p>Cuidamos dos detalhes para o seu dia sair como você imaginou.</p>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ===== FAQ ===== -->
-    <section class="secao secao--esm faq" id="faq">
-      <div class="container">
-        <header class="secao__cabecalho" data-reveal>
-          <p class="rotulo">Dúvidas</p>
-          <h2 class="titulo">Perguntas frequentes</h2>
-          <div class="divisor"><span></span></div>
-        </header>
-
-        <!-- EDITAR AQUI: revise as respostas conforme a realidade do salão -->
-        <div class="faq__lista" data-reveal>
-          <details class="faq__item">
-            <summary>Como solicito um orçamento?</summary>
-            <div class="faq__resposta"><p>Você pode solicitar pelo WhatsApp (21) 99242-4254 ou preencher o formulário na seção de contato. Nossa equipe está pronta para entender o seu evento e apresentar a proposta.</p></div>
-          </details>
-          <details class="faq__item">
-            <summary>Que eventos são realizados no espaço?</summary>
-            <div class="faq__resposta"><p>Casamentos, festas de 15 anos, aniversários, formaturas e eventos corporativos. Se o seu evento for de outro tipo, fale com a gente — verificamos a possibilidade com prazer.</p></div>
-          </details>
-          <details class="faq__item">
-            <summary>Como agendar uma visita ao castelo?</summary>
-            <div class="faq__resposta"><p>Basta entrar em contato pelo WhatsApp ou pelo Instagram @solarvivaviva para combinar o melhor dia e horário. A visita é a melhor forma de sentir a atmosfera do espaço.</p></div>
-          </details>
-          <details class="faq__item">
-            <summary>Onde fica o salão?</summary>
-            <div class="faq__resposta"><p>Estamos na R. Dona Antônia Couto, 165 — Marambaia, São Gonçalo (RJ), CEP 24726-135. Há um mapa e um botão "Como chegar" na seção de contato.</p></div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== DEPOIMENTOS (oculto até haver textos reais) =====
-         EDITAR AQUI: preencher depoimentos reais e remover class="oculto" -->
-    <section class="secao depoimentos oculto" id="depoimentos">
-      <div class="container">
-        <header class="secao__cabecalho" data-reveal>
-          <p class="rotulo">Depoimentos</p>
-          <h2 class="titulo">O que dizem sobre nós</h2>
-          <div class="divisor"><span></span></div>
-        </header>
-        <div class="depoimentos__grid">
-          <blockquote class="depoimento" data-reveal><p>"[EDITAR AQUI — depoimento real]"</p><cite>— [Nome], [tipo de evento]</cite></blockquote>
-          <blockquote class="depoimento" data-reveal><p>"[EDITAR AQUI — depoimento real]"</p><cite>— [Nome], [tipo de evento]</cite></blockquote>
-          <blockquote class="depoimento" data-reveal><p>"[EDITAR AQUI — depoimento real]"</p><cite>— [Nome], [tipo de evento]</cite></blockquote>
-        </div>
-      </div>
-    </section>
-
-    <div class="ameias-divisor" aria-hidden="true"></div>
-
-    <!-- ===== CTA FINAL ===== -->
-    <section class="cta-final" aria-label="Chamada para orçamento">
-      <div class="container cta-final__grid">
-        <div class="cta-final__texto" data-reveal>
-          <p class="rotulo">Solar Viva Viva</p>
-          <h2 class="titulo titulo--grande">Vamos conhecer o castelo?</h2>
-          <p class="cta-final__texto-corpo">Agende uma visita e sinta de perto o cenário do seu próximo grande momento.</p>
-          <a class="btn btn--ouro btn--grande" href="https://wa.me/5521992424254" data-wa target="_blank" rel="noopener noreferrer">
             <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>
-            Falar no WhatsApp
+            Solicitar orçamento
           </a>
+          <a class="btn btn--ghost" href="#espaco">Conhecer o espaço</a>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="cta-final__foto" data-reveal>
+  <!-- ===== TIPOS DE EVENTO ===== -->
+  <section class="tipos" aria-label="Tipos de evento que atendemos">
+    <div class="container">
+      <ul class="tipos__lista">
+        <li>
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-casamento"/></svg>
+          <span>Casamentos</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-15anos"/></svg>
+          <span>15 anos</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-aniversario"/></svg>
+          <span>Aniversários</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-formatura"/></svg>
+          <span>Formaturas</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-corporativo"/></svg>
+          <span>Corporativo</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== O ESPAÇO ===== -->
+  <section class="espaco" id="espaco">
+    <div class="container espaco__grid">
+      <div class="espaco__texto">
+        <h2 class="titulo-secao titulo-secao--esq">Arquitetura que já é a decoração.</h2>
+        <p>
+          Muita gente escolhe um salão pela estrutura. Aqui, você escolhe
+          pela emoção do primeiro olhar. Do portão de madeira com brasão às
+          torres iluminadas, o Solar Viva Viva entrega um cenário pronto
+          para receber a sua história.
+        </p>
+        <p>
+          Um espaço pensado para quem quer elegância sem excessos: sofisticado,
+          acolhedor e com identidade própria.
+        </p>
+        <ul class="espaco__marcadores">
+          <li>
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-castelo"/></svg>
+            Castelo de pedra
+          </li>
+          <li>
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="8" width="20" height="32" rx="1"/><path d="M20 40V16h8v24"/><circle cx="26" cy="28" r="1"/></svg>
+            Portão e brasão
+          </li>
+          <li>
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 9l2.8 9.2L36 21l-9.2 2.8L24 33l-2.8-9.2L12 21l9.2-2.8L24 9z"/><path d="M36 32l1.4 4.6L42 38l-4.6 1.4L36 44l-1.4-4.6L30 38l4.6-1.4L36 32z"/></svg>
+            Iluminação dourada
+          </li>
+        </ul>
+      </div>
+
+      <div class="espaco__foto">
+        <div class="arco-frame">
           <div class="foto-castelo">
             <img src="assets/fachada-castelo.jpg"
                  alt="Fachada em pedra do castelo do Solar Viva Viva, com portão de madeira e iluminação dourada"
@@ -501,200 +253,405 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ===== CONTATO ===== -->
-    <section class="secao contato" id="contato">
-      <div class="container">
-        <header class="secao__cabecalho" data-reveal>
-          <p class="rotulo">Contato</p>
-          <h2 class="titulo">Vamos conversar sobre o seu evento?</h2>
-          <div class="divisor"><span></span></div>
-          <p class="secao__subtitulo">Envie os detalhes pelo formulário ou fale pelo WhatsApp.</p>
-        </header>
+  <!-- ===== DIFERENCIAIS ===== -->
+  <section class="diferenciais" id="diferenciais">
+    <div class="container">
+      <h2 class="titulo-secao">Por que celebrar no Solar Viva Viva</h2>
 
-        <div class="contato__grid">
+      <div class="diferenciais__grid">
+        <article class="diferencial">
+          <div class="diferencial__icone">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-castelo"/><path d="M20 40v-8a4 4 0 0 1 8 0v8"/></svg>
+          </div>
+          <h3>Cenário exclusivo</h3>
+          <p>Um castelo que só existe aqui, na região.</p>
+        </article>
+        <article class="diferencial">
+          <div class="diferencial__icone">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="12" width="36" height="26" rx="2"/><circle cx="24" cy="25" r="7"/><path d="M17 12l2-3h10l2 3"/></svg>
+          </div>
+          <h3>Fotos que impressionam</h3>
+          <p>Fachada e iluminação que valorizam cada registro.</p>
+        </article>
+        <article class="diferencial">
+          <div class="diferencial__icone">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 12l3.5 7 7.5 1.1-5.4 5.3 1.3 7.4L24 29.3 17.1 33l1.3-7.4L13 20.1l7.5-1.1L24 12z"/><path d="M10 38h28"/></svg>
+          </div>
+          <h3>Evento do seu jeito</h3>
+          <p>Atendimento próximo para adaptar o espaço ao seu estilo.</p>
+        </article>
+        <article class="diferencial">
+          <div class="diferencial__icone">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 40V24a13 13 0 0 1 26 0v16"/><path d="M6 40h36"/><path d="M17 40v-8h6v8"/><path d="M25 40v-8h6v8"/></svg>
+          </div>
+          <h3>Para todo tipo de celebração</h3>
+          <p>Do casamento ao evento corporativo.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-          <div class="contato__bloco" data-reveal>
+  <!-- ===== GALERIA (dinâmica: oculta enquanto FOTOS estiver vazio no script.js) ===== -->
+  <section class="galeria oculto" id="galeria">
+    <div class="container">
+      <h2 class="titulo-secao">O castelo, de perto</h2>
+      <p class="subtitulo-secao">Toque nas imagens para ampliar.</p>
+      <div class="galeria__grid" id="galeria-grid"></div>
+    </div>
+  </section>
 
-            <div class="local-card">
-              <div class="local-card__icone">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-pin"/></svg>
-              </div>
-              <h3>Salão Solar Viva Viva</h3>
-              <p>R. Dona Antônia Couto, 165 — Marambaia<br>São Gonçalo — RJ, 24726-135</p>
-              <div class="local-card__acoes">
-                <a class="btn btn--contorno btn--pequeno" href="https://maps.app.goo.gl/YmqdbNsVjstNcUNG8" target="_blank" rel="noopener noreferrer">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-pin"/></svg>
-                  Como chegar
-                </a>
-                <a class="btn btn--contorno btn--pequeno" href="https://www.instagram.com/solarvivaviva/" target="_blank" rel="noopener noreferrer">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-insta"/></svg>
-                  Ver no Instagram
-                </a>
-              </div>
+  <!-- ===== EVENTOS — painéis em arco com scroll-snap ===== -->
+  <section class="eventos" id="eventos">
+    <div class="container">
+      <h2 class="titulo-secao">Um castelo, muitas histórias</h2>
+      <p class="subtitulo-secao">Escolha o tipo de evento e solicite orçamento pelo WhatsApp.</p>
+
+      <div class="eventos__carrossel" role="region" aria-label="Tipos de evento (rolagem horizontal)">
+        <article class="evento-card" data-evento="Casamento">
+          <div class="evento-card__icone">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-casamento"/></svg>
+          </div>
+          <h3>Casamentos</h3>
+          <p>Entre pelo portão como quem começa um novo capítulo.</p>
+          <a class="btn btn--ghost btn--sm" href="https://wa.me/5521992424254"
+             data-wa data-wa-mensagem="Olá! Vim pelo site do Salão Solar Viva Viva e gostaria de solicitar um orçamento para um casamento."
+             target="_blank" rel="noopener noreferrer">
+            <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>
+            Solicitar orçamento
+          </a>
+        </article>
+
+        <article class="evento-card" data-evento="15 anos">
+          <div class="evento-card__icone">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-15anos"/></svg>
+          </div>
+          <h3>15 anos</h3>
+          <p>A noite de princesa que ela sempre sonhou.</p>
+          <a class="btn btn--ghost btn--sm" href="https://wa.me/5521992424254"
+             data-wa data-wa-mensagem="Olá! Vim pelo site do Salão Solar Viva Viva e gostaria de solicitar um orçamento para uma festa de 15 anos."
+             target="_blank" rel="noopener noreferrer">
+            <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>
+            Solicitar orçamento
+          </a>
+        </article>
+
+        <article class="evento-card" data-evento="Aniversário">
+          <div class="evento-card__icone">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-aniversario"/></svg>
+          </div>
+          <h3>Aniversários</h3>
+          <p>Comemorar também é fazer história.</p>
+          <a class="btn btn--ghost btn--sm" href="https://wa.me/5521992424254"
+             data-wa data-wa-mensagem="Olá! Vim pelo site do Salão Solar Viva Viva e gostaria de solicitar um orçamento para um aniversário."
+             target="_blank" rel="noopener noreferrer">
+            <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>
+            Solicitar orçamento
+          </a>
+        </article>
+
+        <article class="evento-card" data-evento="Formatura">
+          <div class="evento-card__icone">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-formatura"/></svg>
+          </div>
+          <h3>Formaturas</h3>
+          <p>Uma conquista desse tamanho merece cenário à altura.</p>
+          <a class="btn btn--ghost btn--sm" href="https://wa.me/5521992424254"
+             data-wa data-wa-mensagem="Olá! Vim pelo site do Salão Solar Viva Viva e gostaria de solicitar um orçamento para uma formatura."
+             target="_blank" rel="noopener noreferrer">
+            <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>
+            Solicitar orçamento
+          </a>
+        </article>
+
+        <article class="evento-card" data-evento="Evento corporativo">
+          <div class="evento-card__icone">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-corporativo"/></svg>
+          </div>
+          <h3>Eventos corporativos</h3>
+          <p>Receba clientes e equipes com presença e sofisticação.</p>
+          <a class="btn btn--ghost btn--sm" href="https://wa.me/5521992424254"
+             data-wa data-wa-mensagem="Olá! Vim pelo site do Salão Solar Viva Viva e gostaria de solicitar um orçamento para um evento corporativo."
+             target="_blank" rel="noopener noreferrer">
+            <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>
+            Solicitar orçamento
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMO FUNCIONA (3 passos numerados) ===== -->
+  <section class="como" id="como">
+    <div class="container">
+      <h2 class="titulo-secao">Do primeiro contato à festa</h2>
+
+      <ol class="passos">
+        <li class="passo">
+          <span class="passo__num" aria-hidden="true">01</span>
+          <h3>Fale com a gente</h3>
+          <p>Conte a data e o tipo de evento pelo WhatsApp.</p>
+        </li>
+        <li class="passo">
+          <span class="passo__num" aria-hidden="true">02</span>
+          <h3>Conheça o castelo</h3>
+          <p>Agende uma visita para ver o espaço de perto.</p>
+        </li>
+        <li class="passo">
+          <span class="passo__num" aria-hidden="true">03</span>
+          <h3>Celebre</h3>
+          <p>Cuidamos dos detalhes para o seu dia sair como você imaginou.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2 class="titulo-secao">Perguntas frequentes</h2>
+
+      <!-- EDITAR AQUI: revise as respostas conforme a realidade do salão -->
+      <div class="faq__lista">
+        <details class="faq__item">
+          <summary>Como solicito um orçamento?</summary>
+          <div class="faq__resposta"><p>Você pode solicitar pelo WhatsApp (21) 99242-4254 ou preencher o formulário na seção de contato. Nossa equipe está pronta para entender o seu evento e apresentar a proposta.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>Que eventos são realizados no espaço?</summary>
+          <div class="faq__resposta"><p>Casamentos, festas de 15 anos, aniversários, formaturas e eventos corporativos. Se o seu evento for de outro tipo, fale com a gente — verificamos a possibilidade com prazer.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>Como agendar uma visita ao castelo?</summary>
+          <div class="faq__resposta"><p>Basta entrar em contato pelo WhatsApp ou pelo Instagram @solarvivaviva para combinar o melhor dia e horário. A visita é a melhor forma de sentir a atmosfera do espaço.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>Onde fica o salão?</summary>
+          <div class="faq__resposta"><p>Estamos na R. Dona Antônia Couto, 165 — Marambaia, São Gonçalo (RJ), CEP 24726-135. Há um mapa e um botão "Como chegar" na seção de contato.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DEPOIMENTOS (oculto até haver textos reais) =====
+       EDITAR AQUI: preencher depoimentos reais e remover class="oculto" -->
+  <section class="depoimentos oculto" id="depoimentos">
+    <div class="container">
+      <h2 class="titulo-secao">O que dizem sobre nós</h2>
+      <div class="depoimentos__grid">
+        <blockquote class="depoimento"><p>"[EDITAR AQUI — depoimento real]"</p><cite>— [Nome], [tipo de evento]</cite></blockquote>
+        <blockquote class="depoimento"><p>"[EDITAR AQUI — depoimento real]"</p><cite>— [Nome], [tipo de evento]</cite></blockquote>
+        <blockquote class="depoimento"><p>"[EDITAR AQUI — depoimento real]"</p><cite>— [Nome], [tipo de evento]</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA FINAL ===== -->
+  <section class="cta-final" aria-label="Chamada para orçamento">
+    <div class="container cta-final__inner">
+      <h2 class="cta-final__titulo">Vamos conhecer o castelo?</h2>
+      <p class="cta-final__texto">Agende uma visita e sinta de perto o cenário do seu próximo grande momento.</p>
+      <a class="btn btn--ouro btn--lg" href="https://wa.me/5521992424254"
+         data-wa data-wa-mensagem="Olá! Vim pelo site do Salão Solar Viva Viva e gostaria de agendar uma visita ao castelo."
+         target="_blank" rel="noopener noreferrer">
+        <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>
+        Falar no WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== CONTATO ===== -->
+  <section class="contato" id="contato">
+    <div class="container">
+      <h2 class="titulo-secao">Vamos conversar sobre o seu evento?</h2>
+      <p class="subtitulo-secao">Envie os detalhes pelo formulário ou fale pelo WhatsApp.</p>
+
+      <div class="contato__grid">
+        <div class="contato__dados">
+          <div class="local-card">
+            <div class="local-card__icone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-pin"/></svg>
             </div>
-
-            <ul class="contato__lista">
-              <li>
-                <span class="contato__icone" aria-hidden="true"><svg><use href="#wa-icon"/></svg></span>
-                <div>
-                  <strong>WhatsApp</strong>
-                  <a href="https://wa.me/5521992424254" target="_blank" rel="noopener noreferrer">(21) 99242-4254</a>
-                </div>
-              </li>
-              <li>
-                <span class="contato__icone" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#ic-insta"/></svg></span>
-                <div>
-                  <strong>Instagram</strong>
-                  <a href="https://www.instagram.com/solarvivaviva/" target="_blank" rel="noopener noreferrer">@solarvivaviva</a>
-                </div>
-              </li>
-              <li>
-                <span class="contato__icone" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-                </span>
-                <div>
-                  <strong>Horários</strong>
-                  <span>Consulte os horários disponíveis entrando em contato.</span>
-                  <a class="contato__link" href="https://wa.me/5521992424254" data-wa
-                     data-wa-mensagem="Olá! Gostaria de saber os horários disponíveis para conhecer o Salão Solar Viva Viva."
-                     target="_blank" rel="noopener noreferrer">Ver horários pelo WhatsApp</a>
-                </div>
-              </li>
-            </ul>
+            <h3>Salão Solar Viva Viva</h3>
+            <p>R. Dona Antônia Couto, 165 — Marambaia<br>São Gonçalo — RJ, 24726-135</p>
+            <div class="local-card__acoes">
+              <a class="btn btn--ghost btn--sm" href="https://maps.app.goo.gl/YmqdbNsVjstNcUNG8" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-pin"/></svg>
+                Como chegar
+              </a>
+              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/solarvivaviva/" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-insta"/></svg>
+                Instagram
+              </a>
+            </div>
           </div>
 
-          <form class="form" id="form-orcamento" data-reveal novalidate>
-            <h3>Solicite seu orçamento</h3>
-            <p class="form__intro">Preencha os campos e envie direto pelo WhatsApp.</p>
-
-            <label class="campo">
-              <span class="campo__label">Seu nome</span>
-              <input type="text" id="nome" name="nome" placeholder="Como podemos chamar você?" autocomplete="name" required>
-            </label>
-
-            <label class="campo">
-              <span class="campo__label">Tipo de evento</span>
-              <select id="tipo-evento" name="tipo-evento" required>
-                <option value="" disabled selected>Selecione</option>
-                <option>Casamento</option>
-                <option>15 anos</option>
-                <option>Aniversário</option>
-                <option>Formatura</option>
-                <option>Evento corporativo</option>
-                <option>Outro</option>
-              </select>
-            </label>
-
-            <label class="campo">
-              <span class="campo__label">Data prevista <em>(opcional)</em></span>
-              <input type="date" id="data-evento" name="data-evento">
-            </label>
-
-            <label class="campo">
-              <span class="campo__label">Nº aproximado de convidados <em>(opcional)</em></span>
-              <input type="number" id="convidados" name="convidados" min="1" placeholder="Ex.: 100" inputmode="numeric">
-            </label>
-
-            <button class="btn btn--ouro" type="submit">
-              <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>
-              Enviar pelo WhatsApp
-            </button>
-            <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
-          </form>
+          <ul class="contato__lista">
+            <li>
+              <span class="contato__icone" aria-hidden="true"><svg><use href="#wa-icon"/></svg></span>
+              <div>
+                <strong>WhatsApp</strong>
+                <a href="https://wa.me/5521992424254" target="_blank" rel="noopener noreferrer">(21) 99242-4254</a>
+              </div>
+            </li>
+            <li>
+              <span class="contato__icone" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#ic-insta"/></svg></span>
+              <div>
+                <strong>Instagram</strong>
+                <a href="https://www.instagram.com/solarvivaviva/" target="_blank" rel="noopener noreferrer">@solarvivaviva</a>
+              </div>
+            </li>
+            <li>
+              <span class="contato__icone" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              </span>
+              <div>
+                <strong>Horários</strong>
+                <span>Consulte os horários disponíveis entrando em contato.</span>
+                <a class="contato__link" href="https://wa.me/5521992424254"
+                   data-wa data-wa-mensagem="Olá! Gostaria de saber os horários disponíveis para conhecer o Salão Solar Viva Viva."
+                   target="_blank" rel="noopener noreferrer">Ver horários pelo WhatsApp</a>
+              </div>
+            </li>
+          </ul>
         </div>
 
-        <div class="mapa-bloco" data-reveal>
-          <div class="mapa">
-            <iframe title="Localização do Salão Solar Viva Viva no Google Maps"
-              src="https://www.google.com/maps?q=R.+Dona+Ant%C3%B4nia+Couto,+165+-+Marambaia,+S%C3%A3o+Gon%C3%A7alo+-+RJ,+24726-135&output=embed"
-              loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-          </div>
-          <div class="mapa-bloco__rodape">
-            <p>R. Dona Antônia Couto, 165 — Marambaia, São Gonçalo — RJ</p>
-            <a class="btn btn--ouro btn--pequeno" href="https://maps.app.goo.gl/YmqdbNsVjstNcUNG8" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-pin"/></svg>
-              Como chegar
-            </a>
-          </div>
+        <form class="form" id="form-orcamento" novalidate>
+          <h3>Solicite seu orçamento</h3>
+          <p class="form__intro">Preencha os campos e envie direto pelo WhatsApp.</p>
+
+          <label class="campo">
+            <span class="campo__label">Seu nome</span>
+            <input type="text" id="nome" name="nome" placeholder="Como podemos chamar você?" autocomplete="name" required>
+          </label>
+
+          <label class="campo">
+            <span class="campo__label">Tipo de evento</span>
+            <select id="tipo-evento" name="tipo-evento" required>
+              <option value="" disabled selected>Selecione</option>
+              <option>Casamento</option>
+              <option>15 anos</option>
+              <option>Aniversário</option>
+              <option>Formatura</option>
+              <option>Evento corporativo</option>
+              <option>Outro</option>
+            </select>
+          </label>
+
+          <label class="campo">
+            <span class="campo__label">Data prevista <em>(opcional)</em></span>
+            <input type="date" id="data-evento" name="data-evento">
+          </label>
+
+          <label class="campo">
+            <span class="campo__label">Nº aproximado de convidados <em>(opcional)</em></span>
+            <input type="number" id="convidados" name="convidados" min="1" placeholder="Ex.: 100" inputmode="numeric">
+          </label>
+
+          <button class="btn btn--ouro" type="submit">
+            <svg class="icone-wa" aria-hidden="true"><use href="#wa-icon"/></svg>
+            Enviar pelo WhatsApp
+          </button>
+          <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="mapa-bloco">
+        <div class="mapa">
+          <iframe title="Localização do Salão Solar Viva Viva no Google Maps"
+            src="https://www.google.com/maps?q=R.+Dona+Ant%C3%B4nia+Couto,+165+-+Marambaia,+S%C3%A3o+Gon%C3%A7alo+-+RJ,+24726-135&output=embed"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <div class="mapa-bloco__rodape">
+          <p>R. Dona Antônia Couto, 165 — Marambaia, São Gonçalo — RJ</p>
+          <a class="btn btn--ghost btn--sm" href="https://maps.app.goo.gl/YmqdbNsVjstNcUNG8" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-pin"/></svg>
+            Como chegar
+          </a>
         </div>
       </div>
-    </section>
-
-  </main>
-
-  <!-- ===== RODAPÉ ===== -->
-  <footer class="rodape">
-    <div class="container rodape__grid">
-      <div class="rodape__marca">
-        <svg class="brasao brasao--rodape" aria-hidden="true"><use href="#brasao"/></svg>
-        <p class="cursiva">Solar Viva Viva</p>
-        <p class="rodape__slogan">Nobreza e Requinte em Casa de Festas</p>
-      </div>
-
-      <nav class="rodape__links" aria-label="Links rápidos">
-        <h4>Navegue</h4>
-        <a href="#inicio">Início</a>
-        <a href="#espaco">Espaço</a>
-        <a href="#eventos">Eventos</a>
-        <a href="#contato">Contato</a>
-      </nav>
-
-      <div class="rodape__contato">
-        <h4>Fale com a gente</h4>
-        <ul>
-          <li>
-            <a href="https://wa.me/5521992424254" target="_blank" rel="noopener noreferrer">
-              <svg class="icone-wa icone-wa--inline" aria-hidden="true"><use href="#wa-icon"/></svg>
-              (21) 99242-4254
-            </a>
-          </li>
-          <li>
-            <a href="https://www.instagram.com/solarvivaviva/" target="_blank" rel="noopener noreferrer">
-              <svg class="icone-inline" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><use href="#ic-insta"/></svg>
-              @solarvivaviva
-            </a>
-          </li>
-          <li>R. Dona Antônia Couto, 165 — Marambaia, São Gonçalo/RJ</li>
-        </ul>
-      </div>
     </div>
-    <div class="container rodape__base">
-      <p>© <span id="ano">2026</span> Salão Solar Viva Viva. Todos os direitos reservados.</p>
-    </div>
-  </footer>
+  </section>
 
-  <!-- WhatsApp flutuante (desktop) -->
-  <a class="wa-flutuante" href="https://wa.me/5521992424254" data-wa target="_blank" rel="noopener noreferrer"
-     aria-label="Falar com o Salão Solar Viva Viva no WhatsApp" data-tooltip="Fale conosco">
+</main>
+
+<!-- ===== RODAPÉ ===== -->
+<footer class="rodape">
+  <div class="container rodape__grid">
+    <div class="rodape__marca">
+      <svg class="brasao brasao--rodape" aria-hidden="true"><use href="#brasao"/></svg>
+      <p class="rodape__nome">Solar Viva Viva</p>
+      <p class="rodape__slogan">Nobreza e Requinte em Casa de Festas</p>
+    </div>
+
+    <nav class="rodape__links" aria-label="Links rápidos">
+      <h4>Navegue</h4>
+      <a href="#inicio">Início</a>
+      <a href="#espaco">Espaço</a>
+      <a href="#eventos">Eventos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <div class="rodape__contato">
+      <h4>Fale com a gente</h4>
+      <ul>
+        <li>
+          <a href="https://wa.me/5521992424254" target="_blank" rel="noopener noreferrer">
+            <svg class="icone-wa icone-wa--inline" aria-hidden="true"><use href="#wa-icon"/></svg>
+            (21) 99242-4254
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/solarvivaviva/" target="_blank" rel="noopener noreferrer">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><use href="#ic-insta"/></svg>
+            @solarvivaviva
+          </a>
+        </li>
+        <li>R. Dona Antônia Couto, 165 — Marambaia, São Gonçalo/RJ</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container rodape__base">
+    <p>© <span id="ano">2026</span> Salão Solar Viva Viva. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<!-- WhatsApp flutuante (desktop) -->
+<a class="wa-flutuante" href="https://wa.me/5521992424254"
+   data-wa data-wa-mensagem="Olá! Vim pelo site do Salão Solar Viva Viva e gostaria de solicitar um orçamento."
+   target="_blank" rel="noopener noreferrer"
+   aria-label="Falar com o Salão Solar Viva Viva no WhatsApp">
+  <svg aria-hidden="true"><use href="#wa-icon"/></svg>
+</a>
+
+<!-- Barra inferior (mobile) -->
+<div class="mobile-bar" aria-label="Ações rápidas">
+  <a class="mobile-bar__btn mobile-bar__btn--wa" href="https://wa.me/5521992424254"
+     data-wa data-wa-mensagem="Olá! Vim pelo site do Salão Solar Viva Viva e gostaria de solicitar um orçamento."
+     target="_blank" rel="noopener noreferrer">
     <svg aria-hidden="true"><use href="#wa-icon"/></svg>
+    WhatsApp
   </a>
+  <a class="mobile-bar__btn mobile-bar__btn--tel" href="tel:+5521992424254">
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.4-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+    Ligar
+  </a>
+</div>
 
-  <!-- Barra inferior fixa (mobile) -->
-  <div class="mobile-bar" aria-label="Ações rápidas">
-    <a class="mobile-bar__btn mobile-bar__btn--wa" href="https://wa.me/5521992424254" data-wa target="_blank" rel="noopener noreferrer">
-      <svg aria-hidden="true"><use href="#wa-icon"/></svg>
-      WhatsApp
-    </a>
-    <a class="mobile-bar__btn mobile-bar__btn--tel" href="tel:+5521992424254">
-      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.4-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-      Ligar
-    </a>
-  </div>
+<!-- Lightbox (para a galeria dinâmica) -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeria ampliada" aria-hidden="true">
+  <button class="lightbox__fechar" type="button" aria-label="Fechar galeria">&times;</button>
+  <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Foto anterior">&#8249;</button>
+  <figure class="lightbox__figura">
+    <img id="lightbox-img" alt="">
+    <figcaption id="lightbox-legenda"></figcaption>
+  </figure>
+  <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Próxima foto">&#8250;</button>
+  <p class="lightbox__contador" id="lightbox-contador" aria-live="polite"></p>
+</div>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeria ampliada" aria-hidden="true">
-    <button class="lightbox__fechar" type="button" aria-label="Fechar galeria">&times;</button>
-    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Foto anterior">&#8249;</button>
-    <figure class="lightbox__figura">
-      <img id="lightbox-img" alt="">
-      <figcaption id="lightbox-legenda"></figcaption>
-    </figure>
-    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Próxima foto">&#8250;</button>
-    <p class="lightbox__contador" id="lightbox-contador" aria-live="polite"></p>
-  </div>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
