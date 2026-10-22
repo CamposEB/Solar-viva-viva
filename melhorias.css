@@ -1,0 +1,233 @@
+/* ============================================================
+   melhorias.css — carregar DEPOIS do style.css
+   <link rel="stylesheet" href="melhorias.css">
+   Mantém o background atual. Corrige foto, hero, menu mobile,
+   CTA final e mapa; refina o acabamento visual.
+   ============================================================ */
+
+/* ---------- 1. FOTO DO CASTELO (628x592, sem zoom) ----------
+   Ajuste fino: --foto-pos (0% topo ... 100% base) e --foto-zoom */
+.foto-castelo {
+  --foto-zoom: 1;
+  --foto-pos: 40%;
+  width: 100%;
+  aspect-ratio: 628 / 592;
+}
+.foto-castelo img {
+  object-position: 50% var(--foto-pos);
+  transform: scale(var(--foto-zoom));
+  transform-origin: 50% 50%;
+}
+
+/* ---------- 2. HERO ---------- */
+.hero__etiqueta {
+  display: inline-block;
+  margin-bottom: var(--esp-3);
+  padding: 0.5rem 1.1rem;
+  font-family: var(--fonte-titulo);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ouro-claro);
+  background: rgba(15, 107, 87, 0.18);
+  border: 1px solid var(--linha);
+  border-radius: 999px;
+}
+.hero__titulo {
+  font-size: clamp(1.9rem, 1.2rem + 3vw, 3.5rem);
+  line-height: 1.12;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+.hero__cursiva { font-size: 1.25em; line-height: 1.1; }
+
+/* Moldura em arco (o HTML usa .hero__arco; o CSS antigo esperava outro nome) */
+.hero__arco {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  border: 1px solid var(--ouro);
+  border-radius: 999px 999px 24px 24px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 50px rgba(212, 175, 55, 0.15);
+}
+.hero__arco .foto-castelo { aspect-ratio: 5 / 6; }
+.hero__brilho {
+  position: absolute;
+  inset: 6% -8%;
+  z-index: 0;
+  background: radial-gradient(closest-side, rgba(212, 175, 55, 0.22), transparent 75%);
+  filter: blur(18px);
+  pointer-events: none;
+}
+.hero__foto { max-width: 300px; }
+@media (min-width: 900px) { .hero__foto { max-width: 440px; } }
+
+/* ---------- 3. HEADER: corrige menu mobile após rolar ----------
+   backdrop-filter no header prendia o menu fixed ao tamanho do header.
+   O desfoque agora fica num pseudo-elemento. */
+.header--scrolled {
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(10, 18, 16, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 var(--linha);
+  opacity: 0;
+  transition: opacity var(--trans);
+}
+.header--scrolled::before { opacity: 1; }
+
+/* ---------- 4. SEÇÃO "O ESPAÇO" ---------- */
+.sobre__figura { max-width: 520px; padding: 0 14px 14px 0; }
+.sobre__foto { aspect-ratio: auto; overflow: hidden; }
+.sobre__moldura { inset: 14px 0 0 14px; }
+.sobre__selo { left: 1rem; bottom: 1rem; }
+.sobre__minis li {
+  align-items: center;
+  padding: 0.9rem 1rem;
+  background: rgba(15, 107, 87, 0.08);
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+}
+.sobre__minis { border-top: 0; padding-top: 0; }
+
+/* ---------- 5. CARDS: filete dourado ao passar o mouse ---------- */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--grad-ouro);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--trans);
+}
+.card:hover::before { transform: scaleX(1); }
+
+/* ---------- 6. CHAMADA FINAL ---------- */
+.cta-final__foto { aspect-ratio: auto; overflow: hidden; max-width: 440px; }
+.cta-final__texto-corpo {
+  max-width: 480px;
+  margin: var(--esp-2) auto var(--esp-4);
+  font-size: 1.05rem;
+  color: var(--texto-forte);
+}
+@media (min-width: 900px) { .cta-final__texto-corpo { margin-inline: 0; } }
+
+/* ---------- 7. MAPA ---------- */
+.mapa-bloco { margin-top: var(--esp-4); }
+.mapa { aspect-ratio: auto; height: 380px; }
+.mapa iframe { filter: invert(0.9) hue-rotate(180deg) saturate(0.7) contrast(0.95); }
+.mapa-bloco__rodape {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+@media (max-width: 767px) {
+  .mapa { height: 280px; }
+  .mapa-bloco__rodape { flex-direction: column; text-align: center; }
+}
+
+/* ============================================================
+   8. AJUSTES v2 — logo, moldura do hero e título
+   ============================================================ */
+
+/* ---------- Logo: novo brasão (castelo dourado sobre escudo esmeralda) ----------
+   Troca o desenho sem mexer no HTML: esconde o <use> e aplica o SVG como fundo. */
+.brasao {
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 124'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23b8942a'/><stop offset='.5' stop-color='%23f0d27a'/><stop offset='1' stop-color='%23d4af37'/></linearGradient><linearGradient id='e' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%231a8c73'/><stop offset='1' stop-color='%230a4a3c'/></linearGradient></defs><path d='M8 10H92V66C92 95 50 118 50 118C50 118 8 95 8 66Z' fill='url(%23e)' stroke='url(%23g)' stroke-width='3.5' stroke-linejoin='round'/><path d='M15 17H85V65C85 90 50 109 50 109C50 109 15 90 15 65Z' fill='none' stroke='url(%23g)' stroke-width='.9' opacity='.7'/><g fill='url(%23g)'><rect x='26' y='50' width='12' height='38'/><rect x='62' y='50' width='12' height='38'/><rect x='40' y='38' width='20' height='50'/><rect x='26' y='46' width='3' height='4'/><rect x='30.5' y='46' width='3' height='4'/><rect x='35' y='46' width='3' height='4'/><rect x='62' y='46' width='3' height='4'/><rect x='66.5' y='46' width='3' height='4'/><rect x='71' y='46' width='3' height='4'/><rect x='40' y='34' width='3' height='4'/><rect x='48.5' y='34' width='3' height='4'/><rect x='57' y='34' width='3' height='4'/><rect x='20' y='88' width='60' height='3'/></g><g fill='%230a4a3c'><path d='M45 88V75a5 5 0 0 1 10 0V88Z'/><rect x='30' y='58' width='4' height='9' rx='2'/><rect x='66' y='58' width='4' height='9' rx='2'/></g></svg>") center / contain no-repeat;
+}
+.brasao use { display: none; }
+.brasao--header { width: 48px; height: 60px; }
+.header__nome { text-shadow: 0 0 24px rgba(212, 175, 55, 0.35); }
+
+/* ---------- Moldura da foto do hero ----------
+   Antes: o arco decorativo passava da altura da foto e formava uma "caixa"
+   embaixo. Agora ele tem o mesmo tamanho do arco e só desliza na diagonal. */
+.hero__foto { padding: 0; margin-bottom: 20px; }
+.hero__arco-deco {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 999px 999px 24px 24px;
+  opacity: 0.45;
+  transform: translate(-16px, 16px);
+}
+/* Filete interno: dá o efeito de moldura dupla */
+.hero__arco::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  z-index: 2;
+  border: 1px solid rgba(240, 210, 122, 0.45);
+  border-radius: 999px 999px 16px 16px;
+  pointer-events: none;
+}
+/* Selo centralizado na base da foto (não corta mais a quina) */
+.hero__selo {
+  left: 50%;
+  bottom: 1.4rem;
+  transform: translateX(-50%);
+}
+
+/* ---------- Título do hero ----------
+   Cada linha fica inteira ("Um castelo inteiro" não quebra mais em duas). */
+.hero__titulo { font-size: clamp(1.7rem, 1rem + 2.6vw, 2.8rem); }
+.hero__linha { white-space: nowrap; }
+
+/* ============================================================
+   9. CONTATO — ícones e horários
+   Os ícones do Instagram e dos horários apareciam como bolinhas brancas:
+   o fill do SVG preenchia as linhas e a cor do <span> sobrescrevia o dourado.
+   ============================================================ */
+.contato__lista .contato__icone {
+  color: var(--ouro-claro);
+  background: rgba(15, 107, 87, 0.15);
+  transition: background var(--trans), transform var(--trans);
+}
+.contato__icone svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.contato__icone svg use[href="#wa-icon"] { stroke: none; }
+.contato__lista li:hover .contato__icone {
+  background: rgba(212, 175, 55, 0.12);
+  transform: scale(1.06);
+}
+.contato__lista div > span {
+  display: block;
+  color: var(--texto-suave);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.contato__lista .contato__link {
+  display: inline-block;
+  margin-top: 0.45rem;
+  padding-bottom: 2px;
+  color: var(--ouro-claro);
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--linha);
+  transition: border-color var(--trans);
+}
+.contato__lista .contato__link:hover { border-color: var(--ouro); }
+
+/* Ícones dentro dos botões (Como chegar / Ver no Instagram) */
+.btn svg:not(.icone-wa) { width: 1.2em; height: 1.2em; flex-shrink: 0; }
