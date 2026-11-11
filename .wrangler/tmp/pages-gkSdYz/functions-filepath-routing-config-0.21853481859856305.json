@@ -1,0 +1,149 @@
+{
+  "routes": [
+    {
+      "routePath": "/api/auth/login",
+      "mountPath": "/api/auth",
+      "method": "POST",
+      "module": [
+        "api/auth/login.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/auth/logout",
+      "mountPath": "/api/auth",
+      "method": "POST",
+      "module": [
+        "api/auth/logout.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/auth/me",
+      "mountPath": "/api/auth",
+      "method": "GET",
+      "module": [
+        "api/auth/me.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/comunicados/:id",
+      "mountPath": "/api/comunicados",
+      "method": "DELETE",
+      "module": [
+        "api/comunicados/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/comunicados/:id",
+      "mountPath": "/api/comunicados",
+      "method": "PUT",
+      "module": [
+        "api/comunicados/[id].js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/midia/:id",
+      "mountPath": "/api/midia",
+      "method": "DELETE",
+      "module": [
+        "api/midia/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/promocoes/:id",
+      "mountPath": "/api/promocoes",
+      "method": "DELETE",
+      "module": [
+        "api/promocoes/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/promocoes/:id",
+      "mountPath": "/api/promocoes",
+      "method": "PUT",
+      "module": [
+        "api/promocoes/[id].js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/comunicados",
+      "mountPath": "/api/comunicados",
+      "method": "GET",
+      "module": [
+        "api/comunicados/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/comunicados",
+      "mountPath": "/api/comunicados",
+      "method": "POST",
+      "module": [
+        "api/comunicados/index.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/letreiro",
+      "mountPath": "/api",
+      "method": "GET",
+      "module": [
+        "api/letreiro.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/letreiro",
+      "mountPath": "/api",
+      "method": "PUT",
+      "module": [
+        "api/letreiro.js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/midia",
+      "mountPath": "/api/midia",
+      "method": "GET",
+      "module": [
+        "api/midia/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/midia",
+      "mountPath": "/api/midia",
+      "method": "POST",
+      "module": [
+        "api/midia/index.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/promocoes",
+      "mountPath": "/api/promocoes",
+      "method": "GET",
+      "module": [
+        "api/promocoes/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/promocoes",
+      "mountPath": "/api/promocoes",
+      "method": "POST",
+      "module": [
+        "api/promocoes/index.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/setup",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/setup.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/site",
+      "mountPath": "/api",
+      "method": "GET",
+      "module": [
+        "api/site.js:onRequestGet"
+      ]
+    }
+  ],
+  "baseURL": "/"
+}

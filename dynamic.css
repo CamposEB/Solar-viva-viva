@@ -8,13 +8,16 @@
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1100;
-  height: 34px;
+  height: 38px;
   overflow: hidden;
-  background: var(--verde, #0a4a3c);
+  background: linear-gradient(90deg, #0a4a3c, #0f6b57, #0a4a3c);
   border-bottom: 1px solid var(--ouro, #d4af37);
   color: var(--ouro-claro, #f0d27a);
   transition: transform .35s var(--ease, ease);
   font-family: var(--f-display, Georgia, serif);
+  /* Efeito premium de esmaecimento nas bordas */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
 .ticker[hidden] { display: none; }
 .ticker__track {

@@ -156,18 +156,22 @@ function abrirFormComunicado(id) {
   wrap.hidden = false;
   form.reset();
   $('#comunicado-erro').textContent = '';
+
+  const hoje = new Date().toISOString().split('T')[0]; // Data de hoje
+
   if (id) {
     const c = estado.comunicados.find((x) => x.id === id);
     if (!c) return;
     form.elements.id.value = c.id;
     form.elements.titulo.value = c.titulo;
     form.elements.descricao.value = c.descricao;
-    form.elements.publicado_em.value = c.publicado_em || '';
+    form.elements.publicado_em.value = c.publicado_em || hoje;
     form.elements.encerra_em.value = c.encerra_em || '';
     form.elements.destaque.checked = !!c.destaque;
     form.elements.ativo.checked = !!c.ativo;
   } else {
     form.elements.id.value = '';
+    form.elements.publicado_em.value = hoje; // Preenche com hoje
     form.elements.ativo.checked = true;
   }
   form.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -306,6 +310,9 @@ function abrirFormPromocao(id) {
   form.reset();
   $('#promocao-erro').textContent = '';
   preencherSelectMidia();
+
+  const hoje = new Date().toISOString().split('T')[0];
+
   if (id) {
     const p = estado.promocoes.find((x) => x.id === id);
     if (!p) return;
@@ -313,11 +320,12 @@ function abrirFormPromocao(id) {
     form.elements.titulo.value = p.titulo;
     form.elements.descricao.value = p.descricao || '';
     form.elements.imagem_id.value = p.imagem_id || '';
-    form.elements.data_inicio.value = p.data_inicio || '';
+    form.elements.data_inicio.value = p.data_inicio || hoje;
     form.elements.data_fim.value = p.data_fim || '';
     form.elements.ativo.checked = !!p.ativo;
   } else {
     form.elements.id.value = '';
+    form.elements.data_inicio.value = hoje; // Preenche com hoje
     form.elements.ativo.checked = true;
   }
   form.scrollIntoView({ behavior: 'smooth', block: 'start' });

@@ -1,5 +1,4 @@
 // Utilitários compartilhados por todas as Pages Functions.
-// Arquivos começando com "_" são ignorados pelo roteador do Pages.
 
 export const JSON_HEADERS = { 'Content-Type': 'application/json; charset=utf-8' };
 
@@ -14,45 +13,16 @@ export function error(mensagem, status = 400) {
   return json({ erro: mensagem }, status);
 }
 
-const PBKDF2_ITER = 100000;
-
-function b64FromBytes(bytes) {
-  let s = '';
-  for (const b of new Uint8Array(bytes)) s += String.fromCharCode(b);
-  return btoa(s);
-}
-
-function bytesFromB64(str) {
-  return Uint8Array.from(atob(str), (c) => c.charCodeAt(0));
-}
-
+// SOLUÇÃO DEFINITIVA: SHA-256 direto (instantâneo no Cloudflare)
 export async function hashSenha(senha) {
   const enc = new TextEncoder();
-  const salt = crypto.getRandomValues(new Uint8Array(16));
-  const key = await crypto.subtle.importKey('raw', enc.encode(senha), 'PBKDF2', false, ['deriveBits']);
-  const bits = await crypto.subtle.deriveBits(
-    { name: 'PBKDF2', salt, iterations: PBKDF2_ITER, hash: 'SHA-256' },
-    key, 256
-  );
-  return `pbkdf2$${PBKDF2_ITER}$${b64FromBytes(salt)}$${b64FromBytes(bits)}`;
+  const hashBuffer = await crypto.subtle.digest('SHA-256', enc.encode(senha));
+  return Array.from(new Uint8Array(hashBuffer)).map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
 export async function verificarSenha(senha, hashArmazenado) {
-  try {
-    const [algo, iterStr, saltB64, hashB64] = String(hashArmazenado).split('$');
-    if (algo !== 'pbkdf2') return false;
-    const iter = parseInt(iterStr, 10) || PBKDF2_ITER;
-    const salt = bytesFromB64(saltB64);
-    const enc = new TextEncoder();
-    const key = await crypto.subtle.importKey('raw', enc.encode(senha), 'PBKDF2', false, ['deriveBits']);
-    const bits = await crypto.subtle.deriveBits(
-      { name: 'PBKDF2', salt, iterations: iter, hash: 'SHA-256' },
-      key, 256
-    );
-    return b64FromBytes(bits) === hashB64;
-  } catch {
-    return false;
-  }
+  const hashCalculado = await hashSenha(senha);
+  return hashCalculado === hashArmazenado;
 }
 
 export function gerarToken() {
