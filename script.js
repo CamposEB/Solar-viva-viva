@@ -1,43 +1,30 @@
 'use strict';
 
-/* ============================================================
-   CONFIGURAÇÃO CENTRAL
-   ============================================================ */
+/* ===== CONFIGURAÇÃO CENTRAL ===== */
 const CONFIG = {
   whatsapp: {
     numero: '5521992424254',
-    mensagemPadrao:
-      'Olá! Quero um orçamento para uma festa no Solar Viva Viva, em Marambaia.',
+    mensagemPadrao: 'Olá! Quero um orçamento para uma festa no Solar Viva Viva, em Marambaia.',
   },
   animacoes: true,
   scrollspy: true,
 };
 
-/* ============================================================
-   FOTOS DA GALERIA
-   EDITAR AQUI: adicione fotos reais quando estiverem disponíveis.
-   Enquanto o array estiver vazio, a seção Galeria fica OCULTA
-   automaticamente e o item "Galeria" do menu não aparece.
+/* ===== FOTOS DA GALERIA =====
+   O caminho em src precisa bater com o nome do arquivo (inclusive maiúsculas).
+   Com o array vazio, a seção Galeria e o item do menu ficam ocultos. */
+const FOTOS = [
+  { src: 'assets/piscina-por-do-sol.jpg', alt: 'Piscina iluminada e salão com lustres ao entardecer', legenda: 'Piscina e salão' },
+  { src: 'assets/fachada-noite.jpg',      alt: 'Fachada do castelo à noite, com portão de madeira e brasão', legenda: 'A fachada à noite' },
+  { src: 'assets/cerimonia-jardim.jpg',   alt: 'Cadeiras brancas e tapete para cerimônia no jardim', legenda: 'Cerimônia no jardim' },
+];
 
-   Exemplo:
-   const FOTOS = [
-     { src: 'assets/foto1.jpg', alt: 'Salão interno com lustres', legenda: 'Salão interno' },
-     { src: 'assets/foto2.jpg', alt: 'Área externa iluminada',   legenda: 'Área externa' },
-   ];
-   ============================================================ */
-const FOTOS = [];
-
-/* ============================================================
-   HELPERS
-   ============================================================ */
+/* ===== HELPERS ===== */
 const $  = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-const reduzirMovimento = () =>
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduzirMovimento = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ============================================================
-   WHATSAPP — preenche todos os links [data-wa]
-   ============================================================ */
+/* ===== WHATSAPP — preenche todos os links [data-wa] ===== */
 function initWhatsApp() {
   const { numero, mensagemPadrao } = CONFIG.whatsapp;
   $$('[data-wa]').forEach((el) => {
@@ -48,22 +35,16 @@ function initWhatsApp() {
   });
 }
 
-/* ============================================================
-   HEADER — fundo ao rolar
-   ============================================================ */
+/* ===== HEADER — fundo ao rolar ===== */
 function initHeader() {
   const header = $('.header');
   if (!header) return;
-  const atualizar = () => {
-    header.classList.toggle('header--scrolled', window.scrollY > 24);
-  };
+  const atualizar = () => header.classList.toggle('header--scrolled', window.scrollY > 24);
   atualizar();
   window.addEventListener('scroll', atualizar, { passive: true });
 }
 
-/* ============================================================
-   MENU MOBILE
-   ============================================================ */
+/* ===== MENU MOBILE ===== */
 function initMobileMenu() {
   const toggle = $('.menu-toggle');
   const nav    = $('.nav');
@@ -87,9 +68,7 @@ function initMobileMenu() {
   toggle.addEventListener('click', () => {
     nav.classList.contains('is-open') ? fechar() : abrir();
   });
-  $$('.nav__lista a, .nav__cta', nav).forEach((link) => {
-    link.addEventListener('click', fechar);
-  });
+  $$('.nav__lista a, .nav__cta', nav).forEach((link) => link.addEventListener('click', fechar));
 
   document.addEventListener('keydown', (e) => {
     if (!nav.classList.contains('is-open')) return;
@@ -120,9 +99,7 @@ function initMobileMenu() {
     : desktop.addListener(aoMudarLargura);
 }
 
-/* ============================================================
-   PROGRESSO DE LEITURA
-   ============================================================ */
+/* ===== PROGRESSO DE LEITURA ===== */
 function initScrollProgress() {
   const barra = $('#scroll-progress');
   if (!barra) return;
@@ -141,9 +118,7 @@ function initScrollProgress() {
   atualizar();
 }
 
-/* ============================================================
-   REVELAÇÃO AO ROLAR
-   ============================================================ */
+/* ===== REVELAÇÃO AO ROLAR ===== */
 function initReveal() {
   const alvos = $$('[data-reveal]');
   const mostrarTudo = () => alvos.forEach((el) => el.classList.add('is-visible'));
@@ -158,9 +133,7 @@ function initReveal() {
       entradas.forEach((entrada) => {
         if (!entrada.isIntersecting) return;
         const el = entrada.target;
-        const irmaos = Array.from(el.parentElement.children).filter((c) =>
-          c.hasAttribute('data-reveal')
-        );
+        const irmaos = Array.from(el.parentElement.children).filter((c) => c.hasAttribute('data-reveal'));
         const indice = Math.max(0, irmaos.indexOf(el));
         el.style.transitionDelay = `${Math.min(indice, 4) * 0.08}s`;
         el.classList.add('is-visible');
@@ -174,10 +147,7 @@ function initReveal() {
   alvos.forEach((el) => observer.observe(el));
 }
 
-/* ============================================================
-   ABAS DE EVENTOS
-   Vertical no desktop, horizontal (com rolagem) no mobile.
-   ============================================================ */
+/* ===== ABAS DE EVENTOS (vertical no desktop, horizontal no mobile) ===== */
 function initTabs() {
   const lista = $('.abas');
   const abas = $$('.aba');
@@ -244,8 +214,7 @@ function initTabs() {
 
   const reposicionar = () => {
     orientar();
-    const ativa = abas.find((a) => a.getAttribute('aria-selected') === 'true');
-    posicionarIndicador(ativa);
+    posicionarIndicador(abas.find((a) => a.getAttribute('aria-selected') === 'true'));
   };
 
   orientar();
@@ -262,10 +231,7 @@ function initTabs() {
   });
 }
 
-/* ============================================================
-   FAQ — accordion com transição suave
-   Continua usando <details>, então funciona sem JavaScript.
-   ============================================================ */
+/* ===== FAQ — accordion com transição (continua funcionando sem JS) ===== */
 function initFaq() {
   $$('.faq__item').forEach((det) => {
     const resumo = $('summary', det);
@@ -284,14 +250,12 @@ function initFaq() {
       painel.style.overflow = '';
       det.classList.remove('is-fechando');
     };
-
     const abrir = () => {
       det.open = true;
       painel.style.overflow = 'hidden';
       anim = painel.animate({ height: ['0px', `${painel.scrollHeight}px`] }, opcoes);
       anim.onfinish = encerrar;
     };
-
     const fechar = () => {
       const altura = painel.offsetHeight;
       det.classList.add('is-fechando');
@@ -318,9 +282,7 @@ function initFaq() {
   });
 }
 
-/* ============================================================
-   GALERIA DINÂMICA
-   ============================================================ */
+/* ===== GALERIA DINÂMICA ===== */
 function initGaleria() {
   const secao = $('#galeria');
   const grid  = $('#galeria-grid');
@@ -352,7 +314,10 @@ function initGaleria() {
     img.alt = foto.alt || foto.legenda || '';
     img.loading = 'lazy';
     img.decoding = 'async';
-    img.addEventListener('error', () => { btn.style.display = 'none'; });
+    img.addEventListener('error', () => {
+      btn.style.display = 'none';
+      console.warn('Solar Viva Viva: foto não encontrada ->', foto.src);
+    });
     btn.appendChild(img);
 
     if (foto.legenda) {
@@ -367,9 +332,7 @@ function initGaleria() {
   initLightbox();
 }
 
-/* ============================================================
-   LIGHTBOX
-   ============================================================ */
+/* ===== LIGHTBOX ===== */
 function initLightbox() {
   const lightbox = $('#lightbox');
   if (!lightbox) return;
@@ -469,12 +432,7 @@ function initLightbox() {
   }, { passive: true });
 }
 
-/* ============================================================
-   FORMULÁRIO → WHATSAPP
-   Validação por campo (ao sair do campo e ao enviar), mensagens de
-   erro ligadas por aria-describedby e link de reserva se o
-   navegador bloquear a abertura do WhatsApp.
-   ============================================================ */
+/* ===== FORMULÁRIO → WHATSAPP ===== */
 function initForm() {
   const form = $('#form-orcamento');
   if (!form) return;
@@ -584,8 +542,7 @@ function initForm() {
 
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
 
-    // Clique num link temporário: funciona dentro do gesto do usuário
-    // e não é bloqueado como um pop-up.
+    // Clique num link temporário: dentro do gesto do usuário, sem bloqueio de pop-up
     const ponte = document.createElement('a');
     ponte.href = url;
     ponte.target = '_blank';
@@ -599,11 +556,8 @@ function initForm() {
   });
 }
 
-/* ============================================================
-   SCROLLSPY
-   Seções sem item de menu apontam para a seção "mãe" por data-nav-alvo
-   (ex.: Diferenciais → Espaço, Como funciona → Eventos).
-   ============================================================ */
+/* ===== SCROLLSPY =====
+   Seções sem item de menu apontam para a seção "mãe" por data-nav-alvo. */
 function initScrollspy() {
   if (!CONFIG.scrollspy || !('IntersectionObserver' in window)) return;
   const links = $$('[data-nav]');
@@ -624,7 +578,7 @@ function initScrollspy() {
         links.forEach((link) => {
           const ativo = link.getAttribute('href') === destino;
           link.classList.toggle('is-active', ativo);
-          if (ativo) link.setAttribute('aria-current', 'true');
+          if (ativo) link.setAttribute('aria-current', 'location');
           else link.removeAttribute('aria-current');
         });
       });
@@ -634,17 +588,13 @@ function initScrollspy() {
   alvos.forEach((_, secao) => observer.observe(secao));
 }
 
-/* ============================================================
-   ANO DO RODAPÉ
-   ============================================================ */
+/* ===== ANO DO RODAPÉ ===== */
 function initAno() {
   const ano = $('#ano');
   if (ano) ano.textContent = new Date().getFullYear();
 }
 
-/* ============================================================
-   INICIALIZAÇÃO
-   ============================================================ */
+/* ===== INICIALIZAÇÃO ===== */
 function iniciar(fn) {
   try {
     fn();

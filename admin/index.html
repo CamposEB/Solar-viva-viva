@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0a1210">
+  <title>Painel — Solar Viva Viva</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 80'%3E%3Cpath d='M4 4h56v34c0 18-28 32-28 32S4 56 4 38V4z' fill='%230a4a3c' stroke='%23d4af37' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M16 46V26h4v6h6v-6h8v6h6v-6h4v20' fill='%23d4af37'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+
+  <!-- ===== LOGIN ===== -->
+  <div id="login-view" class="login">
+    <form id="login-form" class="login__card" novalidate>
+      <h1 class="login__titulo">Solar Viva Viva</h1>
+      <p class="login__sub">Painel administrativo</p>
+
+      <label class="campo">
+        <span>Usuário</span>
+        <input type="text" name="usuario" autocomplete="username" required>
+      </label>
+      <label class="campo">
+        <span>Senha</span>
+        <input type="password" name="senha" autocomplete="current-password" required>
+      </label>
+
+      <button type="submit" class="btn btn--ouro">Entrar</button>
+      <p class="login__erro" id="login-erro" role="alert"></p>
+    </form>
+  </div>
+
+  <!-- ===== APP ===== -->
+  <div id="app-view" class="app" hidden>
+    <header class="app-header">
+      <div class="app-brand">
+        <span class="app-brand__nome">Solar Viva Viva</span>
+        <span class="app-brand__sub">Painel administrativo</span>
+      </div>
+      <div class="app-user">
+        <span id="app-user-nome"></span>
+        <button id="logout-btn" class="btn btn--ghost">Sair</button>
+      </div>
+    </header>
+
+    <nav class="app-nav" role="tablist">
+      <button role="tab" data-tab="dashboard" class="app-nav__btn ativo">Início</button>
+      <button role="tab" data-tab="comunicados" class="app-nav__btn">Comunicados</button>
+      <button role="tab" data-tab="letreiro" class="app-nav__btn">Letreiro</button>
+      <button role="tab" data-tab="promocoes" class="app-nav__btn">Promoções</button>
+      <button role="tab" data-tab="midia" class="app-nav__btn">Mídia</button>
+    </nav>
+
+    <main class="app-main">
+
+      <!-- DASHBOARD -->
+      <section data-painel="dashboard" class="painel-aba">
+        <h2>Bem-vindo</h2>
+        <p class="painel-aba__sub">Gerencie comunicados, letreiro, promoções e mídia do site.</p>
+        <div class="cards">
+          <div class="card"><strong id="stat-comunicados">—</strong><span>Comunicados</span></div>
+          <div class="card"><strong id="stat-promocoes">—</strong><span>Promoções ativas</span></div>
+          <div class="card"><strong id="stat-midia">—</strong><span>Arquivos de mídia</span></div>
+        </div>
+      </section>
+
+      <!-- COMUNICADOS -->
+      <section data-painel="comunicados" class="painel-aba" hidden>
+        <div class="painel-aba__cab">
+          <h2>Comunicados</h2>
+          <button class="btn btn--ouro" data-acao="novo-comunicado">+ Novo comunicado</button>
+        </div>
+        <div id="comunicado-form-wrap" class="form-wrap" hidden>
+          <form id="comunicado-form" class="form-admin" novalidate>
+            <input type="hidden" name="id">
+            <label class="campo"><span>Título</span>
+              <input type="text" name="titulo" maxlength="120" required>
+            </label>
+            <label class="campo"><span>Descrição</span>
+              <textarea name="descricao" rows="4" maxlength="800" required></textarea>
+            </label>
+            <div class="form-row">
+              <label class="campo"><span>Publicar em</span>
+                <input type="date" name="publicado_em">
+              </label>
+              <label class="campo"><span>Encerrar em</span>
+                <input type="date" name="encerra_em">
+              </label>
+            </div>
+            <div class="form-row form-row--checks">
+              <label class="check"><input type="checkbox" name="destaque"> Destaque</label>
+              <label class="check"><input type="checkbox" name="ativo" checked> Ativo</label>
+            </div>
+            <div class="form-acoes">
+              <button type="submit" class="btn btn--ouro">Salvar</button>
+              <button type="button" class="btn btn--ghost" data-acao="cancelar-comunicado">Cancelar</button>
+            </div>
+            <p class="form-erro" id="comunicado-erro" role="alert"></p>
+          </form>
+        </div>
+        <ul id="comunicados-lista" class="lista-admin"></ul>
+      </section>
+
+      <!-- LETREIRO -->
+      <section data-painel="letreiro" class="painel-aba" hidden>
+        <h2>Letreiro</h2>
+        <p class="painel-aba__sub">Texto que passa na parte superior do site. Separe várias mensagens por linha.</p>
+        <form id="letreiro-form" class="form-admin" novalidate>
+          <label class="campo"><span>Mensagens</span>
+            <textarea name="texto" rows="4" maxlength="1000"></textarea>
+          </label>
+          <div class="form-row">
+            <label class="campo"><span>Velocidade (px/s)</span>
+              <input type="number" name="velocidade" min="20" max="200" value="80">
+            </label>
+            <label class="check"><input type="checkbox" name="ativo"> Exibir letreiro</label>
+          </div>
+          <div class="form-acoes">
+            <button type="submit" class="btn btn--ouro">Salvar</button>
+          </div>
+          <p class="form-ok" id="letreiro-ok" role="status"></p>
+        </form>
+      </section>
+
+      <!-- PROMOÇÕES -->
+      <section data-painel="promocoes" class="painel-aba" hidden>
+        <div class="painel-aba__cab">
+          <h2>Promoções</h2>
+          <button class="btn btn--ouro" data-acao="nova-promocao">+ Nova promoção</button>
+        </div>
+        <div id="promocao-form-wrap" class="form-wrap" hidden>
+          <form id="promocao-form" class="form-admin" novalidate>
+            <input type="hidden" name="id">
+            <label class="campo"><span>Título</span>
+              <input type="text" name="titulo" maxlength="120" required>
+            </label>
+            <label class="campo"><span>Descrição</span>
+              <textarea name="descricao" rows="3" maxlength="600"></textarea>
+            </label>
+            <label class="campo"><span>Imagem (opcional)</span>
+              <select name="imagem_id"><option value="">— Nenhuma —</option></select>
+            </label>
+            <div class="form-row">
+              <label class="campo"><span>Início</span>
+                <input type="date" name="data_inicio" required>
+              </label>
+              <label class="campo"><span>Término</span>
+                <input type="date" name="data_fim">
+              </label>
+            </div>
+            <label class="check"><input type="checkbox" name="ativo" checked> Ativa</label>
+            <div class="form-acoes">
+              <button type="submit" class="btn btn--ouro">Salvar</button>
+              <button type="button" class="btn btn--ghost" data-acao="cancelar-promocao">Cancelar</button>
+            </div>
+            <p class="form-erro" id="promocao-erro" role="alert"></p>
+          </form>
+        </div>
+        <ul id="promocoes-lista" class="lista-admin"></ul>
+      </section>
+
+      <!-- MÍDIA -->
+      <section data-painel="midia" class="painel-aba" hidden>
+        <h2>Mídia</h2>
+        <p class="painel-aba__sub">Imagens e vídeos usados em promoções e comunicações. Limite: 5 MB por arquivo.</p>
+        <form id="midia-form" class="form-admin">
+          <label class="campo"><span>Enviar arquivo (JPG, PNG, WebP, MP4)</span>
+            <input type="file" name="arquivo" accept=".jpg,.jpeg,.png,.webp,.mp4,image/jpeg,image/png,image/webp,video/mp4" required>
+          </label>
+          <div class="form-acoes">
+            <button type="submit" class="btn btn--ouro">Enviar</button>
+          </div>
+          <p class="form-erro" id="midia-erro" role="alert"></p>
+          <p class="form-ok" id="midia-ok" role="status"></p>
+        </form>
+        <div id="midia-lista" class="midia-grid"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="./admin.js" defer></script>
+</body>
+</html>
