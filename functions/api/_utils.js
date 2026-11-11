@@ -14,7 +14,7 @@ export function error(mensagem, status = 400) {
   return json({ erro: mensagem }, status);
 }
 
-const PBKDF2_ITER = 150000;
+const PBKDF2_ITER = 100000;
 
 function b64FromBytes(bytes) {
   let s = '';
