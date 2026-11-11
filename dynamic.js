@@ -29,18 +29,38 @@
     const track  = $('#ticker-track');
     if (!ticker || !track) return;
 
-    const conteudo = linhas.map((l) => `<span>${escapar(l)}</span>`).join('');
-    // Duplica o conteúdo para loop contínuo
-    track.innerHTML = `
-      <div class="ticker__content">${conteudo}</div>
-      <div class="ticker__content" aria-hidden="true">${conteudo}</div>
-    `;
+    const conteudoHTML = linhas.map((l) => `<span>${escapar(l)}</span>`).join('');
+    
+    // Limpa o track e cria o elemento base
+    track.innerHTML = '';
+    const baseContent = document.createElement('div');
+    baseContent.className = 'ticker__content';
+    baseContent.innerHTML = conteudoHTML;
+    track.appendChild(baseContent);
 
-    // Duração em segundos = largura de UM conteúdo / velocidade (px/s)
-    const primeira = track.firstElementChild;
-    const largura = primeira.scrollWidth || 600;
-    const velocidade = Math.max(20, Math.min(200, Number(cfg.velocidade) || 80));
-    const dur = Math.max(8, largura / velocidade);
+    // Mede a largura de uma única cópia do texto
+    const larguraBase = baseContent.offsetWidth;
+    if (larguraBase === 0) return;
+
+    // Calcula quantas cópias são necessárias para preencher o dobro da tela
+    const telaLargura = window.innerWidth;
+    let numCopias = Math.ceil((telaLargura * 2) / larguraBase);
+    
+    // IMPORTANTE: O número de cópias DEVE ser par para o cálculo de -50% funcionar perfeito
+    if (numCopias % 2 !== 0) numCopias++;
+    numCopias = Math.max(2, numCopias);
+
+    // Adiciona as cópias restantes
+    for (let i = 1; i < numCopias; i++) {
+      const clone = baseContent.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    }
+
+    // Duração baseada na metade da largura total (o -50% do CSS)
+    const distanciaTotal = track.offsetWidth / 2;
+    const velocidade = Math.max(20, Math.min(200, Number(cfg.velocidade) || 70));
+    const dur = Math.max(10, distanciaTotal / velocidade); // Mínimo de 10s para não ficar tonto
 
     track.style.setProperty('--dur', `${dur.toFixed(2)}s`);
 
