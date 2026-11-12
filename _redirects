@@ -1,0 +1,7 @@
+# Redireciona qualquer link antigo do PHP/WordPress para a página inicial
+/index.php/* / 301
+/wp-admin/* / 301
+/wp-login.php / 301
+
+# Redireciona qualquer outro link quebrado (404) para a página inicial
+/* / 404.html 404
