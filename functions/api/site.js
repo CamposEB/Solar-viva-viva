@@ -3,7 +3,7 @@ import { json } from './_utils.js';
 export async function onRequestGet({ env }) {
   const hoje = new Date().toISOString().slice(0, 10);
 
-  const [comunicados, letreiro, promocoes] = await Promise.all([
+  const [comunicados, letreiro, promocoes, galeria] = await Promise.all([
     env.DB.prepare(`
       SELECT id, titulo, descricao, publicado_em, encerra_em, destaque
       FROM comunicados
@@ -26,18 +26,26 @@ export async function onRequestGet({ env }) {
       ORDER BY p.data_inicio DESC, p.id DESC
       LIMIT 30
     `).bind(hoje, hoje).all(),
+
+    env.DB.prepare(`
+      SELECT g.legenda, m.chave AS midia_chave
+      FROM galeria g JOIN midia m ON m.id = g.midia_id
+      WHERE g.ativo = 1
+      ORDER BY g.ordem ASC, g.id DESC
+    `).all()
   ]);
 
   return json({
     comunicados: comunicados.results || [],
     letreiro: letreiro || null,
     promocoes: (promocoes.results || []).map((p) => ({
-      id: p.id,
-      titulo: p.titulo,
-      descricao: p.descricao,
-      data_inicio: p.data_inicio,
-      data_fim: p.data_fim,
+      id: p.id, titulo: p.titulo, descricao: p.descricao,
+      data_inicio: p.data_inicio, data_fim: p.data_fim,
       imagem_url: p.midia_chave ? `/api/media/${p.midia_chave}` : null,
+    })),
+    galeria: (galeria.results || []).map((g) => ({
+      url: `/api/media/${g.midia_chave}`,
+      legenda: g.legenda
     })),
     atualizado_em: new Date().toISOString(),
   }, 200, {

@@ -149,10 +149,11 @@ ul, ol { list-style: none; }
 /* ============================================================
    4. BRASÃO E ÍCONES
    ============================================================ */
-.brasao { display: block; flex-shrink: 0; overflow: visible; }
-.brasao--header { width: 44px; height: 55px; }
-.brasao--rodape { width: 52px; height: 65px; }
-.brasao--cta    { width: 64px; height: 80px; margin: 0 auto 1.75rem; }
+.brasao { display: block; flex-shrink: 0; object-fit: contain; }
+/* Tamanhos ajustados para a nova imagem PNG não distorcer e conviver com o texto */
+.brasao--header { height: 48px; width: auto; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)); transition: transform var(--trans); }
+.brasao--rodape { height: 64px; width: auto; margin-bottom: 0.5rem; }
+.brasao--cta    { height: 96px; width: auto; margin: 0 auto 1.75rem; filter: drop-shadow(0 0 14px rgba(212, 175, 55, 0.3)); }
 
 .ico {
   fill: none;
@@ -311,7 +312,6 @@ h1, h2, h3, h4 {
   align-items: center;
   gap: 0.8rem;
 }
-.header__logo .brasao { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)); transition: transform var(--trans); }
 .header__logo:hover .brasao { transform: scale(1.05); }
 .header__nome {
   font-family: var(--f-script);
@@ -381,8 +381,10 @@ h1, h2, h3, h4 {
 @media (max-width: 1023px) {
   :root { --header-alt: 72px; }
   .menu-toggle { display: block; }
+  
+  /* Reduz o tamanho da logo no celular para caber bem */
+  .brasao--header { height: 40px; }
   .header__nome { font-size: 1.45rem; }
-  .brasao--header { width: 38px; height: 48px; }
 
   .nav {
     position: fixed;
@@ -431,10 +433,6 @@ h1, h2, h3, h4 {
 
 /* ============================================================
    9. HERO
-   A fachada do castelo ocupa todo o fundo do hero.
-   Um overlay escuro em gradiente garante a leitura do texto.
-   O parallax é feito com animação de background-position
-   acionada pelo scroll (CSS scroll-driven animations).
    ============================================================ */
 .hero {
   position: relative;
@@ -447,7 +445,6 @@ h1, h2, h3, h4 {
   padding: calc(var(--header-alt) + 1.5rem) 0 clamp(5.5rem, 10vw, 7rem);
 }
 
-/* Camada de fundo com a foto e parallax */
 .hero__fundo {
   position: absolute;
   inset: 0;
@@ -458,7 +455,7 @@ h1, h2, h3, h4 {
 .hero__fundo::before {
   content: '';
   position: absolute;
-  inset: -5%; /* margem extra para o parallax não mostrar bordas */
+  inset: -5%;
   background-image: url("assets/fachada-castelo.webp");
   background-size: cover;
   background-position: 50% 35%;
@@ -466,8 +463,6 @@ h1, h2, h3, h4 {
   filter: blur(1.5px) brightness(0.85) saturate(1.1);
   will-change: background-position;
 }
-/* Overlay de gradiente: escurece à esquerda (onde fica o texto)
-   e no topo/base, deixando o castelo visível à direita */
 .hero__fundo::after {
   content: '';
   position: absolute;
@@ -487,8 +482,6 @@ h1, h2, h3, h4 {
       rgba(10, 18, 16, 0.98) 100%);
 }
 
-/* Parallax suave com animação de background-position.
-   Só é aplicado onde o navegador suporta scroll-driven animations. */
 @supports (animation-timeline: scroll()) {
   @keyframes parallax-hero {
     from { background-position: 50% 30%; }
@@ -500,8 +493,6 @@ h1, h2, h3, h4 {
   }
 }
 
-/* Em telas menores o texto é centralizado: o overlay vira
-   mais vertical para o castelo não competir com a leitura. */
 @media (max-width: 899px) {
   .hero__fundo::after {
     background:
@@ -513,7 +504,6 @@ h1, h2, h3, h4 {
   }
 }
 
-/* Conteúdo do hero */
 .hero__grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -578,7 +568,6 @@ h1, h2, h3, h4 {
 }
 .hero__local .ico { width: 18px; height: 18px; margin-top: 0.2rem; color: var(--ouro); }
 
-/* Desktop: texto à esquerda, alinhado com o gradiente */
 @media (min-width: 900px) {
   .hero__texto {
     margin-inline: 0;
@@ -596,9 +585,6 @@ h1, h2, h3, h4 {
   .hero__slogan { margin-bottom: 0.35rem; }
 }
 
-/* ---------- Foto do castelo (628×592) ----------
-   Usada na seção "O Espaço". A imagem do hero é aplicada
-   diretamente no background do .hero__fundo::before. */
 .foto-castelo {
   --foto-zoom: 1;
   --foto-pos: 40%;
@@ -663,7 +649,6 @@ h1, h2, h3, h4 {
 
 /* ============================================================
    11. O ESPAÇO
-   Fundo imersivo com a imagem fachada-noite.jpg
    ============================================================ */
 .sobre {
   position: relative;
@@ -671,7 +656,6 @@ h1, h2, h3, h4 {
   isolation: isolate;
 }
 
-/* Camada de fundo com a foto e parallax */
 .sobre__fundo {
   position: absolute;
   inset: 0;
@@ -692,7 +676,6 @@ h1, h2, h3, h4 {
   will-change: background-position;
 }
 
-/* Overlay de gradiente */
 .sobre__fundo::after {
   content: '';
   position: absolute;
@@ -711,7 +694,6 @@ h1, h2, h3, h4 {
       rgba(10, 18, 16, 0.95) 100%);
 }
 
-/* Parallax suave */
 @supports (animation-timeline: view()) {
   @keyframes parallax-sobre {
     from { background-position: 50% 20%; }
@@ -781,10 +763,9 @@ h1, h2, h3, h4 {
 .sobre__fatos li:hover { color: var(--ouro-claro); border-bottom-color: var(--linha); }
 .sobre__fatos .ico { width: 30px; height: 30px; color: var(--ouro); stroke-width: 1.4; }
 
-/* --- MUDANÇAS AQUI PARA REDUZIR A IMAGEM DO CARD --- */
 .sobre__figura {
   position: relative;
-  max-width: 440px; /* Reduzido de 520px para 440px */
+  max-width: 440px;
   margin-inline: auto;
   padding: 0 16px 0 0;
 }
@@ -821,7 +802,7 @@ h1, h2, h3, h4 {
   align-items: baseline;
   gap: 0.8rem;
   max-width: 26rem;
-  margin-top: 1.5rem; /* Reduzido de 2.5rem para 1.5rem */
+  margin-top: 1.5rem;
   font-family: var(--f-display);
   font-style: italic;
   font-size: 1.2rem;
@@ -841,6 +822,7 @@ h1, h2, h3, h4 {
 @media (min-width: 800px) {
   .sobre__grid { grid-template-columns: 1.05fr 0.95fr; }
 }
+
 /* ============================================================
    12. DIFERENCIAIS
    ============================================================ */
@@ -953,7 +935,6 @@ h1, h2, h3, h4 {
   }
 }
 
-/* 3 fotos (desktop e tablet): três colunas iguais */
 @media (min-width: 768px) {
   .galeria__grid:has(> .galeria__item:nth-child(3):last-child) {
     grid-template-columns: repeat(3, 1fr);
@@ -965,7 +946,6 @@ h1, h2, h3, h4 {
   }
 }
 
-/* 4 fotos: quatro blocos iguais (2x2) */
 @media (min-width: 768px) {
   .galeria__item:first-child:nth-last-child(4),
   .galeria__item:first-child:nth-last-child(4) ~ .galeria__item {
@@ -1178,7 +1158,7 @@ h1, h2, h3, h4 {
 }
 
 /* ============================================================
-   17. DEPOIMENTOS (oculto até haver textos reais)
+   17. DEPOIMENTOS
    ============================================================ */
 .depoimentos__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
 .depoimento {
@@ -1224,7 +1204,6 @@ h1, h2, h3, h4 {
   background-size: 40px 16px;
 }
 .cta-final__conteudo { max-width: 40rem; margin-inline: auto; }
-.cta-final .brasao { filter: drop-shadow(0 0 14px rgba(212, 175, 55, 0.3)); }
 .cta-final__texto-corpo {
   max-width: 30rem;
   margin: 1.25rem auto 2.25rem;
@@ -1421,7 +1400,13 @@ h1, h2, h3, h4 {
 }
 .rodape__grid { display: grid; gap: 2.5rem; padding-bottom: 3rem; }
 .rodape__marca { max-width: 24rem; }
-.rodape__nome { margin: 0.9rem 0 0.4rem; font-family: var(--f-script); font-size: 2rem; line-height: 1; color: var(--ouro-claro); }
+.rodape__nome { 
+  margin: 0.9rem 0 0.4rem; 
+  font-family: var(--f-script); 
+  font-size: 2rem; 
+  line-height: 1; 
+  color: var(--ouro-claro); 
+}
 .rodape__slogan { margin-bottom: 1rem; font-family: var(--f-display); font-style: italic; font-size: 1.1rem; color: var(--texto); }
 .rodape__texto { font-size: 0.95rem; color: var(--texto-suave); }
 

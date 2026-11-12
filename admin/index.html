@@ -163,6 +163,40 @@
         <ul id="promocoes-lista" class="lista-admin"></ul>
       </section>
 
+      <!-- Adicione no menu de navegação (junto com os outros botões) -->
+<button role="tab" data-tab="galeria" class="app-nav__btn">Galeria</button>
+
+<!-- Adicione a nova seção junto com as outras <section data-painel="..."> -->
+      <section data-painel="galeria" class="painel-aba" hidden>
+        <div class="painel-aba__cab">
+          <h2>Galeria de Fotos</h2>
+          <button class="btn btn--ouro" data-acao="nova-galeria">+ Nova Foto</button>
+        </div>
+        <div id="galeria-form-wrap" class="form-wrap" hidden>
+          <form id="galeria-form" class="form-admin" novalidate>
+            <input type="hidden" name="id">
+            <label class="campo"><span>Imagem (da aba Mídia)</span>
+              <select name="midia_id" required><option value="">— Selecione —</option></select>
+            </label>
+            <label class="campo"><span>Legenda (opcional)</span>
+              <input type="text" name="legenda" maxlength="100">
+            </label>
+            <div class="form-row">
+              <label class="campo"><span>Ordem de exibição</span>
+                <input type="number" name="ordem" value="0" min="0" step="1">
+              </label>
+              <label class="check" style="align-items: center; margin-top: 1.5rem;"><input type="checkbox" name="ativo" checked> Visível na galeria</label>
+            </div>
+            <div class="form-acoes">
+              <button type="submit" class="btn btn--ouro">Salvar</button>
+              <button type="button" class="btn btn--ghost" data-acao="cancelar-galeria">Cancelar</button>
+            </div>
+            <p class="form-erro" id="galeria-erro" role="alert"></p>
+          </form>
+        </div>
+        <div id="galeria-lista" class="midia-grid"></div>
+      </section>
+
       <!-- MÍDIA -->
       <section data-painel="midia" class="painel-aba" hidden>
         <h2>Mídia</h2>

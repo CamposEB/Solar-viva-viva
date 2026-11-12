@@ -21,8 +21,9 @@
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://camposeb.github.io/Solar-viva-viva/">
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 80'%3E%3Cpath d='M4 4h56v34c0 18-28 32-28 32S4 56 4 38V4z' fill='%230a4a3c' stroke='%23d4af37' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M16 46V26h4v6h6v-6h8v6h6v-6h4v20' fill='%23d4af37'/%3E%3Crect x='12' y='50' width='40' height='3' fill='%23d4af37'/%3E%3C/svg%3E">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 80'%3E%3Cpath d='M4 4h56v34c0 18-28 32-28 32S4 56 4 38V4z' fill='%230a4a3c' stroke='%23d4af37' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M16 46V26h4v6h6v-6h8v6h6v-6h4v20' fill='%23d4af37'/%3E%3Crect x='12' y='50' width='40' height='3' fill='%23d4af37'/%3E%3C/svg%3E">
+  <!-- Favicon corrigido usando SVG para não achatar a imagem retangular -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
@@ -115,21 +116,6 @@
       </linearGradient>
     </defs>
 
-    <symbol id="brasao" viewBox="0 0 100 124">
-      <path d="M8 10H92V66C92 95 50 118 50 118C50 118 8 95 8 66Z" fill="url(#grad-esm)" stroke="url(#grad-ouro)" stroke-width="3.5" stroke-linejoin="round"/>
-      <path d="M15 17H85V65C85 90 50 109 50 109C50 109 15 90 15 65Z" fill="none" stroke="url(#grad-ouro)" stroke-width=".9" opacity=".7"/>
-      <g fill="url(#grad-ouro)">
-        <rect x="26" y="50" width="12" height="38"/><rect x="62" y="50" width="12" height="38"/><rect x="40" y="38" width="20" height="50"/>
-        <rect x="26" y="46" width="3" height="4"/><rect x="30.5" y="46" width="3" height="4"/><rect x="35" y="46" width="3" height="4"/>
-        <rect x="62" y="46" width="3" height="4"/><rect x="66.5" y="46" width="3" height="4"/><rect x="71" y="46" width="3" height="4"/>
-        <rect x="40" y="34" width="3" height="4"/><rect x="48.5" y="34" width="3" height="4"/><rect x="57" y="34" width="3" height="4"/>
-        <rect x="20" y="88" width="60" height="3"/>
-      </g>
-      <g fill="#0a4a3c">
-        <path d="M45 88V75a5 5 0 0 1 10 0V88Z"/><rect x="30" y="58" width="4" height="9" rx="2"/><rect x="66" y="58" width="4" height="9" rx="2"/>
-      </g>
-    </symbol>
-
     <symbol id="wa-icon" viewBox="0 0 24 24">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
     </symbol>
@@ -165,7 +151,7 @@
   <header class="header" id="topo">
     <div class="container header__inner">
       <a href="#inicio" class="header__logo" aria-label="Salão Solar Viva Viva — voltar ao início">
-        <svg class="brasao brasao--header" aria-hidden="true"><use href="#brasao"/></svg>
+        <img src="assets/Logo-Solar-Viva-Viva-removebg-preview.png" alt="Logo Solar Viva Viva" class="brasao brasao--header">
         <span class="header__nome">Solar Viva Viva</span>
       </a>
 
@@ -205,9 +191,9 @@
             <span class="hero__linha"><em class="hero__cursiva">para a sua festa.</em></span>
           </h1>
           <p class="hero__subtitulo">
-            Pedra, ameias e um portão de madeira com brasão.
-            À noite, as janelas em arco acendem.
-            O único castelo da região.
+            Uma arquitetura inspirada nos grandes castelos.
+            Com charme, elegância e sofisticação em cada detalhe.
+            Um cenário exclusivo para celebrar momentos inesquecíveis.
           </p>
           <div class="hero__acoes">
             <a class="btn btn--ouro btn--grande" href="https://wa.me/5521992424254" data-wa target="_blank" rel="noopener noreferrer">
@@ -228,7 +214,7 @@
       <div class="container">
         <ul class="tipos__lista">
           <li class="tipos__item"><a href="#eventos" data-aba="casamentos">Casamentos</a></li>
-          <li class="tipos__item"><a href="#eventos" data-aba="15anos">15 anos</a></li>
+          <li class="tipos__item"><a href="#eventos" data-aba="15anos">Festas de 15 anos</a></li>
           <li class="tipos__item"><a href="#eventos" data-aba="aniversarios">Aniversários</a></li>
           <li class="tipos__item"><a href="#eventos" data-aba="formaturas">Formaturas</a></li>
           <li class="tipos__item"><a href="#eventos" data-aba="corporativos">Eventos corporativos</a></li>
@@ -265,15 +251,15 @@
           <ul class="sobre__fatos">
             <li>
               <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><use href="#ic-castelo"/></svg>
-              <span>Castelo de pedra</span>
+              <span>Arquitetura imponente em pedra</span>
             </li>
             <li>
               <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><use href="#ic-portao"/></svg>
-              <span>Portão de madeira e brasão</span>
+              <span>Entrada majestosa com brasão</span>
             </li>
             <li>
               <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><use href="#ic-brilho"/></svg>
-              <span>Janelas em arco iluminadas</span>
+              <span>Janelas em arco com iluminação aconchegante</span>
             </li>
           </ul>
         </div>
@@ -288,7 +274,7 @@
                    onerror="this.parentElement.classList.add('is-fallback');this.remove();">
             </div>
           </div>
-          <figcaption class="sobre__legenda">Fachada à noite: pedra, portão com brasão e janelas em arco.</figcaption>
+          <figcaption class="sobre__legenda">A imponência da arquitetura em cada detalhe: fachada iluminada, entrada majestosa e janelas em arco.</figcaption>
         </figure>
       </div>
     </section>
@@ -304,22 +290,22 @@
           <li class="diferencial" data-reveal>
             <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><use href="#ic-castelo"/></svg>
             <h3>Único na região</h3>
-            <p>Não há outro castelo por aqui. A fachada não se confunde com a de um salão comum.</p>
+            <p>Uma arquitetura de castelo que se destaca em cada detalhe.</p>
           </li>
           <li class="diferencial" data-reveal>
             <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><use href="#ic-camera"/></svg>
-            <h3>A foto sai pronta</h3>
-            <p>Ameias, portão e a luz das janelas entram no retrato sem cenário montado.</p>
+            <h3>Cenário encantador</h3>
+            <p>Ambientes acolhedores e elegantes para celebrar momentos inesquecíveis.</p>
           </li>
           <li class="diferencial" data-reveal>
             <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><use href="#ic-estrela"/></svg>
-            <h3>Conversa direta</h3>
-            <p>Orçamento e visita começam no WhatsApp, no horário em que você puder escrever.</p>
+            <h3>Atendimento personalizado</h3>
+            <p>Estamos à disposição pelo Whatsapp para dúvidas e orçamentos.</p>
           </li>
           <li class="diferencial" data-reveal>
             <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><use href="#ic-arco"/></svg>
-            <h3>A visita vem antes</h3>
-            <p>Ver o portão de perto é o passo que a foto do site não substitui.</p>
+            <h3>Venha conhecer</h3>
+            <p>Agende uma visita e descubra pessoalmente o encanto do Solar Viva Viva.</p>
           </li>
         </ul>
       </div>
@@ -348,7 +334,7 @@
           <div class="abas-wrap">
             <div class="abas" role="tablist" aria-label="Tipos de evento">
               <button class="aba" role="tab" id="tab-casamentos" aria-controls="painel-casamentos" aria-selected="true" tabindex="0">Casamentos</button>
-              <button class="aba" role="tab" id="tab-15anos" aria-controls="painel-15anos" aria-selected="false" tabindex="-1">15 anos</button>
+              <button class="aba" role="tab" id="tab-15anos" aria-controls="painel-15anos" aria-selected="false" tabindex="-1">Festas de 15 anos</button>
               <button class="aba" role="tab" id="tab-aniversarios" aria-controls="painel-aniversarios" aria-selected="false" tabindex="-1">Aniversários</button>
               <button class="aba" role="tab" id="tab-formaturas" aria-controls="painel-formaturas" aria-selected="false" tabindex="-1">Formaturas</button>
               <button class="aba" role="tab" id="tab-corporativos" aria-controls="painel-corporativos" aria-selected="false" tabindex="-1">Corporativos</button>
@@ -361,8 +347,8 @@
               <div class="painel__icone"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><use href="#ic-casamento"/></svg></div>
               <h3 class="painel__titulo">Casamentos</h3>
               <span class="regua" aria-hidden="true"></span>
-              <p class="painel__frase">A chegada passa pelo portão de madeira.</p>
-              <p class="painel__nota">A fachada de pedra e as janelas acesas ficam atrás de quem entra. O brasão está na porta, à vista de quem fotografa.</p>
+              <p class="painel__frase">Uma entrada à altura de grandes histórias.</p>
+              <p class="painel__nota">A arquitetura imponente, os detalhes em pedra e a iluminação acolhedora criam um cenário encantador para celebrar o amor e eternizar momentos especiais.</p>
               <a class="btn btn--ouro" href="https://wa.me/5521992424254" data-wa
                  data-wa-mensagem="Olá! Quero um orçamento para um casamento no Solar Viva Viva."
                  target="_blank" rel="noopener noreferrer">
@@ -372,10 +358,10 @@
 
             <div class="painel" role="tabpanel" id="painel-15anos" aria-labelledby="tab-15anos" hidden>
               <div class="painel__icone"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><use href="#ic-15anos"/></svg></div>
-              <h3 class="painel__titulo">15 anos</h3>
+              <h3 class="painel__titulo">Festas de 15 anos</h3>
               <span class="regua" aria-hidden="true"></span>
-              <p class="painel__frase">A entrada da noite é um castelo de verdade.</p>
-              <p class="painel__nota">Ameias, portão e luz quente nas janelas. O cenário já está na fachada, em Marambaia.</p>
+              <p class="painel__frase">Uma noite de princesa merece um cenário especial.</p>
+              <p class="painel__nota">A arquitetura imponente do Solar Viva Viva transforma cada chegada em um momento mágico, criando o cenário perfeito para uma celebração inesquecível.</p>
               <a class="btn btn--ouro" href="https://wa.me/5521992424254" data-wa
                  data-wa-mensagem="Olá! Quero um orçamento para uma festa de 15 anos no Solar Viva Viva."
                  target="_blank" rel="noopener noreferrer">
@@ -387,8 +373,8 @@
               <div class="painel__icone"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><use href="#ic-aniversario"/></svg></div>
               <h3 class="painel__titulo">Aniversários</h3>
               <span class="regua" aria-hidden="true"></span>
-              <p class="painel__frase">A festa começa antes de entrar.</p>
-              <p class="painel__nota">Quem chega reconhece o lugar pela fachada iluminada. O aniversário ganha um endereço fácil de lembrar.</p>
+              <p class="painel__frase">Celebre momentos especiais em grande estilo.</p>
+              <p class="painel__nota">Uma arquitetura encantadora e ambientes preparados para receber seus convidados. No Solar Viva Viva, cada aniversário ganha um cenário especial para criar boas lembranças.</p>
               <a class="btn btn--ouro" href="https://wa.me/5521992424254" data-wa
                  data-wa-mensagem="Olá! Quero um orçamento para um aniversário no Solar Viva Viva."
                  target="_blank" rel="noopener noreferrer">
@@ -400,8 +386,8 @@
               <div class="painel__icone"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><use href="#ic-formatura"/></svg></div>
               <h3 class="painel__titulo">Formaturas</h3>
               <span class="regua" aria-hidden="true"></span>
-              <p class="painel__frase">A formatura pede um fundo à altura.</p>
-              <p class="painel__nota">Pedra, portão com brasão e janelas em arco formam o fundo da foto, no único castelo da região.</p>
+              <p class="painel__frase">Uma conquista merece uma celebração inesquecível.</p>
+              <p class="painel__nota">Celebre essa etapa tão especial em um espaço exclusivo, com arquitetura imponente e ambientes que tornam cada momento ainda mais marcante.</p>
               <a class="btn btn--ouro" href="https://wa.me/5521992424254" data-wa
                  data-wa-mensagem="Olá! Quero um orçamento para uma formatura no Solar Viva Viva."
                  target="_blank" rel="noopener noreferrer">
@@ -526,9 +512,12 @@
     <section class="cta-final" id="visita" aria-label="Chamada para visita e orçamento" data-nav-alvo="#contato">
       <div class="container">
         <div class="cta-final__conteudo" data-reveal>
-          <svg class="brasao brasao--cta" aria-hidden="true"><use href="#brasao"/></svg>
-          <h2 class="titulo">Venha ver o castelo</h2>
-          <p class="cta-final__texto-corpo">A visita mostra a fachada, o portão e a luz das janelas. É o jeito mais claro de decidir.</p>
+          <img src="assets/Logo-Solar-Viva-Viva-removebg-preview.png" alt="Logo Solar Viva Viva" class="brasao brasao--cta">
+          <h2 class="titulo">Conheça o Solar Viva Viva de perto</h2>
+          <p class="cta-final__texto-corpo">
+  Descubra cada detalhe da nossa arquitetura e encante-se com um espaço pensado para celebrar momentos inesquecíveis.<br>
+  Agende sua visita pelo WhatsApp.
+</p>
           <div class="cta-final__acoes">
             <a class="btn btn--ouro btn--grande" href="https://wa.me/5521992424254" data-wa
                data-wa-mensagem="Olá! Quero agendar uma visita ao castelo do Solar Viva Viva."
@@ -623,7 +612,7 @@
               <select id="tipo-evento" name="tipo-evento" required aria-describedby="erro-tipo-evento">
                 <option value="" disabled selected>Selecione</option>
                 <option>Casamento</option>
-                <option>15 anos</option>
+                <option>Festas de 15 anos</option>
                 <option>Aniversário</option>
                 <option>Formatura</option>
                 <option>Evento corporativo</option>
@@ -681,7 +670,7 @@
   <footer class="rodape">
     <div class="container rodape__grid">
       <div class="rodape__marca">
-        <svg class="brasao brasao--rodape" aria-hidden="true"><use href="#brasao"/></svg>
+        <img src="assets/Logo-Solar-Viva-Viva-removebg-preview.png" alt="Logo Solar Viva Viva" class="brasao brasao--rodape">
         <p class="rodape__nome">Solar Viva Viva</p>
         <p class="rodape__slogan">Nobreza e Requinte em Casa de Festas</p>
         <p class="rodape__texto">

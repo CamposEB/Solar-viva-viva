@@ -2,7 +2,7 @@
 
 /* ============================================================
    DYNAMIC.JS — Carrega e injeta conteúdo dinâmico vindo da API
-   (letreiro, comunicados, promoções).
+   (letreiro, comunicados, promoções, galeria).
    Executado com `defer`, após o script.js principal.
    ============================================================ */
 
@@ -31,43 +31,36 @@
 
     const conteudoHTML = linhas.map((l) => `<span>${escapar(l)}</span>`).join('');
     
-    // Limpa o track e cria o elemento base
     track.innerHTML = '';
     const baseContent = document.createElement('div');
     baseContent.className = 'ticker__content';
     baseContent.innerHTML = conteudoHTML;
     track.appendChild(baseContent);
 
-    // Mede a largura de uma única cópia do texto
     const larguraBase = baseContent.offsetWidth;
     if (larguraBase === 0) return;
 
-    // Calcula quantas cópias são necessárias para preencher o dobro da tela
     const telaLargura = window.innerWidth;
     let numCopias = Math.ceil((telaLargura * 2) / larguraBase);
     
-    // IMPORTANTE: O número de cópias DEVE ser par para o cálculo de -50% funcionar perfeito
     if (numCopias % 2 !== 0) numCopias++;
     numCopias = Math.max(2, numCopias);
 
-    // Adiciona as cópias restantes
     for (let i = 1; i < numCopias; i++) {
       const clone = baseContent.cloneNode(true);
       clone.setAttribute('aria-hidden', 'true');
       track.appendChild(clone);
     }
 
-    // Duração baseada na metade da largura total (o -50% do CSS)
     const distanciaTotal = track.offsetWidth / 2;
     const velocidade = Math.max(20, Math.min(200, Number(cfg.velocidade) || 70));
-    const dur = Math.max(10, distanciaTotal / velocidade); // Mínimo de 10s para não ficar tonto
+    const dur = Math.max(10, distanciaTotal / velocidade);
 
     track.style.setProperty('--dur', `${dur.toFixed(2)}s`);
 
     ticker.hidden = false;
     document.body.classList.add('has-ticker');
 
-    // Esconde o ticker ao rolar (para não competir com o header fixo)
     const aoRolar = () => {
       document.body.classList.toggle('ticker-oculto', window.scrollY > 24);
     };
@@ -122,6 +115,23 @@
     adicionarLinkNav('#promocoes', 'Promoções');
   }
 
+  /* ---------- GALERIA ---------- */
+  function aplicarGaleria(itens) {
+    if (!Array.isArray(itens) || !itens.length) return;
+    
+    // Transforma os dados da API no formato que o script.js espera
+    const fotosDinamicas = itens.map(g => ({
+      src: g.url,
+      alt: g.legenda || 'Foto da galeria',
+      legenda: g.legenda || ''
+    }));
+
+    // Se a função global existir, manda renderizar novamente (sobrescrevendo as fotos padrão)
+    if (typeof window.renderGaleria === 'function') {
+      window.renderGaleria(fotosDinamicas);
+    }
+  }
+
   /* ---------- NAV DINÂMICO ---------- */
   function adicionarLinkNav(href, texto) {
     const nav = $('.nav__lista');
@@ -156,11 +166,14 @@
       const res = await fetch('/api/site', { headers: { 'Accept': 'application/json' } });
       if (!res.ok) return;
       const dados = await res.json();
+      
       aplicarLetreiro(dados.letreiro);
       aplicarComunicados(dados.comunicados);
       aplicarPromocoes(dados.promocoes);
+      aplicarGaleria(dados.galeria); 
+      
     } catch (err) {
-      // Silencioso: se a API falhar, o site continua estático normalmente
+      // Silencioso: se a API falhar, o site continua estático normalmente (com as fotos padrão)
       console.warn('Conteúdo dinâmico indisponível:', err);
     }
   }

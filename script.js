@@ -10,9 +10,9 @@ const CONFIG = {
   scrollspy: true,
 };
 
-/* ===== FOTOS DA GALERIA =====
-   O caminho em src precisa bater com o nome do arquivo (inclusive maiúsculas).
-   Com o array vazio, a seção Galeria e o item do menu ficam ocultos. */
+/* ===== FOTOS DA GALERIA (Fallback Padrão) =====
+   Estas fotos aparecerão apenas se o banco de dados estiver vazio.
+   O dynamic.js sobrescreve isso com as fotos do painel, se existirem. */
 const FOTOS = [
   { src: 'assets/piscina-por-do-sol.jpg', alt: 'Piscina iluminada e salão com lustres ao entardecer', legenda: 'Piscina e salão' },
   { src: 'assets/fachada-noite.jpg',      alt: 'Fachada do castelo à noite, com portão de madeira e brasão', legenda: 'A fachada à noite' },
@@ -77,7 +77,6 @@ function initMobileMenu() {
       toggle.focus();
       return;
     }
-    // Mantém o foco do teclado dentro do menu aberto
     if (e.key === 'Tab') {
       const focaveis = [toggle, ...$$('a[href]', nav)];
       const primeiro = focaveis[0];
@@ -92,7 +91,6 @@ function initMobileMenu() {
     }
   });
 
-  // Se a tela crescer com o menu aberto, fecha e libera a rolagem
   const aoMudarLargura = (e) => { if (e.matches) fechar(); };
   desktop.addEventListener
     ? desktop.addEventListener('change', aoMudarLargura)
@@ -137,7 +135,6 @@ function initReveal() {
         const indice = Math.max(0, irmaos.indexOf(el));
         el.style.transitionDelay = `${Math.min(indice, 4) * 0.08}s`;
         el.classList.add('is-visible');
-        // Remove o atraso depois da entrada, para não afetar o hover
         setTimeout(() => { el.style.transitionDelay = ''; }, 1400);
         observer.unobserve(el);
       });
@@ -147,7 +144,7 @@ function initReveal() {
   alvos.forEach((el) => observer.observe(el));
 }
 
-/* ===== ABAS DE EVENTOS (vertical no desktop, horizontal no mobile) ===== */
+/* ===== ABAS DE EVENTOS ===== */
 function initTabs() {
   const lista = $('.abas');
   const abas = $$('.aba');
@@ -204,7 +201,6 @@ function initTabs() {
     });
   });
 
-  // Links da faixa de tipos de evento abrem a aba correspondente
   $$('[data-aba]').forEach((link) => {
     link.addEventListener('click', () => {
       const i = abas.findIndex((a) => a.id === `tab-${link.dataset.aba}`);
@@ -221,7 +217,6 @@ function initTabs() {
   const inicial = abas.findIndex((a) => a.getAttribute('aria-selected') === 'true');
   ativar(inicial >= 0 ? inicial : 0, { rolar: false });
 
-  // As fontes mudam a largura das abas depois de carregar
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(reposicionar);
 
   let resizeTimer;
@@ -231,7 +226,7 @@ function initTabs() {
   });
 }
 
-/* ===== FAQ — accordion com transição (continua funcionando sem JS) ===== */
+/* ===== FAQ ===== */
 function initFaq() {
   $$('.faq__item').forEach((det) => {
     const resumo = $('summary', det);
@@ -242,11 +237,7 @@ function initFaq() {
     let anim = null;
 
     const encerrar = () => {
-      if (anim) {
-        anim.onfinish = null;
-        anim.cancel();
-        anim = null;
-      }
+      if (anim) { anim.onfinish = null; anim.cancel(); anim = null; }
       painel.style.overflow = '';
       det.classList.remove('is-fechando');
     };
@@ -261,10 +252,7 @@ function initFaq() {
       det.classList.add('is-fechando');
       painel.style.overflow = 'hidden';
       anim = painel.animate({ height: [`${altura}px`, '0px'] }, opcoes);
-      anim.onfinish = () => {
-        det.open = false;
-        encerrar();
-      };
+      anim.onfinish = () => { det.open = false; encerrar(); };
     };
 
     resumo.addEventListener('click', (e) => {
@@ -283,7 +271,7 @@ function initFaq() {
 }
 
 /* ===== GALERIA DINÂMICA ===== */
-function initGaleria() {
+window.renderGaleria = function(fotos) {
   const secao = $('#galeria');
   const grid  = $('#galeria-grid');
   const itensNav = $$('[data-nav-galeria]');
@@ -293,16 +281,17 @@ function initGaleria() {
     itensNav.forEach((el) => el.classList.toggle('oculto', !visivel));
   };
 
-  // Sem fotos: seção e itens de menu continuam ocultos
-  if (!FOTOS.length) {
+  if (!fotos || !fotos.length) {
     mostrarGaleria(false);
     return;
   }
 
   mostrarGaleria(true);
   if (!grid) return;
+  
+  grid.innerHTML = ''; // Limpa a galeria padrão para injetar as dinâmicas
 
-  FOTOS.forEach((foto) => {
+  fotos.forEach((foto) => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'galeria__item';
@@ -315,8 +304,7 @@ function initGaleria() {
     img.loading = 'lazy';
     img.decoding = 'async';
     img.addEventListener('error', () => {
-      btn.style.display = 'none';
-      console.warn('Solar Viva Viva: foto não encontrada ->', foto.src);
+      btn.style.display = 'none'; // Esconde a foto se ela for apagada do R2
     });
     btn.appendChild(img);
 
@@ -330,12 +318,17 @@ function initGaleria() {
   });
 
   initLightbox();
+};
+
+function initGaleria() {
+  window.renderGaleria(FOTOS);
 }
 
-/* ===== LIGHTBOX ===== */
+/* ===== LIGHTBOX (Otimizado para Event Delegation) ===== */
 function initLightbox() {
   const lightbox = $('#lightbox');
-  if (!lightbox) return;
+  const grid = $('#galeria-grid');
+  if (!lightbox || !grid) return;
 
   const img       = $('#lightbox-img');
   const legenda   = $('#lightbox-legenda');
@@ -343,25 +336,19 @@ function initLightbox() {
   const btnFechar = $('.lightbox__fechar', lightbox);
   const btnPrev   = $('.lightbox__nav--prev', lightbox);
   const btnNext   = $('.lightbox__nav--next', lightbox);
-  const itens     = $$('.galeria__item');
-  if (!itens.length) return;
-
-  // Com uma única foto, não faz sentido navegar
-  if (itens.length === 1) {
-    btnPrev.hidden = true;
-    btnNext.hidden = true;
-  }
 
   let atual = 0;
   let focoAnterior = null;
 
   const pre = (indice) => {
+    const itens = $$('.galeria__item');
     const item = itens[(indice + itens.length) % itens.length];
     const imgItem = item && $('img', item);
     if (imgItem) new Image().src = imgItem.currentSrc || imgItem.src;
   };
 
   const mostrar = (indice) => {
+    const itens = $$('.galeria__item');
     atual = (indice + itens.length) % itens.length;
     const item = itens[atual];
     const imgItem = $('img', item);
@@ -373,7 +360,12 @@ function initLightbox() {
     pre(atual + 1);
     pre(atual - 1);
   };
+  
   const abrir = (indice) => {
+    const itens = $$('.galeria__item');
+    if (itens.length === 1) { btnPrev.hidden = true; btnNext.hidden = true; }
+    else { btnPrev.hidden = false; btnNext.hidden = false; }
+    
     focoAnterior = document.activeElement;
     mostrar(indice);
     lightbox.classList.add('is-open');
@@ -381,55 +373,73 @@ function initLightbox() {
     document.body.style.overflow = 'hidden';
     btnFechar.focus();
   };
+  
   const fechar = () => {
     lightbox.classList.remove('is-open');
     lightbox.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     if (focoAnterior && typeof focoAnterior.focus === 'function') focoAnterior.focus();
   };
-  const proximo  = () => { if (itens.length > 1) mostrar(atual + 1); };
-  const anterior = () => { if (itens.length > 1) mostrar(atual - 1); };
+  
+  const proximo  = () => { if ($$('.galeria__item').length > 1) mostrar(atual + 1); };
+  const anterior = () => { if ($$('.galeria__item').length > 1) mostrar(atual - 1); };
 
-  itens.forEach((item, i) => item.addEventListener('click', () => abrir(i)));
-  btnFechar.addEventListener('click', fechar);
-  btnPrev.addEventListener('click', anterior);
-  btnNext.addEventListener('click', proximo);
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) fechar();
-  });
+  // Event Delegation no Grid (funciona mesmo se o dynamic.js apagar/recriar as fotos)
+  if (!grid.dataset.lbClick) {
+    grid.addEventListener('click', (e) => {
+      const item = e.target.closest('.galeria__item');
+      if (!item) return;
+      const itens = $$('.galeria__item');
+      const i = itens.indexOf(item);
+      if (i >= 0) abrir(i);
+    });
+    grid.dataset.lbClick = 'true';
+  }
 
-  document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('is-open')) return;
-    if (e.key === 'Escape') fechar();
-    if (e.key === 'ArrowRight') proximo();
-    if (e.key === 'ArrowLeft')  anterior();
-    if (e.key === 'Tab') {
-      const focaveis = [btnFechar, btnPrev, btnNext].filter((b) => !b.hidden);
-      const idx = focaveis.indexOf(document.activeElement);
-      if (e.shiftKey && idx <= 0) {
-        e.preventDefault();
-        focaveis[focaveis.length - 1].focus();
-      } else if (!e.shiftKey && idx === focaveis.length - 1) {
-        e.preventDefault();
-        focaveis[0].focus();
+  // Bind de eventos globais do Lightbox apenas uma vez
+  if (!lightbox.dataset.lbBound) {
+    btnFechar.addEventListener('click', fechar);
+    btnPrev.addEventListener('click', anterior);
+    btnNext.addEventListener('click', proximo);
+    
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) fechar();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape') fechar();
+      if (e.key === 'ArrowRight') proximo();
+      if (e.key === 'ArrowLeft')  anterior();
+      if (e.key === 'Tab') {
+        const focaveis = [btnFechar, btnPrev, btnNext].filter((b) => !b.hidden);
+        const idx = focaveis.indexOf(document.activeElement);
+        if (e.shiftKey && idx <= 0) {
+          e.preventDefault();
+          focaveis[focaveis.length - 1].focus();
+        } else if (!e.shiftKey && idx === focaveis.length - 1) {
+          e.preventDefault();
+          focaveis[0].focus();
+        }
       }
-    }
-  });
+    });
 
-  // Gesto de deslizar no celular
-  let touchStartX = 0;
-  let touchStartY = 0;
-  lightbox.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].clientX;
-    touchStartY = e.changedTouches[0].clientY;
-  }, { passive: true });
-  lightbox.addEventListener('touchend', (e) => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    const dy = e.changedTouches[0].clientY - touchStartY;
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-      dx < 0 ? proximo() : anterior();
-    }
-  }, { passive: true });
+    let touchStartX = 0;
+    let touchStartY = 0;
+    lightbox.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
+    }, { passive: true });
+    lightbox.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        dx < 0 ? proximo() : anterior();
+      }
+    }, { passive: true });
+    
+    lightbox.dataset.lbBound = 'true';
+  }
 }
 
 /* ===== FORMULÁRIO → WHATSAPP ===== */
@@ -542,7 +552,6 @@ function initForm() {
 
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
 
-    // Clique num link temporário: dentro do gesto do usuário, sem bloqueio de pop-up
     const ponte = document.createElement('a');
     ponte.href = url;
     ponte.target = '_blank';
@@ -556,8 +565,7 @@ function initForm() {
   });
 }
 
-/* ===== SCROLLSPY =====
-   Seções sem item de menu apontam para a seção "mãe" por data-nav-alvo. */
+/* ===== SCROLLSPY ===== */
 function initScrollspy() {
   if (!CONFIG.scrollspy || !('IntersectionObserver' in window)) return;
   const links = $$('[data-nav]');
@@ -596,11 +604,7 @@ function initAno() {
 
 /* ===== INICIALIZAÇÃO ===== */
 function iniciar(fn) {
-  try {
-    fn();
-  } catch (erro) {
-    console.error('Solar Viva Viva:', erro);
-  }
+  try { fn(); } catch (erro) { console.error('Solar Viva Viva:', erro); }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
