@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0a1210">
   <title>Painel — Solar Viva Viva</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 80'%3E%3Cpath d='M4 4h56v34c0 18-28 32-28 32S4 56 4 38V4z' fill='%230a4a3c' stroke='%23d4af37' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M16 46V26h4v6h6v-6h8v6h6v-6h4v20' fill='%23d4af37'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500;600&display=swap">
@@ -47,11 +47,13 @@
       </div>
     </header>
 
+    <!-- O botão da galeria DEVE ficar aqui dentro -->
     <nav class="app-nav" role="tablist">
       <button role="tab" data-tab="dashboard" class="app-nav__btn ativo">Início</button>
       <button role="tab" data-tab="comunicados" class="app-nav__btn">Comunicados</button>
       <button role="tab" data-tab="letreiro" class="app-nav__btn">Letreiro</button>
       <button role="tab" data-tab="promocoes" class="app-nav__btn">Promoções</button>
+      <button role="tab" data-tab="galeria" class="app-nav__btn">Galeria</button>
       <button role="tab" data-tab="midia" class="app-nav__btn">Mídia</button>
     </nav>
 
@@ -60,7 +62,7 @@
       <!-- DASHBOARD -->
       <section data-painel="dashboard" class="painel-aba">
         <h2>Bem-vindo</h2>
-        <p class="painel-aba__sub">Gerencie comunicados, letreiro, promoções e mídia do site.</p>
+        <p class="painel-aba__sub">Gerencie comunicados, letreiro, promoções, galeria e mídia do site.</p>
         <div class="cards">
           <div class="card"><strong id="stat-comunicados">—</strong><span>Comunicados</span></div>
           <div class="card"><strong id="stat-promocoes">—</strong><span>Promoções ativas</span></div>
@@ -115,9 +117,9 @@
           </label>
           <div class="form-row">
             <label class="campo"><span>Velocidade (px/s)</span>
-              <input type="number" name="velocidade" min="20" max="200" value="40">
+              <input type="number" name="velocidade" min="20" max="200" value="70">
             </label>
-            <label class="check"><input type="checkbox" name="ativo"> Exibir letreiro</label>
+            <label class="check" style="align-items: center; margin-top: 1.5rem;"><input type="checkbox" name="ativo"> Exibir letreiro</label>
           </div>
           <div class="form-acoes">
             <button type="submit" class="btn btn--ouro">Salvar</button>
@@ -163,10 +165,7 @@
         <ul id="promocoes-lista" class="lista-admin"></ul>
       </section>
 
-      <!-- Adicione no menu de navegação (junto com os outros botões) -->
-<button role="tab" data-tab="galeria" class="app-nav__btn">Galeria</button>
-
-<!-- Adicione a nova seção junto com as outras <section data-painel="..."> -->
+      <!-- GALERIA -->
       <section data-painel="galeria" class="painel-aba" hidden>
         <div class="painel-aba__cab">
           <h2>Galeria de Fotos</h2>

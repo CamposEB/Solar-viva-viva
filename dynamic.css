@@ -1,19 +1,19 @@
 /* ============================================================
    DYNAMIC.CSS — Estilos para conteúdo dinâmico do site público
-   (letreiro, comunicados, promoções). Carregado depois de style.css.
+   (letreiro, comunicados, promoções, galeria).
    ============================================================ */
 
 /* ---------- LETREIRO ---------- */
 .ticker {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 1100;
+  z-index: 1050; /* Ajustado para ficar acima do header normal e abaixo do menu mobile */
   height: 38px;
   overflow: hidden;
   background: linear-gradient(90deg, #0a4a3c, #0f6b57, #0a4a3c);
   border-bottom: 1px solid var(--ouro, #d4af37);
   color: var(--ouro-claro, #f0d27a);
-  transition: transform .35s var(--ease, ease);
+  transition: transform .35s var(--ease, ease), opacity .35s var(--ease, ease);
   font-family: var(--f-display, Georgia, serif);
   /* Efeito premium de esmaecimento nas bordas */
   -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
@@ -23,7 +23,7 @@
 
 .ticker__track {
   display: flex;
-  width: max-content; /* Garante que o flex ocupe todo o espaço necessário */
+  width: max-content; 
   height: 100%;
   animation: ticker-marquee var(--dur, 40s) linear infinite;
   will-change: transform;
@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   gap: 3.5rem;
-  padding: 0 1.75rem; /* Preenche o espaço do gap nas pontas para a transição ser perfeita */
+  padding: 0 1.75rem;
   flex-shrink: 0;
   white-space: nowrap;
   height: 100%;
@@ -56,13 +56,14 @@
   to   { transform: translateX(-50%); }
 }
 
-body.has-ticker { padding-top: 34px; }
-body.has-ticker .header { top: 34px; transition: top .35s var(--ease, ease); }
+/* Ajustes de layout quando o letreiro está ativo */
+body.has-ticker { padding-top: 38px; }
+body.has-ticker .header { top: 38px; transition: top .35s var(--ease, ease); }
 body.has-ticker .header--scrolled { top: 0; }
 body.has-ticker.ticker-oculto .ticker { transform: translateY(-100%); }
 body.has-ticker.ticker-oculto .header { top: 0; }
 
-html:has(body.has-ticker) { scroll-padding-top: calc(var(--header-alt, 84px) + 34px); }
+html:has(body.has-ticker) { scroll-padding-top: calc(var(--header-alt, 84px) + 38px); }
 
 @media (prefers-reduced-motion: reduce) {
   .ticker__track { animation: none; }

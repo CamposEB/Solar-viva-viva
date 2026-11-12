@@ -37,12 +37,21 @@
     baseContent.innerHTML = conteudoHTML;
     track.appendChild(baseContent);
 
+    // CORREÇÃO CRÍTICA: Torna o ticker visível ANTES de medir a largura.
+    // Se medir com `hidden`, o navegador retorna 0 e o código para.
+    ticker.hidden = false;
+    document.body.classList.add('has-ticker');
+
+    // Força o navegador a renderizar a div para o cálculo de largura funcionar
+    void track.offsetWidth;
+
     const larguraBase = baseContent.offsetWidth;
-    if (larguraBase === 0) return;
+    if (larguraBase === 0) return; 
 
     const telaLargura = window.innerWidth;
     let numCopias = Math.ceil((telaLargura * 2) / larguraBase);
     
+    // O número de cópias deve ser par para o cálculo de -50% ser perfeito
     if (numCopias % 2 !== 0) numCopias++;
     numCopias = Math.max(2, numCopias);
 
@@ -57,9 +66,6 @@
     const dur = Math.max(10, distanciaTotal / velocidade);
 
     track.style.setProperty('--dur', `${dur.toFixed(2)}s`);
-
-    ticker.hidden = false;
-    document.body.classList.add('has-ticker');
 
     const aoRolar = () => {
       document.body.classList.toggle('ticker-oculto', window.scrollY > 24);
@@ -119,14 +125,12 @@
   function aplicarGaleria(itens) {
     if (!Array.isArray(itens) || !itens.length) return;
     
-    // Transforma os dados da API no formato que o script.js espera
     const fotosDinamicas = itens.map(g => ({
       src: g.url,
       alt: g.legenda || 'Foto da galeria',
       legenda: g.legenda || ''
     }));
 
-    // Se a função global existir, manda renderizar novamente (sobrescrevendo as fotos padrão)
     if (typeof window.renderGaleria === 'function') {
       window.renderGaleria(fotosDinamicas);
     }
@@ -163,7 +167,8 @@
   /* ---------- CARREGAR ---------- */
   async function carregar() {
     try {
-      const res = await fetch('/api/site', { headers: { 'Accept': 'application/json' } });
+      // O cache-buster ?t= evita que o navegador guarde a resposta antiga da API
+      const res = await fetch('/api/site?t=' + Date.now(), { headers: { 'Accept': 'application/json' } });
       if (!res.ok) return;
       const dados = await res.json();
       
@@ -173,7 +178,6 @@
       aplicarGaleria(dados.galeria); 
       
     } catch (err) {
-      // Silencioso: se a API falhar, o site continua estático normalmente (com as fotos padrão)
       console.warn('Conteúdo dinâmico indisponível:', err);
     }
   }
