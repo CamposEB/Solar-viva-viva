@@ -233,3 +233,138 @@ a { color: var(--ouro-claro); text-decoration: none; }
   .app-brand__nome { font-size: 1.2rem; }
   .app-nav__btn { padding: .85rem .8rem .75rem; font-size: .78rem; }
 }
+
+/* ============================================================
+   SELETOR DE TEMAS (MINIATURAS REALISTAS)
+   ============================================================ */
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.theme-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid rgba(245,241,232,.15);
+  border-radius: 6px;
+  background: rgba(7,12,10,.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-card:hover {
+  border-color: var(--ouro);
+  transform: translateY(-2px);
+  background: rgba(16,30,25,.8);
+}
+
+.theme-card input[type="radio"] {
+  display: none;
+}
+
+.theme-card:has(input:checked) {
+  border-color: var(--ouro);
+  background: rgba(16,30,25,.95);
+  box-shadow: 0 0 0 2px var(--ouro) inset;
+}
+
+.theme-preview {
+  width: 100%;
+  height: 90px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+/* Estrutura do Mini-site */
+.tp-header {
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.tp-logo { width: 15px; height: 15px; border-radius: 50%; }
+.tp-menu { width: 25px; height: 4px; border-radius: 2px; }
+
+.tp-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 12px;
+  gap: 4px;
+  position: relative;
+}
+.tp-title { width: 60%; height: 8px; border-radius: 2px; }
+.tp-text { width: 40%; height: 4px; border-radius: 2px; opacity: 0.6; }
+.tp-btn { width: 30px; height: 12px; border-radius: 2px; position: absolute; bottom: 10px; }
+
+.theme-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--marfim);
+  text-align: center;
+}
+
+
+/* --- CORES DOS TEMAS --- */
+
+/* 1. Padrão */
+.tema-padrao { background: #0a1210; }
+.tema-padrao .tp-header { background: #070c0a; }
+.tema-padrao .tp-logo { background: #d4af37; }
+.tema-padrao .tp-menu { background: #f0d27a; }
+.tema-padrao .tp-title { background: #f5f1e8; }
+.tema-padrao .tp-text { background: #b3afa2; }
+.tema-padrao .tp-btn { background: #d4af37; }
+
+/* 2. Natal */
+.tema-natal { background: #0d1f16; }
+.tema-natal .tp-header { background: #06120c; }
+.tema-natal .tp-logo { background: #e5c158; }
+.tema-natal .tp-menu { background: #f7e49b; }
+.tema-natal .tp-title { background: #ffffff; }
+.tema-natal .tp-text { background: #b3afa2; }
+.tema-natal .tp-btn { background: #b82727; }
+
+/* 3. Ano Novo */
+.tema-ano-novo { background: #0d0d0d; }
+.tema-ano-novo .tp-header { background: #000000; }
+.tema-ano-novo .tp-logo { background: #ffffff; }
+.tema-ano-novo .tp-menu { background: #a0a0a0; }
+.tema-ano-novo .tp-title { background: #e8e8e8; }
+.tema-ano-novo .tp-text { background: #888888; }
+.tema-ano-novo .tp-btn { background: #e8e8e8; }
+
+/* 4. Dia das Mães */
+.tema-dia-das-maes { background: #1a1014; }
+.tema-dia-das-maes .tp-header { background: #0d080a; }
+.tema-dia-das-maes .tp-logo { background: #f2b5c4; }
+.tema-dia-das-maes .tp-menu { background: #ffdbe3; }
+.tema-dia-das-maes .tp-title { background: #ffffff; }
+.tema-dia-das-maes .tp-text { background: #b3afa2; }
+.tema-dia-das-maes .tp-btn { background: #f2b5c4; }
+
+/* 5. Dia dos Pais */
+.tema-dia-dos-pais { background: #0b1320; }
+.tema-dia-dos-pais .tp-header { background: #050a10; }
+.tema-dia-dos-pais .tp-logo { background: #d4af37; }
+.tema-dia-dos-pais .tp-menu { background: #f0d27a; }
+.tema-dia-dos-pais .tp-title { background: #ffffff; }
+.tema-dia-dos-pais .tp-text { background: #b3afa2; }
+.tema-dia-dos-pais .tp-btn { background: #d4af37; }
+
+/* Ajuste de hover no card */
+.theme-card:hover .theme-preview {
+  transform: scale(1.02);
+}

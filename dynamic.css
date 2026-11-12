@@ -204,3 +204,158 @@ html:has(body.has-ticker) { scroll-padding-top: calc(var(--header-alt, 84px) + 3
   margin: 0;
   white-space: pre-line;
 }
+
+/* ============================================================
+   TEMAS SAZONAIS
+   ============================================================ */
+
+/* --- TEMA NATAL --- */
+body.tema-natal {
+  --fundo: #0d1f16;
+  --fundo-2: #06120c;
+  --fundo-3: #132e20;
+  --verde: #0a3d24;
+  --esmeralda: #165b39;
+  --ouro: #e5c158;
+  --ouro-claro: #f7e49b;
+  --ouro-escuro: #b89b37;
+  --linha: rgba(229, 193, 88, 0.3);
+}
+body.tema-natal .hero__fundo::after {
+  background: linear-gradient(90deg, rgba(13, 31, 22, 0.97) 0%, rgba(13, 31, 22, 0.8) 50%, rgba(13, 31, 22, 0.6) 100%);
+}
+/* Neve caindo (Efeito visual) */
+body.tema-natal::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  background-image: radial-gradient(white 1px, transparent 1px), radial-gradient(white 1px, transparent 1px);
+  background-size: 50px 50px, 100px 100px;
+  background-position: 0 0, 25px 25px;
+  opacity: 0.15;
+  animation: neve 10s linear infinite;
+  z-index: 9999;
+}
+@keyframes neve {
+  0% { background-position: 0 0, 25px 25px; }
+  100% { background-position: 50px 1000px, 125px 1025px; }
+}
+
+/* --- TEMA ANO NOVO --- */
+body.tema-ano-novo {
+  --fundo: #0d0d0d;
+  --fundo-2: #000000;
+  --fundo-3: #1a1a1a;
+  --verde: #1a1a1a;
+  --ouro: #e8e8e8;
+  --ouro-claro: #ffffff;
+  --ouro-escuro: #a0a0a0;
+  --linha: rgba(232, 232, 232, 0.3);
+}
+body.tema-ano-novo .btn--ouro { background: #e8e8e8; color: #000; }
+body.tema-ano-novo .header__nome,
+body.tema-ano-novo .hero__slogan,
+body.tema-ano-novo .hero__cursiva { color: #ffffff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+
+/* --- TEMA DIA DAS MÃES --- */
+body.tema-dia-das-maes {
+  --fundo: #1a1014;
+  --fundo-2: #0d080a;
+  --fundo-3: #26161c;
+  --verde: #4a1c2a;
+  --esmeralda: #753040;
+  --ouro: #f2b5c4;
+  --ouro-claro: #ffdbe3;
+  --ouro-escuro: #c48191;
+  --linha: rgba(242, 181, 196, 0.3);
+}
+body.tema-dia-das-maes .btn--ouro { background: #f2b5c4; color: #1a1014; }
+
+/* --- TEMA DIA DOS PAIS --- */
+body.tema-dia-dos-pais {
+  --fundo: #0b1320;
+  --fundo-2: #050a10;
+  --fundo-3: #111d2e;
+  --verde: #1a365d;
+  --esmeralda: #2b4c7e;
+  --ouro: #d4af37;
+  --ouro-claro: #f0d27a;
+  --ouro-escuro: #b8942a;
+  --linha: rgba(212, 175, 55, 0.3);
+}
+body.tema-dia-dos-pais .hero__fundo::after {
+  background: linear-gradient(90deg, rgba(11, 19, 32, 0.97) 0%, rgba(11, 19, 32, 0.8) 50%, rgba(11, 19, 32, 0.6) 100%);
+}
+
+/* --- DECORAÇÕES EXTRAS --- */
+.header__logo {
+  position: relative; /* Necessário para posicionar os enfeites */
+}
+
+/* Boneco de Neve e Árvore no Natal */
+body.tema-natal .header__logo::before {
+  content: '⛄';
+  position: absolute;
+  left: -35px;
+  bottom: -10px;
+  font-size: 1.6rem;
+  filter: drop-shadow(0 0 5px rgba(255,255,255,0.4));
+  animation: flutuar-boneco 3s ease-in-out infinite;
+  pointer-events: none;
+}
+body.tema-natal .header__logo::after {
+  content: '🎄';
+  position: absolute;
+  right: -25px;
+  top: -10px;
+  font-size: 1.3rem;
+  filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+  animation: flutuar-boneco 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+/* Balões no Ano Novo */
+body.tema-ano-novo .header__logo::before {
+  content: '🎈';
+  position: absolute;
+  left: -30px;
+  top: -15px;
+  font-size: 1.5rem;
+  animation: flutuar-balao 4s ease-in-out infinite;
+  pointer-events: none;
+}
+body.tema-ano-novo .header__logo::after {
+  content: '✨';
+  position: absolute;
+  right: -25px;
+  bottom: -5px;
+  font-size: 1.4rem;
+  animation: brilhar-estrela 2s infinite;
+  pointer-events: none;
+}
+
+/* Animações */
+@keyframes flutuar-boneco {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes flutuar-balao {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-8px) rotate(5deg); }
+}
+
+@keyframes brilhar-estrela {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* No celular, ajusta a posição para não encavalar no menu */
+@media (max-width: 1023px) {
+  body.tema-natal .header__logo::before { left: -25px; font-size: 1.2rem; bottom: -5px; }
+  body.tema-natal .header__logo::after { display: none; }
+  body.tema-ano-novo .header__logo::before { left: -25px; font-size: 1.2rem; top: -10px; }
+  body.tema-ano-novo .header__logo::after { display: none; }
+}

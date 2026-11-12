@@ -26,7 +26,10 @@ const fmtData = (iso) => {
   return d && m && a ? `${d}/${m}/${a}` : iso;
 };
 
-const estado = { usuario: null, comunicados: [], promocoes: [], midia: [], galeria: [], depoimentos: [], letreiro: null, configuracoes: null };
+const estado = { 
+  usuario: null, comunicados: [], promocoes: [], midia: [], galeria: [], 
+  depoimentos: [], faq: [], letreiro: null, configuracoes: null 
+};
 
 async function verificarSessao() {
   try {
@@ -84,7 +87,8 @@ function ativarTab(nome) {
 async function carregarTudo() {
   await Promise.all([
     carregarComunicados(), carregarPromocoes(), carregarMidia(), 
-    carregarGaleria(), carregarLetreiro(), carregarDepoimentos(), carregarTextos()
+    carregarGaleria(), carregarLetreiro(), carregarDepoimentos(), 
+    carregarTextos(), carregarContatos(), carregarTextosEventos(), carregarFaq()
   ]);
 }
 
@@ -418,12 +422,140 @@ $('#depoimento-form').addEventListener('submit', async (e) => {
   } catch (err) { erroEl.textContent = err.message; } finally { btn.disabled = false; }
 });
 
-/* TEXTOS DO SITE */
+/* CONTATOS */
+async function carregarContatos() {
+  try {
+    const d = await api('/api/configuracoes');
+    const form = $('#contatos-form');
+    form.elements.contato_whatsapp.value = d.contato_whatsapp || '';
+    form.elements.contato_telefone.value = d.contato_telefone || '';
+    form.elements.contato_instagram.value = d.contato_instagram || '';
+    form.elements.contato_endereco.value = d.contato_endereco || '';
+    form.elements.contato_horario.value = d.contato_horario || '';
+  } catch (e) { console.warn(e); }
+}
+
+$('#contatos-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget, okEl = $('#contatos-ok'); okEl.textContent = '';
+  try {
+    await api('/api/configuracoes', {
+      method: 'PUT',
+      body: JSON.stringify({
+        contato_whatsapp: form.elements.contato_whatsapp.value.trim(),
+        contato_telefone: form.elements.contato_telefone.value.trim(),
+        contato_instagram: form.elements.contato_instagram.value.trim(),
+        contato_endereco: form.elements.contato_endereco.value.trim(),
+        contato_horario: form.elements.contato_horario.value.trim(),
+      }),
+    });
+    okEl.textContent = 'Contatos atualizados com sucesso.';
+    setTimeout(() => (okEl.textContent = ''), 3000);
+  } catch (err) { alert(err.message); }
+});
+
+/* TEXTOS EVENTOS */
+async function carregarTextosEventos() {
+  try {
+    const d = await api('/api/configuracoes');
+    const form = $('#eventos-form');
+    const chaves = ['casamento', '15anos', 'aniversarios', 'formaturas', 'corporativos'];
+    chaves.forEach(k => {
+      form.elements[`ev_${k}_titulo`].value = d[`ev_${k}_titulo`] || '';
+      form.elements[`ev_${k}_frase`].value = d[`ev_${k}_frase`] || '';
+      form.elements[`ev_${k}_nota`].value = d[`ev_${k}_nota`] || '';
+    });
+  } catch (e) { console.warn(e); }
+}
+
+$('#eventos-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget, okEl = $('#eventos-ok'); okEl.textContent = '';
+  const dados = {};
+  Array.from(form.elements).forEach(el => {
+    if (el.name) dados[el.name] = el.value.trim();
+  });
+  try {
+    await api('/api/configuracoes', { method: 'PUT', body: JSON.stringify(dados) });
+    okEl.textContent = 'Textos atualizados com sucesso.';
+    setTimeout(() => (okEl.textContent = ''), 3000);
+  } catch (err) { alert(err.message); }
+});
+
+/* FAQ */
+async function carregarFaq() {
+  try {
+    const d = await api('/api/faq?todos=1');
+    estado.faq = d.itens || [];
+    renderFaq();
+  } catch (e) { console.warn(e); }
+}
+
+function renderFaq() {
+  const lista = $('#faq-lista');
+  if (!estado.faq.length) { lista.innerHTML = '<p class="form-erro">Nenhuma pergunta cadastrada.</p>'; return; }
+  lista.innerHTML = estado.faq.map((f) => `
+    <li class="item-admin ${f.ativo ? '' : 'item-admin--inativo'}">
+      <div class="item-admin__cab"><div>
+        <div class="item-admin__titulo">${escapar(f.pergunta)}</div>
+        <div class="item-admin__meta">${!f.ativo ? '<span class="tag tag--off">Oculto</span>' : ''} Ordem: ${f.ordem}</div>
+      </div></div>
+      <p class="item-admin__desc">${escapar(f.resposta)}</p>
+      <div class="item-admin__acoes">
+        <button class="btn btn--ghost" data-editar-faq="${f.id}">Editar</button>
+        <button class="btn btn--perigo" data-excluir-faq="${f.id}">Excluir</button>
+      </div>
+    </li>`).join('');
+  lista.querySelectorAll('[data-editar-faq]').forEach((b) => b.addEventListener('click', () => abrirFormFaq(Number(b.dataset.editarFaq))));
+  lista.querySelectorAll('[data-excluir-faq]').forEach((b) => b.addEventListener('click', () => excluirFaq(Number(b.dataset.excluirFaq))));
+}
+
+function abrirFormFaq(id) {
+  const wrap = $('#faq-form-wrap'), form = $('#faq-form');
+  wrap.hidden = false; form.reset(); $('#faq-erro').textContent = '';
+  if (id) {
+    const f = estado.faq.find((x) => x.id === id); if (!f) return;
+    form.elements.id.value = f.id; form.elements.pergunta.value = f.pergunta;
+    form.elements.resposta.value = f.resposta; form.elements.ordem.value = f.ordem || 0;
+    form.elements.ativo.checked = !!f.ativo;
+  } else { form.elements.id.value = ''; form.elements.ativo.checked = true; }
+  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function excluirFaq(id) {
+  if (!confirm('Excluir esta pergunta?')) return;
+  try { await api(`/api/faq/${id}`, { method: 'DELETE' }); await carregarFaq(); } catch (e) { alert(e.message); }
+}
+
+$('[data-acao="nova-faq"]').addEventListener('click', () => abrirFormFaq(null));
+$('[data-acao="cancelar-faq"]').addEventListener('click', () => { $('#faq-form-wrap').hidden = true; });
+
+$('#faq-form').addEventListener('submit', async (e) => {
+  e.preventDefault(); const form = e.currentTarget, erroEl = $('#faq-erro'); erroEl.textContent = '';
+  const dados = {
+    pergunta: form.elements.pergunta.value.trim(), resposta: form.elements.resposta.value.trim(),
+    ordem: parseInt(form.elements.ordem.value, 10) || 0, ativo: form.elements.ativo.checked,
+  };
+  const id = form.elements.id.value ? Number(form.elements.id.value) : null;
+  const btn = form.querySelector('button[type="submit"]'); btn.disabled = true;
+  try {
+    if (id) await api(`/api/faq/${id}`, { method: 'PUT', body: JSON.stringify(dados) });
+    else await api('/api/faq', { method: 'POST', body: JSON.stringify(dados) });
+    $('#faq-form-wrap').hidden = true; await carregarFaq();
+  } catch (err) { erroEl.textContent = err.message; } finally { btn.disabled = false; }
+});
+
+/* APARÊNCIA E TEXTOS */
 async function carregarTextos() {
   try {
     const d = await api('/api/configuracoes');
     estado.configuracoes = d;
     const form = $('#textos-form');
+    
+    const tema = d.tema_ativo || 'padrao';
+    const radio = form.querySelector(`input[name="tema_ativo"][value="${tema}"]`);
+    if (radio) radio.checked = true;
+    
     form.elements.hero_titulo.value = d.hero_titulo || '';
     form.elements.hero_subtitulo.value = d.hero_subtitulo || '';
     form.elements.espaco_titulo.value = d.espaco_titulo || '';
@@ -436,10 +568,12 @@ $('#textos-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const form = e.currentTarget, okEl = $('#textos-ok');
   okEl.textContent = '';
+  const temaSelecionado = form.querySelector('input[name="tema_ativo"]:checked').value;
   try {
     await api('/api/configuracoes', {
       method: 'PUT',
       body: JSON.stringify({
+        tema_ativo: temaSelecionado,
         hero_titulo: form.elements.hero_titulo.value.trim(),
         hero_subtitulo: form.elements.hero_subtitulo.value.trim(),
         espaco_titulo: form.elements.espaco_titulo.value.trim(),
@@ -447,7 +581,7 @@ $('#textos-form').addEventListener('submit', async (e) => {
         espaco_texto_2: form.elements.espaco_texto_2.value.trim(),
       }),
     });
-    okEl.textContent = 'Textos atualizados com sucesso.';
+    okEl.textContent = 'Aparência e textos atualizados com sucesso.';
     setTimeout(() => (okEl.textContent = ''), 3000);
   } catch (err) { alert(err.message); }
 });

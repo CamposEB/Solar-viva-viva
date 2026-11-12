@@ -115,11 +115,75 @@
 
   function aplicarConfiguracoes(cfg) {
     if (!cfg) return;
+    
+    document.body.classList.remove('tema-natal', 'tema-ano-novo', 'tema-dia-das-maes', 'tema-dia-dos-pais');
+    if (cfg.tema_ativo && cfg.tema_ativo !== 'padrao') {
+      document.body.classList.add(`tema-${cfg.tema_ativo}`);
+    }
+
     if (cfg.hero_titulo && $('#txt-hero-titulo')) $('#txt-hero-titulo').innerHTML = cfg.hero_titulo;
     if (cfg.hero_subtitulo && $('#txt-hero-subtitulo')) $('#txt-hero-subtitulo').innerText = cfg.hero_subtitulo;
     if (cfg.espaco_titulo && $('#txt-espaco-titulo')) $('#txt-espaco-titulo').innerText = cfg.espaco_titulo;
     if (cfg.espaco_texto_1 && $('#txt-espaco-1')) $('#txt-espaco-1').innerText = cfg.espaco_texto_1;
     if (cfg.espaco_texto_2 && $('#txt-espaco-2')) $('#txt-espaco-2').innerText = cfg.espaco_texto_2;
+  }
+
+  /* ---------- CONTATOS E REDES ---------- */
+  function aplicarContatos(cfg) {
+    if (!cfg) return;
+    const wppNumero = cfg.contato_whatsapp || '5521992424254';
+    const wppLink = `https://wa.me/${wppNumero}`;
+    
+    // Atualiza links de WhatsApp
+    document.querySelectorAll('a[href*="wa.me"], #link-whatsapp, #link-whatsapp-rodape').forEach(a => {
+      a.href = wppLink;
+    });
+    
+    // Atualiza Telefone
+    if (cfg.contato_telefone) {
+      document.querySelectorAll('a[href^="tel:"]').forEach(a => a.href = `tel:+${wppNumero}`);
+      if ($('#link-telefone')) $('#link-telefone').textContent = cfg.contato_telefone;
+    }
+    
+    // Atualiza Instagram
+    if (cfg.contato_instagram) {
+      document.querySelectorAll('a[href*="instagram.com"], #link-instagram').forEach(a => a.href = cfg.contato_instagram);
+      if ($('#link-instagram')) $('#link-instagram').textContent = '@' + cfg.contato_instagram.split('/').filter(Boolean).pop();
+    }
+    
+    // Atualiza Endereço e Horário
+    if (cfg.contato_endereco) {
+      document.querySelectorAll('#txt-endereco, #txt-endereco-rodape, #txt-endereco-footer').forEach(el => el.innerHTML = cfg.contato_endereco);
+    }
+    if (cfg.contato_horario && $('#txt-horario')) $('#txt-horario').textContent = cfg.contato_horario;
+  }
+
+  /* ---------- TEXTOS DE EVENTOS ---------- */
+  function aplicarTextosEventos(cfg) {
+    if (!cfg) return;
+    const chaves = ['casamento', '15anos', 'aniversarios', 'formaturas', 'corporativos'];
+    chaves.forEach(k => {
+      if (cfg[`ev_${k}_titulo`] && $(`#txt-ev-${k}-titulo`)) $(`#txt-ev-${k}-titulo`).innerText = cfg[`ev_${k}_titulo`];
+      if (cfg[`ev_${k}_frase`] && $(`#txt-ev-${k}-frase`)) $(`#txt-ev-${k}-frase`).innerText = cfg[`ev_${k}_frase`];
+      if (cfg[`ev_${k}_nota`] && $(`#txt-ev-${k}-nota`)) $(`#txt-ev-${k}-nota`).innerText = cfg[`ev_${k}_nota`];
+    });
+  }
+
+  /* ---------- FAQ ---------- */
+  function aplicarFaq(itens) {
+    if (!Array.isArray(itens) || !itens.length) return;
+    const lista = $('#faq-lista');
+    if (!lista) return;
+
+    lista.innerHTML = itens.map(f => `
+      <details class="faq__item">
+        <summary>${escapar(f.pergunta)}<span class="faq__icone" aria-hidden="true"></span></summary>
+        <div class="faq__resposta"><p>${escapar(f.resposta)}</p></div>
+      </details>
+    `).join('');
+
+    if (typeof window.initFaq === 'function') window.initFaq();
+    if (window.initReveal) setTimeout(window.initReveal, 100);
   }
 
   function adicionarLinkNav(href, texto) {
@@ -143,11 +207,14 @@
       const dados = await res.json();
       
       aplicarConfiguracoes(dados.configuracoes);
+      aplicarContatos(dados.configuracoes);
+      aplicarTextosEventos(dados.configuracoes);
       aplicarLetreiro(dados.letreiro);
       aplicarComunicados(dados.comunicados);
       aplicarPromocoes(dados.promocoes);
       aplicarGaleria(dados.galeria); 
       aplicarDepoimentos(dados.depoimentos);
+      aplicarFaq(dados.faq);
       
     } catch (err) {
       console.warn('Conteúdo dinâmico indisponível:', err);

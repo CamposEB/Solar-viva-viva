@@ -55,7 +55,10 @@
       <button role="tab" data-tab="promocoes" class="app-nav__btn">Promoções</button>
       <button role="tab" data-tab="galeria" class="app-nav__btn">Galeria</button>
       <button role="tab" data-tab="depoimentos" class="app-nav__btn">Depoimentos</button>
-      <button role="tab" data-tab="textos" class="app-nav__btn">Textos do Site</button>
+      <button role="tab" data-tab="faq" class="app-nav__btn">FAQ</button>
+      <button role="tab" data-tab="contatos" class="app-nav__btn">Contatos</button>
+      <button role="tab" data-tab="eventos" class="app-nav__btn">Textos Eventos</button>
+      <button role="tab" data-tab="textos" class="app-nav__btn">Aparência e Textos</button>
       <button role="tab" data-tab="midia" class="app-nav__btn">Mídia</button>
     </nav>
 
@@ -229,11 +232,167 @@
         <ul id="depoimentos-lista" class="lista-admin"></ul>
       </section>
 
-      <!-- TEXTOS DO SITE -->
+      <!-- FAQ -->
+      <section data-painel="faq" class="painel-aba" hidden>
+        <div class="painel-aba__cab">
+          <h2>Perguntas Frequentes</h2>
+          <button class="btn btn--ouro" data-acao="nova-faq">+ Nova Pergunta</button>
+        </div>
+        <div id="faq-form-wrap" class="form-wrap" hidden>
+          <form id="faq-form" class="form-admin" novalidate>
+            <input type="hidden" name="id">
+            <label class="campo"><span>Pergunta</span>
+              <input type="text" name="pergunta" maxlength="150" required>
+            </label>
+            <label class="campo"><span>Resposta</span>
+              <textarea name="resposta" rows="3" maxlength="800" required></textarea>
+            </label>
+            <div class="form-row">
+              <label class="campo"><span>Ordem de exibição</span>
+                <input type="number" name="ordem" value="0" min="0">
+              </label>
+              <label class="check" style="align-items: center; margin-top: 1.5rem;"><input type="checkbox" name="ativo" checked> Exibir no site</label>
+            </div>
+            <div class="form-acoes">
+              <button type="submit" class="btn btn--ouro">Salvar</button>
+              <button type="button" class="btn btn--ghost" data-acao="cancelar-faq">Cancelar</button>
+            </div>
+            <p class="form-erro" id="faq-erro" role="alert"></p>
+          </form>
+        </div>
+        <ul id="faq-lista" class="lista-admin"></ul>
+      </section>
+
+      <!-- CONTATOS -->
+      <section data-painel="contatos" class="painel-aba" hidden>
+        <h2>Contatos e Redes Sociais</h2>
+        <p class="painel-aba__sub">Atualize os dados de contato do site.</p>
+        <form id="contatos-form" class="form-admin" novalidate>
+          <div class="form-row">
+            <label class="campo"><span>WhatsApp (Apenas números)</span>
+              <input type="text" name="contato_whatsapp" required placeholder="5521999999999">
+            </label>
+            <label class="campo"><span>Telefone (Formatado)</span>
+              <input type="text" name="contato_telefone" required placeholder="(21) 99999-9999">
+            </label>
+          </div>
+          <label class="campo"><span>Link do Instagram (URL completa)</span>
+            <input type="url" name="contato_instagram" required>
+          </label>
+          <label class="campo"><span>Endereço Completo</span>
+            <input type="text" name="contato_endereco" required>
+          </label>
+          <label class="campo"><span>Texto de Horário</span>
+            <input type="text" name="contato_horario" required>
+          </label>
+          <div class="form-acoes">
+            <button type="submit" class="btn btn--ouro">Salvar Contatos</button>
+          </div>
+          <p class="form-ok" id="contatos-ok" role="status"></p>
+        </form>
+      </section>
+
+      <!-- TEXTOS DE EVENTOS -->
+      <section data-painel="eventos" class="painel-aba" hidden>
+        <h2>Textos dos Eventos</h2>
+        <p class="painel-aba__sub">Altere os títulos e textos das abas de eventos.</p>
+        <form id="eventos-form" class="form-admin" novalidate>
+          
+          <h3 style="color:var(--ouro); margin-top:1rem;">Casamentos</h3>
+          <label class="campo"><span>Título</span><input type="text" name="ev_casamento_titulo" required></label>
+          <label class="campo"><span>Frase de Destaque</span><input type="text" name="ev_casamento_frase" required></label>
+          <label class="campo"><span>Texto Descritivo</span><textarea name="ev_casamento_nota" rows="2" required></textarea></label>
+
+          <h3 style="color:var(--ouro); margin-top:1rem;">15 Anos</h3>
+          <label class="campo"><span>Título</span><input type="text" name="ev_15anos_titulo" required></label>
+          <label class="campo"><span>Frase de Destaque</span><input type="text" name="ev_15anos_frase" required></label>
+          <label class="campo"><span>Texto Descritivo</span><textarea name="ev_15anos_nota" rows="2" required></textarea></label>
+
+          <h3 style="color:var(--ouro); margin-top:1rem;">Aniversários</h3>
+          <label class="campo"><span>Título</span><input type="text" name="ev_aniversarios_titulo" required></label>
+          <label class="campo"><span>Frase de Destaque</span><input type="text" name="ev_aniversarios_frase" required></label>
+          <label class="campo"><span>Texto Descritivo</span><textarea name="ev_aniversarios_nota" rows="2" required></textarea></label>
+
+          <h3 style="color:var(--ouro); margin-top:1rem;">Formaturas</h3>
+          <label class="campo"><span>Título</span><input type="text" name="ev_formaturas_titulo" required></label>
+          <label class="campo"><span>Frase de Destaque</span><input type="text" name="ev_formaturas_frase" required></label>
+          <label class="campo"><span>Texto Descritivo</span><textarea name="ev_formaturas_nota" rows="2" required></textarea></label>
+
+          <h3 style="color:var(--ouro); margin-top:1rem;">Corporativos</h3>
+          <label class="campo"><span>Título</span><input type="text" name="ev_corporativos_titulo" required></label>
+          <label class="campo"><span>Frase de Destaque</span><input type="text" name="ev_corporativos_frase" required></label>
+          <label class="campo"><span>Texto Descritivo</span><textarea name="ev_corporativos_nota" rows="2" required></textarea></label>
+
+          <div class="form-acoes">
+            <button type="submit" class="btn btn--ouro">Salvar Textos</button>
+          </div>
+          <p class="form-ok" id="eventos-ok" role="status"></p>
+        </form>
+      </section>
+
+      <!-- APARÊNCIA E TEXTOS -->
       <section data-painel="textos" class="painel-aba" hidden>
-        <h2>Textos do Site</h2>
-        <p class="painel-aba__sub">Altere os textos principais da página inicial.</p>
+        <h2>Aparência e Textos</h2>
+        <p class="painel-aba__sub">Altere o tema visual e os textos principais da página inicial.</p>
         <form id="textos-form" class="form-admin" novalidate>
+          
+          <div class="campo" style="margin-bottom: 2rem;">
+            <span style="font-size: 0.85rem; font-weight: 500; color: var(--marfim); margin-bottom: 0.5rem; display: block;">Tema do Site</span>
+            <div class="theme-grid">
+              
+              <!-- Padrão -->
+              <label class="theme-card">
+                <input type="radio" name="tema_ativo" value="padrao" checked>
+                <div class="theme-preview tema-padrao">
+                  <div class="tp-header"><span class="tp-logo"></span><span class="tp-menu"></span></div>
+                  <div class="tp-hero"><span class="tp-title"></span><span class="tp-text"></span><span class="tp-btn"></span></div>
+                </div>
+                <span class="theme-name">Padrão</span>
+              </label>
+
+              <!-- Natal -->
+              <label class="theme-card">
+                <input type="radio" name="tema_ativo" value="natal">
+                <div class="theme-preview tema-natal">
+                  <div class="tp-header"><span class="tp-logo"></span><span class="tp-menu"></span></div>
+                  <div class="tp-hero"><span class="tp-title"></span><span class="tp-text"></span><span class="tp-btn"></span></div>
+                </div>
+                <span class="theme-name">Natal ⛄</span>
+              </label>
+
+              <!-- Ano Novo -->
+              <label class="theme-card">
+                <input type="radio" name="tema_ativo" value="ano-novo">
+                <div class="theme-preview tema-ano-novo">
+                  <div class="tp-header"><span class="tp-logo"></span><span class="tp-menu"></span></div>
+                  <div class="tp-hero"><span class="tp-title"></span><span class="tp-text"></span><span class="tp-btn"></span></div>
+                </div>
+                <span class="theme-name">Ano Novo 🎈</span>
+              </label>
+
+              <!-- Dia das Mães -->
+              <label class="theme-card">
+                <input type="radio" name="tema_ativo" value="dia-das-maes">
+                <div class="theme-preview tema-dia-das-maes">
+                  <div class="tp-header"><span class="tp-logo"></span><span class="tp-menu"></span></div>
+                  <div class="tp-hero"><span class="tp-title"></span><span class="tp-text"></span><span class="tp-btn"></span></div>
+                </div>
+                <span class="theme-name">Dia das Mães</span>
+              </label>
+
+              <!-- Dia dos Pais -->
+              <label class="theme-card">
+                <input type="radio" name="tema_ativo" value="dia-dos-pais">
+                <div class="theme-preview tema-dia-dos-pais">
+                  <div class="tp-header"><span class="tp-logo"></span><span class="tp-menu"></span></div>
+                  <div class="tp-hero"><span class="tp-title"></span><span class="tp-text"></span><span class="tp-btn"></span></div>
+                </div>
+                <span class="theme-name">Dia dos Pais</span>
+              </label>
+
+            </div>
+          </div>
+
           <label class="campo"><span>Hero: Título Principal (Aceita &lt;br&gt; e &lt;em&gt;)</span>
             <textarea name="hero_titulo" rows="3" required></textarea>
           </label>
@@ -250,7 +409,7 @@
             <textarea name="espaco_texto_2" rows="2"></textarea>
           </label>
           <div class="form-acoes">
-            <button type="submit" class="btn btn--ouro">Salvar Textos</button>
+            <button type="submit" class="btn btn--ouro">Salvar Alterações</button>
           </div>
           <p class="form-ok" id="textos-ok" role="status"></p>
         </form>
