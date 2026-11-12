@@ -158,7 +158,6 @@ a { color: var(--ouro-claro); text-decoration: none; }
 .form-admin { display: flex; flex-direction: column; gap: 1.25rem; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 .form-row--checks { grid-template-columns: 1fr; gap: .5rem; }
-@media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
 
 .campo { display: flex; flex-direction: column; gap: .5rem; }
 .campo > span { font-size: .85rem; font-weight: 500; color: var(--marfim); }
@@ -215,7 +214,7 @@ a { color: var(--ouro-claro); text-decoration: none; }
 .item-admin__img { width: 120px; height: 80px; object-fit: cover; border-radius: 3px; border: 1px solid var(--linha); }
 
 /* Mídia */
-.midia-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.25rem; margin-top: 2rem; }
+.midia-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1.25rem; margin-top: 2rem; }
 .midia-item {
   position: relative; overflow: hidden;
   border: 1px solid var(--linha); border-radius: var(--raio);
@@ -228,18 +227,12 @@ a { color: var(--ouro-claro); text-decoration: none; }
 .midia-item__acoes { padding: 0 .8rem .8rem; }
 .midia-item__acoes .btn { width: 100%; min-height: 36px; font-size: .75rem; padding: .3rem .6rem; }
 
-@media (max-width: 640px) {
-  .app-header { padding: .8rem 1rem; }
-  .app-brand__nome { font-size: 1.2rem; }
-  .app-nav__btn { padding: .85rem .8rem .75rem; font-size: .78rem; }
-}
-
 /* ============================================================
    SELETOR DE TEMAS (MINIATURAS REALISTAS)
    ============================================================ */
 .theme-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 1rem;
   margin-top: 0.5rem;
 }
@@ -367,4 +360,91 @@ a { color: var(--ouro-claro); text-decoration: none; }
 /* Ajuste de hover no card */
 .theme-card:hover .theme-preview {
   transform: scale(1.02);
+}
+
+/* ============================================================
+   RESPONSIVIDADE MOBILE (TABLETS E CELULARES)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* 1. Header mais compacto em uma única linha */
+  .app-header { 
+    padding: .8rem 1rem; 
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .app-brand__nome { font-size: 1.2rem; }
+  .app-brand__sub { font-size: 0.6rem; }
+  
+  .app-user {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--linha);
+  }
+
+  .app-user .btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+    min-height: 32px;
+  }
+
+  /* 2. Menu estilo "Chips" (Carrossel horizontal elegante) */
+  .app-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--linha);
+    background: rgba(7,12,10,.95);
+    position: sticky;
+    top: 104px; /* Ajusta a fixação com base na nova altura do header */
+  }
+
+  .app-nav::-webkit-scrollbar { display: none; } /* Esconde a barra de rolagem */
+
+  .app-nav__btn {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: auto;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    border-radius: 20px; /* Bordas arredondadas (formato de pílula) */
+    background: rgba(16,30,25,0.6);
+    border: 1px solid var(--linha);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+
+  /* Aparência do botão selecionado no celular */
+  .app-nav__btn.ativo {
+    background: var(--ouro);
+    color: #14110a;
+    border-color: var(--ouro);
+    font-weight: 600;
+    transform: scale(1.02);
+  }
+
+  /* 3. Conteúdo Principal */
+  .app-main {
+    padding: 1.5rem 1rem;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .painel-aba h2 {
+    font-size: 1.6rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 }
