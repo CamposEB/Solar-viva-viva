@@ -43,17 +43,19 @@
       </div>
       <div class="app-user">
         <span id="app-user-nome"></span>
+        <button id="btn-perfil" class="btn btn--ghost">Trocar senha</button>
         <button id="logout-btn" class="btn btn--ghost">Sair</button>
       </div>
     </header>
 
-    <!-- O botão da galeria DEVE ficar aqui dentro -->
     <nav class="app-nav" role="tablist">
       <button role="tab" data-tab="dashboard" class="app-nav__btn ativo">Início</button>
       <button role="tab" data-tab="comunicados" class="app-nav__btn">Comunicados</button>
       <button role="tab" data-tab="letreiro" class="app-nav__btn">Letreiro</button>
       <button role="tab" data-tab="promocoes" class="app-nav__btn">Promoções</button>
       <button role="tab" data-tab="galeria" class="app-nav__btn">Galeria</button>
+      <button role="tab" data-tab="depoimentos" class="app-nav__btn">Depoimentos</button>
+      <button role="tab" data-tab="textos" class="app-nav__btn">Textos do Site</button>
       <button role="tab" data-tab="midia" class="app-nav__btn">Mídia</button>
     </nav>
 
@@ -196,6 +198,64 @@
         <div id="galeria-lista" class="midia-grid"></div>
       </section>
 
+      <!-- DEPOIMENTOS -->
+      <section data-painel="depoimentos" class="painel-aba" hidden>
+        <div class="painel-aba__cab">
+          <h2>Depoimentos</h2>
+          <button class="btn btn--ouro" data-acao="novo-depoimento">+ Novo Depoimento</button>
+        </div>
+        <div id="depoimento-form-wrap" class="form-wrap" hidden>
+          <form id="depoimento-form" class="form-admin" novalidate>
+            <input type="hidden" name="id">
+            <div class="form-row">
+              <label class="campo"><span>Nome do Cliente</span>
+                <input type="text" name="nome" maxlength="80" required>
+              </label>
+              <label class="campo"><span>Tipo de Evento (opcional)</span>
+                <input type="text" name="tipo_evento" maxlength="50" placeholder="Ex: Casamento">
+              </label>
+            </div>
+            <label class="campo"><span>Depoimento</span>
+              <textarea name="texto" rows="4" maxlength="500" required></textarea>
+            </label>
+            <label class="check"><input type="checkbox" name="ativo" checked> Exibir no site</label>
+            <div class="form-acoes">
+              <button type="submit" class="btn btn--ouro">Salvar</button>
+              <button type="button" class="btn btn--ghost" data-acao="cancelar-depoimento">Cancelar</button>
+            </div>
+            <p class="form-erro" id="depoimento-erro" role="alert"></p>
+          </form>
+        </div>
+        <ul id="depoimentos-lista" class="lista-admin"></ul>
+      </section>
+
+      <!-- TEXTOS DO SITE -->
+      <section data-painel="textos" class="painel-aba" hidden>
+        <h2>Textos do Site</h2>
+        <p class="painel-aba__sub">Altere os textos principais da página inicial.</p>
+        <form id="textos-form" class="form-admin" novalidate>
+          <label class="campo"><span>Hero: Título Principal (Aceita &lt;br&gt; e &lt;em&gt;)</span>
+            <textarea name="hero_titulo" rows="3" required></textarea>
+          </label>
+          <label class="campo"><span>Hero: Subtítulo</span>
+            <textarea name="hero_subtitulo" rows="3" required></textarea>
+          </label>
+          <label class="campo"><span>Seção Espaço: Título</span>
+            <input type="text" name="espaco_titulo" required>
+          </label>
+          <label class="campo"><span>Seção Espaço: Parágrafo 1</span>
+            <textarea name="espaco_texto_1" rows="3" required></textarea>
+          </label>
+          <label class="campo"><span>Seção Espaço: Parágrafo 2</span>
+            <textarea name="espaco_texto_2" rows="2"></textarea>
+          </label>
+          <div class="form-acoes">
+            <button type="submit" class="btn btn--ouro">Salvar Textos</button>
+          </div>
+          <p class="form-ok" id="textos-ok" role="status"></p>
+        </form>
+      </section>
+
       <!-- MÍDIA -->
       <section data-painel="midia" class="painel-aba" hidden>
         <h2>Mídia</h2>
@@ -214,6 +274,26 @@
       </section>
 
     </main>
+  </div>
+
+  <!-- MODAL DE PERFIL -->
+  <div id="perfil-modal" class="login" hidden style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:9999; background:rgba(0,0,0,0.8); display:grid; place-items:center;">
+    <form id="perfil-form" class="login__card" novalidate>
+      <h2 class="login__titulo" style="font-size:1.5rem; margin-bottom:1rem;">Trocar Senha</h2>
+      <label class="campo">
+        <span>Senha Atual</span>
+        <input type="password" name="senha_atual" required>
+      </label>
+      <label class="campo">
+        <span>Nova Senha</span>
+        <input type="password" name="senha_nova" minlength="6" required>
+      </label>
+      <div style="display:flex; gap:1rem; margin-top:1rem;">
+        <button type="submit" class="btn btn--ouro" style="flex:1;">Salvar</button>
+        <button type="button" id="btn-fechar-perfil" class="btn btn--ghost" style="flex:1;">Cancelar</button>
+      </div>
+      <p class="login__erro" id="perfil-erro"></p>
+    </form>
   </div>
 
   <script src="./admin.js" defer></script>

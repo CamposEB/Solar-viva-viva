@@ -26,7 +26,7 @@ const fmtData = (iso) => {
   return d && m && a ? `${d}/${m}/${a}` : iso;
 };
 
-const estado = { usuario: null, comunicados: [], promocoes: [], midia: [], galeria: [], letreiro: null };
+const estado = { usuario: null, comunicados: [], promocoes: [], midia: [], galeria: [], depoimentos: [], letreiro: null, configuracoes: null };
 
 async function verificarSessao() {
   try {
@@ -48,7 +48,12 @@ function mostrarLogin() {
 function mostrarApp() {
   $('#login-view').hidden = true;
   $('#app-view').hidden = false;
-  $('#app-user-nome').textContent = estado.usuario || '';
+  
+  const nomeFormatado = estado.usuario ? estado.usuario.charAt(0).toUpperCase() + estado.usuario.slice(1) : '';
+  $('#app-user-nome').textContent = nomeFormatado;
+  
+  const tituloDash = $('[data-painel="dashboard"] h2');
+  if (tituloDash) tituloDash.textContent = `Bem-vinda, ${nomeFormatado}!`;
 }
 
 $('#login-form').addEventListener('submit', async (e) => {
@@ -77,7 +82,10 @@ function ativarTab(nome) {
 }
 
 async function carregarTudo() {
-  await Promise.all([carregarComunicados(), carregarPromocoes(), carregarMidia(), carregarLetreiro(), carregarGaleria()]);
+  await Promise.all([
+    carregarComunicados(), carregarPromocoes(), carregarMidia(), 
+    carregarGaleria(), carregarLetreiro(), carregarDepoimentos(), carregarTextos()
+  ]);
 }
 
 /* COMUNICADOS */
@@ -343,6 +351,143 @@ $('#midia-form').addEventListener('submit', async (e) => {
     await apiForm('/api/midia', fd); form.reset(); okEl.textContent = 'Arquivo enviado.';
     setTimeout(() => (okEl.textContent = ''), 3000); await carregarMidia();
   } catch (err) { erroEl.textContent = err.message; } finally { btn.disabled = false; }
+});
+
+/* DEPOIMENTOS */
+async function carregarDepoimentos() {
+  try {
+    const d = await api('/api/depoimentos?todos=1');
+    estado.depoimentos = d.itens || [];
+    renderDepoimentos();
+  } catch (e) { console.warn(e); }
+}
+
+function renderDepoimentos() {
+  const lista = $('#depoimentos-lista');
+  if (!estado.depoimentos.length) { lista.innerHTML = '<p class="form-erro">Nenhum depoimento ainda.</p>'; return; }
+  lista.innerHTML = estado.depoimentos.map((d) => `
+    <li class="item-admin ${d.ativo ? '' : 'item-admin--inativo'}">
+      <div class="item-admin__cab">
+        <div>
+          <div class="item-admin__titulo">${escapar(d.nome)} ${d.tipo_evento ? `(${escapar(d.tipo_evento)})` : ''}</div>
+          <div class="item-admin__meta">${!d.ativo ? '<span class="tag tag--off">Oculto</span>' : ''}</div>
+        </div>
+      </div>
+      <p class="item-admin__desc">"${escapar(d.texto)}"</p>
+      <div class="item-admin__acoes">
+        <button class="btn btn--ghost" data-editar-depoimento="${d.id}">Editar</button>
+        <button class="btn btn--perigo" data-excluir-depoimento="${d.id}">Excluir</button>
+      </div>
+    </li>`).join('');
+  lista.querySelectorAll('[data-editar-depoimento]').forEach((b) => b.addEventListener('click', () => abrirFormDepoimento(Number(b.dataset.editarDepoimento))));
+  lista.querySelectorAll('[data-excluir-depoimento]').forEach((b) => b.addEventListener('click', () => excluirDepoimento(Number(b.dataset.excluirDepoimento))));
+}
+
+function abrirFormDepoimento(id) {
+  const wrap = $('#depoimento-form-wrap'), form = $('#depoimento-form');
+  wrap.hidden = false; form.reset(); $('#depoimento-erro').textContent = '';
+  if (id) {
+    const d = estado.depoimentos.find((x) => x.id === id); if (!d) return;
+    form.elements.id.value = d.id; form.elements.nome.value = d.nome;
+    form.elements.texto.value = d.texto; form.elements.tipo_evento.value = d.tipo_evento || '';
+    form.elements.ativo.checked = !!d.ativo;
+  } else { form.elements.id.value = ''; form.elements.ativo.checked = true; }
+  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function excluirDepoimento(id) {
+  if (!confirm('Excluir este depoimento?')) return;
+  try { await api(`/api/depoimentos/${id}`, { method: 'DELETE' }); await carregarDepoimentos(); } catch (e) { alert(e.message); }
+}
+
+$('[data-acao="novo-depoimento"]').addEventListener('click', () => abrirFormDepoimento(null));
+$('[data-acao="cancelar-depoimento"]').addEventListener('click', () => { $('#depoimento-form-wrap').hidden = true; });
+
+$('#depoimento-form').addEventListener('submit', async (e) => {
+  e.preventDefault(); const form = e.currentTarget, erroEl = $('#depoimento-erro'); erroEl.textContent = '';
+  const dados = {
+    nome: form.elements.nome.value.trim(), texto: form.elements.texto.value.trim(),
+    tipo_evento: form.elements.tipo_evento.value.trim(), ativo: form.elements.ativo.checked,
+  };
+  const id = form.elements.id.value ? Number(form.elements.id.value) : null;
+  const btn = form.querySelector('button[type="submit"]'); btn.disabled = true;
+  try {
+    if (id) await api(`/api/depoimentos/${id}`, { method: 'PUT', body: JSON.stringify(dados) });
+    else await api('/api/depoimentos', { method: 'POST', body: JSON.stringify(dados) });
+    $('#depoimento-form-wrap').hidden = true; await carregarDepoimentos();
+  } catch (err) { erroEl.textContent = err.message; } finally { btn.disabled = false; }
+});
+
+/* TEXTOS DO SITE */
+async function carregarTextos() {
+  try {
+    const d = await api('/api/configuracoes');
+    estado.configuracoes = d;
+    const form = $('#textos-form');
+    form.elements.hero_titulo.value = d.hero_titulo || '';
+    form.elements.hero_subtitulo.value = d.hero_subtitulo || '';
+    form.elements.espaco_titulo.value = d.espaco_titulo || '';
+    form.elements.espaco_texto_1.value = d.espaco_texto_1 || '';
+    form.elements.espaco_texto_2.value = d.espaco_texto_2 || '';
+  } catch (e) { console.warn(e); }
+}
+
+$('#textos-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget, okEl = $('#textos-ok');
+  okEl.textContent = '';
+  try {
+    await api('/api/configuracoes', {
+      method: 'PUT',
+      body: JSON.stringify({
+        hero_titulo: form.elements.hero_titulo.value.trim(),
+        hero_subtitulo: form.elements.hero_subtitulo.value.trim(),
+        espaco_titulo: form.elements.espaco_titulo.value.trim(),
+        espaco_texto_1: form.elements.espaco_texto_1.value.trim(),
+        espaco_texto_2: form.elements.espaco_texto_2.value.trim(),
+      }),
+    });
+    okEl.textContent = 'Textos atualizados com sucesso.';
+    setTimeout(() => (okEl.textContent = ''), 3000);
+  } catch (err) { alert(err.message); }
+});
+
+/* PERFIL */
+$('#btn-perfil').addEventListener('click', () => {
+  const modal = $('#perfil-modal');
+  modal.hidden = false;
+  modal.querySelector('form').reset();
+  $('#perfil-erro').textContent = '';
+  modal.querySelector('input').focus();
+});
+
+$('#btn-fechar-perfil').addEventListener('click', () => {
+  $('#perfil-modal').hidden = true;
+});
+
+$('#perfil-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const erroEl = $('#perfil-erro');
+  erroEl.textContent = '';
+  const btn = form.querySelector('button[type="submit"]');
+  btn.disabled = true;
+
+  try {
+    await api('/api/auth/senha', {
+      method: 'PUT',
+      body: JSON.stringify({
+        senha_atual: form.elements.senha_atual.value,
+        senha_nova: form.elements.senha_nova.value
+      }),
+    });
+    alert('Senha alterada com sucesso!');
+    $('#perfil-modal').hidden = true;
+  } catch (err) {
+    erroEl.textContent = err.message;
+  } finally {
+    btn.disabled = false;
+  }
 });
 
 function atualizarStats() {

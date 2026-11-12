@@ -10,9 +10,7 @@ const CONFIG = {
   scrollspy: true,
 };
 
-/* ===== FOTOS DA GALERIA (Fallback Padrão) =====
-   Estas fotos aparecerão apenas se o banco de dados estiver vazio.
-   O dynamic.js sobrescreve isso com as fotos do painel, se existirem. */
+/* ===== FOTOS DA GALERIA (Fallback Padrão) ===== */
 const FOTOS = [
   { src: 'assets/piscina-por-do-sol.jpg', alt: 'Piscina iluminada e salão com lustres ao entardecer', legenda: 'Piscina e salão' },
   { src: 'assets/fachada-noite.jpg',      alt: 'Fachada do castelo à noite, com portão de madeira e brasão', legenda: 'A fachada à noite' },
