@@ -1,8 +1,7 @@
 'use strict';
 /* ============================================================
    VITRINE DA LOJA — site público
-   Lê /api/loja e preenche a seção #loja. Se a API falhar ou não
-   houver itens visíveis, a seção continua escondida.
+   Lê /api/loja e preenche a seção #loja.
    ============================================================ */
 (function () {
   const $ = (s, c = document) => c.querySelector(s);
@@ -23,7 +22,6 @@
   const aluga = (i) => i.tipo === 'aluguel' || i.tipo === 'ambos';
 
   /* ---------- WhatsApp ---------- */
-  // O número vem dos links do site (dynamic.js os atualiza com o valor do painel).
   function numeroWa() {
     const a = document.querySelector('a[data-wa]');
     const m = /wa\.me\/(\d+)/.exec(a ? a.getAttribute('href') : '');
@@ -159,17 +157,27 @@
 
   async function carregar() {
     try {
+      // Adiciona o link no menu imediatamente, independente do conteúdo
+      adicionarLinkNav();
+      secao.hidden = false; // Mostra a seção
+
       const res = await fetch('/api/loja', { headers: { Accept: 'application/json' } });
-      if (!res.ok) return;
+      if (!res.ok) throw new Error('API indisponível');
+      
       const dados = await res.json();
       estado.itens = dados.itens || [];
-      if (!estado.itens.length) return;
+      
+      if (!estado.itens.length) {
+        grid.innerHTML = '<p class="loja__vazio">Nossa vitrine está sendo preparada. Fale com a gente pelo WhatsApp para saber o que temos disponível!</p>';
+        return;
+      }
+      
       renderFiltros();
       renderGrid();
-      secao.hidden = false;
-      adicionarLinkNav();
     } catch (err) {
       console.warn('Loja indisponível:', err);
+      secao.hidden = false;
+      grid.innerHTML = '<p class="loja__vazio">Não foi possível carregar a loja agora. Por favor, tente novamente mais tarde.</p>';
     }
   }
 

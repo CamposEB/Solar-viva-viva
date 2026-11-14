@@ -38,7 +38,6 @@
   <!-- ===== APP ===== -->
   <div id="app-view" class="app" hidden>
     
-    <!-- HEADER -->
     <header class="app-header">
       <div style="display:flex; align-items:center; gap:1rem;">
         <button type="button" class="menu-btn" id="menu-abrir" aria-expanded="false" aria-controls="menu-overlay">
@@ -58,9 +57,8 @@
         <span class="app-brand__nome">Solar Viva Viva</span>
         <button type="button" class="menu-fechar" id="menu-fechar" aria-label="Fechar menu">&times;</button>
       </div>
-      <div class="menu-overlay__corpo">
-        <ul id="menu-principal" class="menu-lista"></ul>
-        <div id="menu-sub" class="menu-sub" hidden></div>
+      <div class="menu-overlay__corpo" id="menu-corpo">
+        <!-- O menu.js vai injetar as colunas aqui -->
       </div>
       <div class="menu-user">
         <span id="app-user-nome">Admin</span>
@@ -79,7 +77,13 @@
           <div class="card"><strong id="stat-comunicados">—</strong><span>Comunicados</span></div>
           <div class="card"><strong id="stat-promocoes">—</strong><span>Promoções ativas</span></div>
           <div class="card"><strong id="stat-midia">—</strong><span>Arquivos de mídia</span></div>
+          <!-- O card da loja é injetado pelo loja.js -->
         </div>
+      </section>
+
+      <!-- A SEÇÃO LOJA FICA AQUI (Será preenchida pelo loja.js) -->
+      <section data-painel="loja" class="painel-aba" hidden>
+        <!-- O conteúdo interno (formulários, listas) é injetado pelo loja.js -->
       </section>
 
       <!-- COMUNICADOS -->
@@ -347,7 +351,6 @@
             <span style="font-size: 0.85rem; font-weight: 500; color: var(--marfim); margin-bottom: 0.5rem; display: block;">Tema do Site</span>
             <div class="theme-grid">
               
-              <!-- Padrão -->
               <label class="theme-card">
                 <input type="radio" name="tema_ativo" value="padrao" checked>
                 <div class="theme-preview tema-padrao">
@@ -357,7 +360,6 @@
                 <span class="theme-name">Padrão</span>
               </label>
 
-              <!-- Natal -->
               <label class="theme-card">
                 <input type="radio" name="tema_ativo" value="natal">
                 <div class="theme-preview tema-natal">
@@ -367,7 +369,6 @@
                 <span class="theme-name">Natal ⛄</span>
               </label>
 
-              <!-- Ano Novo -->
               <label class="theme-card">
                 <input type="radio" name="tema_ativo" value="ano-novo">
                 <div class="theme-preview tema-ano-novo">
@@ -377,7 +378,6 @@
                 <span class="theme-name">Ano Novo 🎈</span>
               </label>
 
-              <!-- Dia das Mães -->
               <label class="theme-card">
                 <input type="radio" name="tema_ativo" value="dia-das-maes">
                 <div class="theme-preview tema-dia-das-maes">
@@ -387,7 +387,6 @@
                 <span class="theme-name">Dia das Mães</span>
               </label>
 
-              <!-- Dia dos Pais -->
               <label class="theme-card">
                 <input type="radio" name="tema_ativo" value="dia-dos-pais">
                 <div class="theme-preview tema-dia-dos-pais">
