@@ -65,6 +65,22 @@
       ]
     },
     {
+      "routePath": "/api/faq/:id",
+      "mountPath": "/api/faq",
+      "method": "DELETE",
+      "module": [
+        "api/faq/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/faq/:id",
+      "mountPath": "/api/faq",
+      "method": "PUT",
+      "module": [
+        "api/faq/[id].js:onRequestPut"
+      ]
+    },
+    {
       "routePath": "/api/galeria/:id",
       "mountPath": "/api/galeria",
       "method": "DELETE",
@@ -78,6 +94,38 @@
       "method": "PUT",
       "module": [
         "api/galeria/[id].js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/loja-categorias/:id",
+      "mountPath": "/api/loja-categorias",
+      "method": "DELETE",
+      "module": [
+        "api/loja-categorias/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/loja-categorias/:id",
+      "mountPath": "/api/loja-categorias",
+      "method": "PUT",
+      "module": [
+        "api/loja-categorias/[id].js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/loja/:id",
+      "mountPath": "/api/loja",
+      "method": "DELETE",
+      "module": [
+        "api/loja/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/loja/:id",
+      "mountPath": "/api/loja",
+      "method": "PUT",
+      "module": [
+        "api/loja/[id].js:onRequestPut"
       ]
     },
     {
@@ -161,6 +209,22 @@
       ]
     },
     {
+      "routePath": "/api/faq",
+      "mountPath": "/api/faq",
+      "method": "GET",
+      "module": [
+        "api/faq/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/faq",
+      "mountPath": "/api/faq",
+      "method": "POST",
+      "module": [
+        "api/faq/index.js:onRequestPost"
+      ]
+    },
+    {
       "routePath": "/api/galeria",
       "mountPath": "/api/galeria",
       "method": "GET",
@@ -190,6 +254,38 @@
       "method": "PUT",
       "module": [
         "api/letreiro.js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/loja",
+      "mountPath": "/api/loja",
+      "method": "GET",
+      "module": [
+        "api/loja/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/loja",
+      "mountPath": "/api/loja",
+      "method": "POST",
+      "module": [
+        "api/loja/index.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/loja-categorias",
+      "mountPath": "/api/loja-categorias",
+      "method": "GET",
+      "module": [
+        "api/loja-categorias/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/loja-categorias",
+      "mountPath": "/api/loja-categorias",
+      "method": "POST",
+      "module": [
+        "api/loja-categorias/index.js:onRequestPost"
       ]
     },
     {

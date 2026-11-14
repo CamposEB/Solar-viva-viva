@@ -10,6 +10,10 @@ import { onRequestDelete as __api_faq__id__js_onRequestDelete } from "D:\\projet
 import { onRequestPut as __api_faq__id__js_onRequestPut } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\faq\\[id].js"
 import { onRequestDelete as __api_galeria__id__js_onRequestDelete } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\galeria\\[id].js"
 import { onRequestPut as __api_galeria__id__js_onRequestPut } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\galeria\\[id].js"
+import { onRequestDelete as __api_loja_categorias__id__js_onRequestDelete } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\loja-categorias\\[id].js"
+import { onRequestPut as __api_loja_categorias__id__js_onRequestPut } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\loja-categorias\\[id].js"
+import { onRequestDelete as __api_loja__id__js_onRequestDelete } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\loja\\[id].js"
+import { onRequestPut as __api_loja__id__js_onRequestPut } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\loja\\[id].js"
 import { onRequestGet as __api_media__chave__js_onRequestGet } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\media\\[chave].js"
 import { onRequestDelete as __api_midia__id__js_onRequestDelete } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\midia\\[id].js"
 import { onRequestDelete as __api_promocoes__id__js_onRequestDelete } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\promocoes\\[id].js"
@@ -26,6 +30,10 @@ import { onRequestGet as __api_galeria_index_js_onRequestGet } from "D:\\projeto
 import { onRequestPost as __api_galeria_index_js_onRequestPost } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\galeria\\index.js"
 import { onRequestGet as __api_letreiro_js_onRequestGet } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\letreiro.js"
 import { onRequestPut as __api_letreiro_js_onRequestPut } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\letreiro.js"
+import { onRequestGet as __api_loja_index_js_onRequestGet } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\loja\\index.js"
+import { onRequestPost as __api_loja_index_js_onRequestPost } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\loja\\index.js"
+import { onRequestGet as __api_loja_categorias_index_js_onRequestGet } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\loja-categorias\\index.js"
+import { onRequestPost as __api_loja_categorias_index_js_onRequestPost } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\loja-categorias\\index.js"
 import { onRequestGet as __api_midia_index_js_onRequestGet } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\midia\\index.js"
 import { onRequestPost as __api_midia_index_js_onRequestPost } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\midia\\index.js"
 import { onRequestGet as __api_promocoes_index_js_onRequestGet } from "D:\\projetos\\pages\\Solar-viva\\functions\\api\\promocoes\\index.js"
@@ -117,6 +125,34 @@ export const routes = [
       method: "PUT",
       middlewares: [],
       modules: [__api_galeria__id__js_onRequestPut],
+    },
+  {
+      routePath: "/api/loja-categorias/:id",
+      mountPath: "/api/loja-categorias",
+      method: "DELETE",
+      middlewares: [],
+      modules: [__api_loja_categorias__id__js_onRequestDelete],
+    },
+  {
+      routePath: "/api/loja-categorias/:id",
+      mountPath: "/api/loja-categorias",
+      method: "PUT",
+      middlewares: [],
+      modules: [__api_loja_categorias__id__js_onRequestPut],
+    },
+  {
+      routePath: "/api/loja/:id",
+      mountPath: "/api/loja",
+      method: "DELETE",
+      middlewares: [],
+      modules: [__api_loja__id__js_onRequestDelete],
+    },
+  {
+      routePath: "/api/loja/:id",
+      mountPath: "/api/loja",
+      method: "PUT",
+      middlewares: [],
+      modules: [__api_loja__id__js_onRequestPut],
     },
   {
       routePath: "/api/media/:chave",
@@ -229,6 +265,34 @@ export const routes = [
       method: "PUT",
       middlewares: [],
       modules: [__api_letreiro_js_onRequestPut],
+    },
+  {
+      routePath: "/api/loja",
+      mountPath: "/api/loja",
+      method: "GET",
+      middlewares: [],
+      modules: [__api_loja_index_js_onRequestGet],
+    },
+  {
+      routePath: "/api/loja",
+      mountPath: "/api/loja",
+      method: "POST",
+      middlewares: [],
+      modules: [__api_loja_index_js_onRequestPost],
+    },
+  {
+      routePath: "/api/loja-categorias",
+      mountPath: "/api/loja-categorias",
+      method: "GET",
+      middlewares: [],
+      modules: [__api_loja_categorias_index_js_onRequestGet],
+    },
+  {
+      routePath: "/api/loja-categorias",
+      mountPath: "/api/loja-categorias",
+      method: "POST",
+      middlewares: [],
+      modules: [__api_loja_categorias_index_js_onRequestPost],
     },
   {
       routePath: "/api/midia",
