@@ -77,13 +77,143 @@
           <div class="card"><strong id="stat-comunicados">—</strong><span>Comunicados</span></div>
           <div class="card"><strong id="stat-promocoes">—</strong><span>Promoções ativas</span></div>
           <div class="card"><strong id="stat-midia">—</strong><span>Arquivos de mídia</span></div>
-          <!-- O card da loja é injetado pelo loja.js -->
+          <div class="card"><strong id="stat-loja">—</strong><span>Itens na loja</span></div>
         </div>
       </section>
 
-      <!-- A SEÇÃO LOJA FICA AQUI (Será preenchida pelo loja.js) -->
+      <!-- LOJA -->
       <section data-painel="loja" class="painel-aba" hidden>
-        <!-- O conteúdo interno (formulários, listas) é injetado pelo loja.js -->
+        <div class="painel-aba__cab">
+          <div>
+            <h2>Loja</h2>
+            <p class="painel-aba__sub loja-sub">Roupas e itens que o espaço vende e aluga.</p>
+          </div>
+          <div class="cab-acoes">
+            <button type="button" class="btn btn--ghost" id="loja-btn-categorias">Categorias</button>
+            <button type="button" class="btn btn--ouro" id="loja-btn-novo">+ Novo item</button>
+          </div>
+        </div>
+
+        <div id="loja-cat-wrap" class="form-wrap" hidden>
+          <h3 class="form-titulo">Categorias</h3>
+          <form id="loja-cat-form" class="cat-form" novalidate>
+            <input type="hidden" name="id">
+            <label class="campo"><span>Nome da categoria</span>
+              <input type="text" name="nome" maxlength="40" placeholder="Ex.: Vestidos, Fantasias, Acessórios" required>
+            </label>
+            <button type="submit" class="btn btn--ouro">Salvar</button>
+            <button type="button" class="btn btn--ghost" id="loja-cat-cancelar" hidden>Cancelar edição</button>
+          </form>
+          <p class="form-erro" id="loja-cat-erro" role="alert"></p>
+          <ul id="loja-cat-lista" class="cat-lista"></ul>
+          <div class="form-acoes"><button type="button" class="btn btn--ghost" id="loja-cat-fechar">Fechar</button></div>
+        </div>
+
+        <div id="loja-form-wrap" class="form-wrap" hidden>
+          <h3 class="form-titulo" id="loja-form-titulo">Novo item</h3>
+          <form id="loja-form" class="form-admin" novalidate>
+            <input type="hidden" name="id">
+            <label class="campo"><span>Nome do item</span>
+              <input type="text" name="nome" maxlength="120" required>
+            </label>
+            <div class="form-row">
+              <label class="campo"><span>Categoria</span>
+                <select name="categoria_id"><option value="">— Sem categoria —</option></select>
+              </label>
+              <label class="campo"><span>Disponível para</span>
+                <select name="tipo">
+                  <option value="venda">Venda</option>
+                  <option value="aluguel">Aluguel</option>
+                  <option value="ambos">Venda e aluguel</option>
+                </select>
+              </label>
+            </div>
+            <div class="form-row">
+              <label class="campo" data-preco="venda"><span>Preço de venda (R$)</span>
+                <input type="text" name="preco_venda" inputmode="decimal" placeholder="0,00">
+              </label>
+              <label class="campo" data-preco="aluguel"><span>Preço do aluguel (R$)</span>
+                <input type="text" name="preco_aluguel" inputmode="decimal" placeholder="0,00">
+              </label>
+            </div>
+            <label class="campo" data-preco="aluguel"><span>Aluguel cobrado</span>
+              <select name="unidade_aluguel">
+                <option value="evento">Por evento</option>
+                <option value="dia">Por dia</option>
+                <option value="semana">Por semana</option>
+              </select>
+            </label>
+            <div class="form-row">
+              <label class="campo"><span>Tamanhos <em>(opcional)</em></span>
+                <input type="text" name="tamanhos" maxlength="80" placeholder="Ex.: P, M, G">
+              </label>
+              <label class="campo"><span>Cor <em>(opcional)</em></span>
+                <input type="text" name="cor" maxlength="40">
+              </label>
+            </div>
+            <div class="form-row">
+              <label class="campo"><span>Estoque (unidades)</span>
+                <input type="number" name="estoque" min="0" step="1" value="1">
+              </label>
+              <label class="campo"><span>Ordem de exibição</span>
+                <input type="number" name="ordem" min="0" step="1" value="0">
+              </label>
+            </div>
+            <label class="campo"><span>Descrição <em>(opcional)</em></span>
+              <textarea name="descricao" rows="4" maxlength="1000"></textarea>
+            </label>
+
+            <div class="campo">
+              <span>Fotos <em>(a primeira é a capa · até 8)</em></span>
+              <div id="loja-fotos-sel" class="fotos-sel"></div>
+              <div class="fotos-acoes">
+                <label class="btn btn--ghost btn--pequeno">Enviar nova foto
+                  <input type="file" id="loja-upload" accept="image/jpeg,image/png,image/webp" multiple hidden>
+                </label>
+                <span class="campo__ajuda" id="loja-upload-status" role="status"></span>
+              </div>
+              <p class="campo__ajuda">Ou escolha uma imagem já enviada na aba Mídia:</p>
+              <div id="loja-fotos-lib" class="fotos-lib"></div>
+            </div>
+
+            <div class="form-row form-row--checks">
+              <label class="check"><input type="checkbox" name="destaque"> Destaque na vitrine</label>
+              <label class="check"><input type="checkbox" name="ativo" checked> Visível no site</label>
+            </div>
+            <div class="form-acoes">
+              <button type="submit" class="btn btn--ouro">Salvar item</button>
+              <button type="button" class="btn btn--ghost" id="loja-form-cancelar">Cancelar</button>
+            </div>
+            <p class="form-erro" id="loja-erro" role="alert"></p>
+          </form>
+        </div>
+
+        <div class="loja-filtros">
+          <label class="campo campo--busca"><span class="sr-only">Buscar</span>
+            <input type="search" id="loja-busca" placeholder="Buscar por nome, cor ou tamanho…" aria-label="Buscar itens">
+          </label>
+          <label class="campo"><span class="sr-only">Categoria</span>
+            <select id="loja-filtro-cat" aria-label="Filtrar por categoria"><option value="">Todas as categorias</option></select>
+          </label>
+          <label class="campo"><span class="sr-only">Tipo</span>
+            <select id="loja-filtro-tipo" aria-label="Filtrar por tipo">
+              <option value="">Venda e aluguel</option>
+              <option value="venda">Somente venda</option>
+              <option value="aluguel">Somente aluguel</option>
+            </select>
+          </label>
+          <label class="campo"><span class="sr-only">Situação</span>
+            <select id="loja-filtro-status" aria-label="Filtrar por situação">
+              <option value="">Todas as situações</option>
+              <option value="visivel">Visíveis</option>
+              <option value="oculto">Ocultos</option>
+              <option value="esgotado">Esgotados</option>
+              <option value="destaque">Em destaque</option>
+            </select>
+          </label>
+        </div>
+        <p class="loja-resumo" id="loja-resumo" aria-live="polite"></p>
+        <ul id="loja-lista" class="loja-grid"></ul>
       </section>
 
       <!-- COMUNICADOS -->
