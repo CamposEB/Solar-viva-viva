@@ -78,7 +78,8 @@ $('#logout-btn').addEventListener('click', async () => {
   location.reload();
 });
 
-$$('.app-nav__btn').forEach((btn) => btn.addEventListener('click', () => ativarTab(btn.dataset.tab)));
+// Menu é gerenciado pelo menu.js
+// $$('.app-nav__btn').forEach((btn) => btn.addEventListener('click', () => ativarTab(btn.dataset.tab)));
 function ativarTab(nome) {
   $$('.app-nav__btn').forEach((b) => b.classList.toggle('ativo', b.dataset.tab === nome));
   $$('[data-painel]').forEach((p) => (p.hidden = p.dataset.painel !== nome));
@@ -88,7 +89,8 @@ async function carregarTudo() {
   await Promise.all([
     carregarComunicados(), carregarPromocoes(), carregarMidia(), 
     carregarGaleria(), carregarLetreiro(), carregarDepoimentos(), 
-    carregarTextos(), carregarContatos(), carregarTextosEventos(), carregarFaq()
+    carregarTextos(), carregarContatos(), carregarTextosEventos(), carregarFaq(),
+    carregarLoja()
   ]);
 }
 
@@ -341,8 +343,14 @@ function renderMidia() {
 }
 
 async function excluirMidia(id) {
-  if (!confirm('Excluir este arquivo? Promoções e Galeria que o usam ficarão sem imagem.')) return;
-  try { await api(`/api/midia/${id}`, { method: 'DELETE' }); await carregarMidia(); await carregarPromocoes(); await carregarGaleria(); } catch (e) { alert(e.message); }
+  if (!confirm('Excluir este arquivo? Itens da loja, Promoções e Galeria que o usam ficarão sem imagem.')) return;
+  try { 
+    await api(`/api/midia/${id}`, { method: 'DELETE' }); 
+    await carregarMidia(); 
+    await carregarPromocoes(); 
+    await carregarGaleria(); 
+    await carregarLoja(); // <--- ADICIONADO AQUI
+  } catch (e) { alert(e.message); }
 }
 
 $('#midia-form').addEventListener('submit', async (e) => {

@@ -11,8 +11,8 @@
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://solarvivaviva.com.br/">
 
-  <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icone-solar.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/icone-solar.png">>
 
   <!-- Open Graph / Facebook / WhatsApp -->
   <meta property="og:type" content="website">
@@ -41,6 +41,7 @@
 
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="dynamic.css">
+  <link rel="stylesheet" href="loja-publica.css">
   <script>document.documentElement.classList.replace('no-js','js');</script>
 
   <!-- Dados Estruturados: LocalBusiness -->
@@ -404,6 +405,18 @@
       </div>
     </section>
 
+    <section class="secao secao-dinamica loja" id="loja" aria-labelledby="t-loja" hidden>
+  <div class="container">
+    <header class="secao__cabecalho">
+      <h2 class="titulo" id="t-loja">Loja do castelo</h2>
+      <span class="regua" aria-hidden="true"></span>
+      <p class="subtitulo">Roupas e itens para comprar ou alugar. O pedido sai pelo WhatsApp.</p>
+    </header>
+    <div class="loja__filtros" id="loja-filtros" hidden></div>
+    <div class="loja__grid" id="loja-grid"></div>
+  </div>
+</section>
+
     <section class="secao secao-dinamica" id="promocoes" aria-labelledby="t-promocoes" hidden>
       <div class="container">
         <header class="secao__cabecalho">
@@ -717,5 +730,6 @@
 
   <script src="script.js"></script>
   <script src="dynamic.js" defer></script>
+  <script src="loja-publica.js" defer></script>
 </body>
 </html>
