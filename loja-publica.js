@@ -27,11 +27,33 @@
     const m = /wa\.me\/(\d+)/.exec(a ? a.getAttribute('href') : '');
     return m ? m[1] : '5521992424254';
   }
+
   function mensagem(item, modo) {
     const acao = modo === 'alugar' ? 'alugar' : modo === 'comprar' ? 'comprar' : 'saber mais sobre';
-    const extra = item.disponivel ? '' : ' Vi que está indisponível no momento. Quando terão de novo?';
-    return `Olá! Vi no site do Solar Viva Viva e quero ${acao} o item “${item.nome}”.${extra}`;
+    
+    let texto = `Olá! Vi no site do Solar Viva Viva e quero ${acao} o item “${item.nome}”.`;
+
+    // Monta a lista de especificações (Tamanho, Cor, Preço)
+    let detalhes = [];
+    if (item.tamanhos) detalhes.push(`*Tamanho:* ${item.tamanhos}`);
+    if (item.cor) detalhes.push(`*Cor:* ${item.cor}`);
+    
+    if (modo === 'comprar' && item.preco_venda != null) {
+      detalhes.push(`*Valor:* ${brl(item.preco_venda)}`);
+    } else if (modo === 'alugar' && item.preco_aluguel != null) {
+      const unidade = UNIDADES[item.unidade_aluguel] || 'por evento';
+      detalhes.push(`*Valor do aluguel:* ${brl(item.preco_aluguel)} ${unidade}`);
+    }
+
+    // Se houver detalhes, adiciona na mensagem formatado
+    if (detalhes.length > 0) {
+      texto += `\n\n*Detalhes do item:*\n${detalhes.join('\n')}`;
+    }
+
+    const extra = item.disponivel ? '' : '\n\nVi que está indisponível no momento. Quando terão de novo?';
+    return texto + extra;
   }
+
   const linkWa = (item, modo) => `https://wa.me/${numeroWa()}?text=${encodeURIComponent(mensagem(item, modo))}`;
 
   /* ---------- filtros ---------- */

@@ -86,12 +86,22 @@ function ativarTab(nome) {
 }
 
 async function carregarTudo() {
-  await Promise.all([
+  const promessas = [
     carregarComunicados(), carregarPromocoes(), carregarMidia(), 
     carregarGaleria(), carregarLetreiro(), carregarDepoimentos(), 
-    carregarTextos(), carregarContatos(), carregarTextosEventos(), carregarFaq(),
-    carregarLoja()
-  ]);
+    carregarTextos(), carregarContatos(), carregarTextosEventos(), carregarFaq()
+  ];
+
+  // Só tenta carregar a loja se a função existir (evita erro se o AdBlock bloquear)
+  if (typeof carregarLoja === 'function') {
+    promessas.push(carregarLoja());
+  } else {
+    console.warn('Atenção: O script da loja foi bloqueado ou não carregou.');
+    const statLoja = document.getElementById('stat-loja');
+    if (statLoja) statLoja.textContent = '—';
+  }
+
+  await Promise.all(promessas);
 }
 
 /* COMUNICADOS */

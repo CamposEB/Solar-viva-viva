@@ -1,0 +1,341 @@
+{
+  "routes": [
+    {
+      "routePath": "/api/auth/login",
+      "mountPath": "/api/auth",
+      "method": "POST",
+      "module": [
+        "api/auth/login.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/auth/logout",
+      "mountPath": "/api/auth",
+      "method": "POST",
+      "module": [
+        "api/auth/logout.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/auth/me",
+      "mountPath": "/api/auth",
+      "method": "GET",
+      "module": [
+        "api/auth/me.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/auth/senha",
+      "mountPath": "/api/auth",
+      "method": "PUT",
+      "module": [
+        "api/auth/senha.js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/comunicados/:id",
+      "mountPath": "/api/comunicados",
+      "method": "DELETE",
+      "module": [
+        "api/comunicados/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/comunicados/:id",
+      "mountPath": "/api/comunicados",
+      "method": "PUT",
+      "module": [
+        "api/comunicados/[id].js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/depoimentos/:id",
+      "mountPath": "/api/depoimentos",
+      "method": "DELETE",
+      "module": [
+        "api/depoimentos/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/depoimentos/:id",
+      "mountPath": "/api/depoimentos",
+      "method": "PUT",
+      "module": [
+        "api/depoimentos/[id].js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/faq/:id",
+      "mountPath": "/api/faq",
+      "method": "DELETE",
+      "module": [
+        "api/faq/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/faq/:id",
+      "mountPath": "/api/faq",
+      "method": "PUT",
+      "module": [
+        "api/faq/[id].js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/galeria/:id",
+      "mountPath": "/api/galeria",
+      "method": "DELETE",
+      "module": [
+        "api/galeria/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/galeria/:id",
+      "mountPath": "/api/galeria",
+      "method": "PUT",
+      "module": [
+        "api/galeria/[id].js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/loja-categorias/:id",
+      "mountPath": "/api/loja-categorias",
+      "method": "DELETE",
+      "module": [
+        "api/loja-categorias/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/loja-categorias/:id",
+      "mountPath": "/api/loja-categorias",
+      "method": "PUT",
+      "module": [
+        "api/loja-categorias/[id].js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/loja/:id",
+      "mountPath": "/api/loja",
+      "method": "DELETE",
+      "module": [
+        "api/loja/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/loja/:id",
+      "mountPath": "/api/loja",
+      "method": "PUT",
+      "module": [
+        "api/loja/[id].js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/media/:chave",
+      "mountPath": "/api/media",
+      "method": "GET",
+      "module": [
+        "api/media/[chave].js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/midia/:id",
+      "mountPath": "/api/midia",
+      "method": "DELETE",
+      "module": [
+        "api/midia/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/promocoes/:id",
+      "mountPath": "/api/promocoes",
+      "method": "DELETE",
+      "module": [
+        "api/promocoes/[id].js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/promocoes/:id",
+      "mountPath": "/api/promocoes",
+      "method": "PUT",
+      "module": [
+        "api/promocoes/[id].js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/comunicados",
+      "mountPath": "/api/comunicados",
+      "method": "GET",
+      "module": [
+        "api/comunicados/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/comunicados",
+      "mountPath": "/api/comunicados",
+      "method": "POST",
+      "module": [
+        "api/comunicados/index.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/configuracoes",
+      "mountPath": "/api",
+      "method": "GET",
+      "module": [
+        "api/configuracoes.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/configuracoes",
+      "mountPath": "/api",
+      "method": "PUT",
+      "module": [
+        "api/configuracoes.js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/depoimentos",
+      "mountPath": "/api/depoimentos",
+      "method": "GET",
+      "module": [
+        "api/depoimentos/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/depoimentos",
+      "mountPath": "/api/depoimentos",
+      "method": "POST",
+      "module": [
+        "api/depoimentos/index.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/faq",
+      "mountPath": "/api/faq",
+      "method": "GET",
+      "module": [
+        "api/faq/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/faq",
+      "mountPath": "/api/faq",
+      "method": "POST",
+      "module": [
+        "api/faq/index.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/galeria",
+      "mountPath": "/api/galeria",
+      "method": "GET",
+      "module": [
+        "api/galeria/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/galeria",
+      "mountPath": "/api/galeria",
+      "method": "POST",
+      "module": [
+        "api/galeria/index.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/letreiro",
+      "mountPath": "/api",
+      "method": "GET",
+      "module": [
+        "api/letreiro.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/letreiro",
+      "mountPath": "/api",
+      "method": "PUT",
+      "module": [
+        "api/letreiro.js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/loja",
+      "mountPath": "/api/loja",
+      "method": "GET",
+      "module": [
+        "api/loja/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/loja",
+      "mountPath": "/api/loja",
+      "method": "POST",
+      "module": [
+        "api/loja/index.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/loja-categorias",
+      "mountPath": "/api/loja-categorias",
+      "method": "GET",
+      "module": [
+        "api/loja-categorias/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/loja-categorias",
+      "mountPath": "/api/loja-categorias",
+      "method": "POST",
+      "module": [
+        "api/loja-categorias/index.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/midia",
+      "mountPath": "/api/midia",
+      "method": "GET",
+      "module": [
+        "api/midia/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/midia",
+      "mountPath": "/api/midia",
+      "method": "POST",
+      "module": [
+        "api/midia/index.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/promocoes",
+      "mountPath": "/api/promocoes",
+      "method": "GET",
+      "module": [
+        "api/promocoes/index.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/promocoes",
+      "mountPath": "/api/promocoes",
+      "method": "POST",
+      "module": [
+        "api/promocoes/index.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/setup",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/setup.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/site",
+      "mountPath": "/api",
+      "method": "GET",
+      "module": [
+        "api/site.js:onRequestGet"
+      ]
+    }
+  ],
+  "baseURL": "/"
+}
