@@ -1665,6 +1665,50 @@ h1, h2, h3, h4 {
 
 .nav, .lightbox { overscroll-behavior: contain; }
 
+/* ============================================================
+   VÍDEO DE APRESENTAÇÃO
+   ============================================================ */
+.video-destaque__eyebrow {
+  margin: 0 0 0.65rem;
+  color: var(--ouro-claro);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.video-destaque__figura {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: clamp(0.55rem, 1.4vw, 1rem);
+  background: linear-gradient(135deg, rgba(240, 210, 122, 0.17), rgba(15, 107, 87, 0.16));
+  border: 1px solid var(--linha);
+  border-radius: calc(var(--raio) + 8px);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+}
+.video-destaque__player {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--raio);
+  background: #070c0a;
+  object-fit: cover;
+}
+.video-destaque__legenda {
+  padding: 0.85rem 0.4rem 0.15rem;
+  color: var(--texto-suave);
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+.video-destaque__player:focus-visible {
+  outline: 2px solid var(--ouro-claro);
+  outline-offset: 4px;
+}
+@media (max-width: 600px) {
+  .video-destaque__figura { padding: 0.4rem; border-radius: var(--raio); }
+  .video-destaque__player { border-radius: calc(var(--raio) - 3px); }
+}
+
 @media (hover: none) {
   .btn--ouro:hover, .btn--contorno:hover,
   .wa-flutuante:hover, .rodape__links a:hover { transform: none; }
