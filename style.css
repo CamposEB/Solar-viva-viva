@@ -1688,10 +1688,12 @@ h1, h2, h3, h4 {
 .video-destaque__player {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: auto;
+  max-height: min(80svh, 720px);
+  margin-inline: auto;
   border-radius: var(--raio);
   background: #070c0a;
-  object-fit: cover;
+  object-fit: contain;
 }
 .video-destaque__legenda {
   padding: 0.85rem 0.4rem 0.15rem;
@@ -1706,7 +1708,7 @@ h1, h2, h3, h4 {
 }
 @media (max-width: 600px) {
   .video-destaque__figura { padding: 0.4rem; border-radius: var(--raio); }
-  .video-destaque__player { border-radius: calc(var(--raio) - 3px); }
+  .video-destaque__player { max-height: 75svh; border-radius: calc(var(--raio) - 3px); }
 }
 
 @media (hover: none) {
