@@ -462,7 +462,7 @@
           <li class="passo" data-reveal>
             <span class="passo__num" aria-hidden="true">1</span>
             <h3>Fale com a casa</h3>
-            <p>Diga a data, o tipo de festa e uma ideia de convidados pelo WhatsApp.</p>
+            <p>Diga a data, o tipo de festa e número de convidados desejados pelo WhatsApp.</p>
           </li>
           <li class="passo" data-reveal>
             <span class="passo__num" aria-hidden="true">2</span>
@@ -606,7 +606,7 @@
           <form class="form" id="form-orcamento" data-reveal novalidate>
             <h3>Pedir orçamento</h3>
             <noscript><p class="form__intro">Para enviar o pedido, chame no WhatsApp: (21) 99242-4254.</p></noscript>
-            <p class="form__intro">Nome e tipo de festa bastam. O restante ajuda, e não trava o envio. Nada fica salvo neste site: a mensagem abre no seu WhatsApp.</p>
+            <p class="form__intro">Nome, tipo de festa e número de convidados são necessários. O restante ajuda, mas não trava o envio. Nada fica salvo neste site: a mensagem abre no seu WhatsApp.</p>
 
             <div class="campo">
               <label class="campo__label" for="nome">Seu nome</label>
@@ -635,14 +635,14 @@
             </div>
 
             <div class="campo">
-              <label class="campo__label" for="convidados">Nº aproximado de convidados <em>(opcional)</em></label>
-              <input type="number" id="convidados" name="convidados" min="1" step="1" placeholder="Ex.: 100" inputmode="numeric" aria-describedby="erro-convidados">
+              <label class="campo__label" for="convidados">Nº aproximado de convidados</label>
+              <input type="number" id="convidados" name="convidados" min="1" step="1" placeholder="Ex.: 100" inputmode="numeric" aria-describedby="erro-convidados" required>
               <p class="campo__erro" id="erro-convidados"></p>
             </div>
 
             <div class="campo">
               <label class="campo__label" for="obs">Algo mais que devemos saber? <em>(opcional)</em></label>
-              <textarea id="obs" name="obs" rows="3" maxlength="400" placeholder="Conte um pouco sobre a sua ideia"></textarea>
+              <textarea id="obs" name="obs" rows="3" maxlength="400" placeholder="Conte um pouco sobre a sua ideia, enviando foto como referência da decoração desejada."></textarea>
             </div>
 
             <button class="btn btn--ouro" type="submit">
